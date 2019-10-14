@@ -1,19 +1,19 @@
-# convex_bottom_bar|[中文](README-zh.md)
+# convex_bottom_bar|[English](README.md)
 
-This package extends the official BottomAppBar to display a convex tab, example can be preview as bellow.
+`convex_bottom_bar`扩展包基于Flutter的BottomAppBar，实现了对凸起Tab的支持，预览效果如下图所示。
 
-> Currently the BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB.
+> 当前BottomAppBar默认的效果只能实现凹口的FAB，很多时候设计要求的是凸起F效果。
 
 ![Screenshot](doc/Screenshot_1571041912.png)
 
-## How to use
-Follow the steps to setup `Scaffold` with custom attributes:
-1. add FAB with `floatingActionButton`
-2. center the FAB with `floatingActionButtonLocation`
-3. setup App Bar by `bottomNavigationBar`
+## 使用
+执行以下步骤，完成对`Scaffold`的个性化配置：
+1. 添加FAB按钮
+2. 使FAB居中展示
+3. 添加AppBar按钮
 
-### Add FAB
-Display the FAB as a Container which contains Icon & Label
+### 添加FAB按钮
+FAB，实现一个带图片文字的控件。
 
 ```dart
 floatingActionButton: GestureDetector(
@@ -32,13 +32,13 @@ floatingActionButton: GestureDetector(
   ),
 )
 ```
-### Center the FAB
-Make the FAB center in BottomApp
+### 使FAB居中展示
+使FAB相对于BottomApp居中展示。
 
 ```dart
 floatingActionButtonLocation: ExtendLocation.centerDocked,
 ```
-### Setup App Bar
+### 添加AppBar按钮
 
 ```dart
 bottomNavigationBar: ConvexAppBar.builder(
@@ -61,11 +61,9 @@ bottomNavigationBar: ConvexAppBar.builder(
     }),
 ```
 
-## Example
-For more detail, please refer to the [example](example) project
+## 示例
+完整细节请参考示例工程[example](example)。
 
-## Help
+## 帮助
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+查阅[Flutter在线文档](https://flutter.dev/docs)上手Flutter开发。
