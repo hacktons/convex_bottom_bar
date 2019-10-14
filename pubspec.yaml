@@ -1,8 +1,8 @@
 name: convex_bottom_bar
 description: A Flutter package implements a convex BottomAppBar
 version: 0.0.1
-author:
-homepage
+author: Chaobin Wu <chaobinwu89@gmail.com>
+homepage: https://github.com/hacktons/convex_bottom_bar.git
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

@@ -1,6 +1,6 @@
 # bulged_bottom_bar_example
 
-Demonstrates how to use the bulged_bottom_bar plugin.
+Demonstrates how to use the convex_bottom_bar plugin.
 
 ## Getting Started
 

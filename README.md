@@ -4,7 +4,7 @@ This package extends the official BottomAppBar to display a convex tab, example 
 
 > Currently the BottomApp can only display a notch FAB with app bar, sometimes we need a convex FAB.
 
-![](doc/Screenshot_1571041912.png)
+![Screenshot](doc/Screenshot_1571041912.png)
 
 ## How to use
 Follow the steps to setup `Scaffold` with custom attributes:
