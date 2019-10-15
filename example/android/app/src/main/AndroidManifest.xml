@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bulged_bottom_bar_example">
+    package="com.hacktons.convex_bottom_bar_example">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="bulged_bottom_bar_example"
+        android:label="AppBarDemo"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

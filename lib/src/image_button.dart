@@ -51,7 +51,7 @@ class ImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkResponse(
+    return GestureDetector(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[

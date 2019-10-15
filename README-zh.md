@@ -6,63 +6,69 @@
 
 ![Screenshot](doc/Screenshot_1571041912.png)
 
+**安装Demo** [app-release.apk](doc/app-release.apk)
+
 ## 使用
 执行以下步骤，完成对`Scaffold`的个性化配置：
 1. 添加FAB按钮
 2. 使FAB居中展示
 3. 添加AppBar按钮
 
-### 添加FAB按钮
-FAB，实现一个带图片文字的控件。
-
+The `ConvexAppBar` 提供了两个构造器, 利用`ConvexAppBar()`将使用内置的TAB布局，这可以可以简化Tab创建。
+ 
 ```dart
-floatingActionButton: GestureDetector(
-  onTap: () => _onItemTapped(INDEX_PUBLISH),
-  child: Container(
-    width: 60,
-    height: 80,
-    padding: EdgeInsets.only(bottom: 2),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Icon(Icons.add, size: 50, color: convexColor),
-        Text('Publish', style: TextStyle(color: convexColor)),
-      ],
-    ),
+Scaffold(
+  appBar: AppBar(
+    title: const Text('Default ConvexAppBar'),
+  ),
+  body: Center(
+    child: Text('TAB $_selectedIndex', style: TextStyle(fontSize: 20)),
+  ),
+  floatingActionButton: ConvexAppBar.fab(
+    text: 'Publish',
+    active: _selectedIndex == INDEX_PUBLISH,
+    activeColor: ACTIVE_COLOR,
+    color: NORMAL_COLOR,
+    onTap: () => onTabSelected(INDEX_PUBLISH),
+  ),
+  floatingActionButtonLocation: ConvexAppBar.centerDocked,
+  bottomNavigationBar: ConvexAppBar(
+    items: TAB_ITEMS,
+    index: _selectedIndex,
+    activeColor: ACTIVE_COLOR,
+    color: NORMAL_COLOR,
+    onTap: onTabSelected,
   ),
 )
 ```
-### 使FAB居中展示
-使FAB相对于BottomApp居中展示。
+
+### 自定义TAB
+如果默认效果不满足你的需求，尝试用 `ConvexAppBar.builder()` 来自定义整个TAB的排版。
 
 ```dart
-floatingActionButtonLocation: ExtendLocation.centerDocked,
-```
-### 添加AppBar按钮
-
-```dart
-bottomNavigationBar: ConvexAppBar.builder(
-  count: 5,
-  builder: (BuildContext context, int index) {
-    var data = _navigationItems[index];
-    var color = _selected == index ? Colors.red : Colors.black;
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-        child: Container(
-           height: 50,
-           padding: EdgeInsets.only(bottom: 2),
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: <Widget>[
-               Icon(data.icon, color: color),
-               Text(data.title, style: TextStyle(color: color))
-             ],
-           )));
-    }),
+Scaffold(
+  appBar: AppBar(title: const Text('Custom ConvexAppBar')),
+  body: paletteBody(),
+  floatingActionButton: GestureDetector(
+    onTap: () => _onItemTapped(INDEX_PUBLISH),
+    child: fabContent(convexColor),
+  ),
+  floatingActionButtonLocation: ConvexAppBar.centerDocked,
+  bottomNavigationBar: ConvexAppBar.builder(
+      count: 5,
+      backgroundColor: _tabBackgroundColor,
+      builder: (BuildContext context, int index) {
+        var data = _navigationItems[index];
+        var color = _currentIndex == index ? Colors.white : Colors.white60;
+        return GestureDetector(
+            onTap: () => _onItemTapped(index),
+            child: tabContent(data, color));
+      }),
+);
 ```
 
 ## 示例
-完整细节请参考示例工程[example](example)。
+完整代码请参考示例工程[example](example)。
 
 ## 帮助
 
