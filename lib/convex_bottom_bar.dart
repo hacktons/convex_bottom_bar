@@ -1,4 +1,4 @@
-library bulged_bar;
+library convex_appbar;
 
 export 'src/experiment/deprecated.dart';
 export 'src/item.dart';
