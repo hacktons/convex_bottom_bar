@@ -1,5 +1,5 @@
-library bulged_bar;
+library convex_appbar;
 
-export 'src/bottom_navigation_bar.dart';
-export 'src/extend_location.dart';
+export 'src/experiment/deprecated.dart';
 export 'src/item.dart';
+export 'src/bar.dart';

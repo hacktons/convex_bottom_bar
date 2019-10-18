@@ -1,4 +1,4 @@
-# bulged_bottom_bar_example
+# convex_bottom_bar_example
 
 Demonstrates how to use the convex_bottom_bar plugin.
 

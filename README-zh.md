@@ -1,69 +1,123 @@
-# convex_bottom_bar|[English](README.md)
+![preview](doc/preview.png)
 
-`convex_bottom_bar`扩展包基于Flutter的BottomAppBar，实现了对凸起Tab的支持，预览效果如下图所示。
+Language: [English](README.md) | [中文简体](README-zh.md)
 
-> 当前BottomAppBar默认的效果只能实现凹口的FAB，很多时候设计要求的是凸起F效果。
+# convex_bottom_bar
+
+使用Flutter提供的`BottomAppBar`，可以实现FAB以凹陷的形式嵌入AppBar, 但是视觉设计稿有时会要求展示一个凸起的效果。 我们开发`ConvexAppBar`正是为了解决这个诉求，实现思路受`BottomAppBar`和 `NotchShape`启发。
 
 ![Screenshot](doc/Screenshot_1571041912.png)
 
-## 使用
-执行以下步骤，完成对`Scaffold`的个性化配置：
-1. 添加FAB按钮
-2. 使FAB居中展示
-3. 添加AppBar按钮
+**安装Demo** [app-release.apk](doc/app-release.apk)
 
-### 添加FAB按钮
-FAB，实现一个带图片文字的控件。
+## 快速上手
+通常`ConvexAppBar`都是`Scaffold`和配合工作，只需要设置`bottomNavigationBar`属性。
 
+`ConvexAppBar`提供两个构造函数，使用`ConvexAppBar()`的时候将启用默认的一套样式配置，可以大幅简化Tab的创建工作。 
 ```dart
-floatingActionButton: GestureDetector(
-  onTap: () => _onItemTapped(INDEX_PUBLISH),
-  child: Container(
-    width: 60,
-    height: 80,
-    padding: EdgeInsets.only(bottom: 2),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Icon(Icons.add, size: 50, color: convexColor),
-        Text('Publish', style: TextStyle(color: convexColor)),
-      ],
-    ),
-  ),
-)
-```
-### 使FAB居中展示
-使FAB相对于BottomApp居中展示。
-
-```dart
-floatingActionButtonLocation: ExtendLocation.centerDocked,
-```
-### 添加AppBar按钮
-
-```dart
-bottomNavigationBar: ConvexAppBar.builder(
-  count: 5,
-  builder: (BuildContext context, int index) {
-    var data = _navigationItems[index];
-    var color = _selected == index ? Colors.red : Colors.black;
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-        child: Container(
-           height: 50,
-           padding: EdgeInsets.only(bottom: 2),
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: <Widget>[
-               Icon(data.icon, color: color),
-               Text(data.title, style: TextStyle(color: color))
-             ],
-           )));
+Scaffold(
+  bottomNavigationBar: ConvexAppBar(
+    items: TAB_ITEMS,
+    onTap: (int i) => setState(() {
+      _selectedIndex = i;
     }),
+    actionItem: const TabItem(icon: Icons.add, title: "Publish"),
+    onTapActionButton: () => setState(() {
+      _selectedIndex = -1;
+    }),
+  ),
+);
+```
+由于科学上网问题, 插件还没有[发布](https://pub.dartlang.org) . 通过如下方式引用：
+
+```yaml
+dependencies:
+  convex_bottom_bar:
+    git:
+      url: https://github.com/hacktons/convex_bottom_bar.git
+      ref: 1.0.0
 ```
 
-## 示例
-完整细节请参考示例工程[example](example)。
+## 目录
 
-## 帮助
+- [个性化配置](#个性化配置)
 
-查阅[Flutter在线文档](https://flutter.dev/docs)上手Flutter开发。
+- [自定义案例](#自定义案例)
+
+- [Contribution](#contribution)
+
+- [帮助](#help)
+
+## 个性化配置
+使用默认构造函数时，可以进行一定的个性化配置，可配置的属性如下：
+
+![](doc/appbar-theming.png)
+
+| Attributes      | Description                           |
+| --------------- | ------------------------------------- |
+| backgroundColor | AppBar background                     |
+| height          | AppBar height                         |
+| color           | tab icon/text color                   |
+| activeColor     | tab icon/text color **when selected** |
+| curveSize       | size of the convex shape              |
+| top   | top edge of the convex shape relative to AppBar |
+
+
+## 自定义案例
+除了内置的样式，还可以完全自定义Tab的构建，这时候请使用`ConvexAppBar.builder()`构造器，下面是一个实现的示例：
+
+![custom preview](doc/device-2019-10-18-173024.png)
+
+```dart
+Scaffold(
+  bottomNavigationBar: ConvexAppBar.builder(
+    count: items.length,
+    backgroundColor: _tabBackgroundColor,
+    tabBuilder: (BuildContext context, int index, bool active) {
+      var navigationItem = items[index];
+      var _color = active ? Colors.white : Colors.white60;
+      var _icon = active
+          ? navigationItem.activeIcon ?? navigationItem.icon
+          : navigationItem.icon;
+      return Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(_icon, color: _color),
+            Text(navigationItem.title, style: TextStyle(color: _color))
+          ],
+        ),
+      );
+    },
+    actionBuilder: (BuildContext context, int index, bool active) {
+      var _color = active ? Colors.white : Colors.white60;
+      return Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Container(
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: _color),
+              child: Icon(
+                Icons.add,
+                size: 40,
+                color: _tabBackgroundColor,
+              ),
+            ),
+          )
+        ],
+      );
+    },
+  ),
+);
+```
+
+## Contribution
+Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
+
+## Help
+For more detail, please refer to the [example](example) project.

@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 
-/// Author： LiuYang
-
 class TabItem {
   final String title;
-
   final IconData icon;
+
+  /// Optional if not provided ,[icon] is used
   final IconData activeIcon;
 
-  TabItem({
+  const TabItem({
     this.title,
-    this.icon,
+    @required this.icon,
     this.activeIcon,
   });
 }
