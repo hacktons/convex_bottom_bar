@@ -16,7 +16,6 @@ class _State extends State<DefaultAppBarDemo> {
   static const TAB_ITEMS = const <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
-    TabItem(title: ''),
     TabItem(icon: Icons.message, title: 'Message'),
     TabItem(icon: Icons.people, title: 'Profile')
   ];
@@ -33,29 +32,16 @@ class _State extends State<DefaultAppBarDemo> {
       body: Center(
         child: Text('TAB $_selectedIndex', style: TextStyle(fontSize: 20)),
       ),
-      floatingActionButton: ConvexAppBar.fab(
-        text: 'Publish',
-        active: _selectedIndex == INDEX_PUBLISH,
-        activeColor: ACTIVE_COLOR,
-        color: NORMAL_COLOR,
-        onTap: () => onTabSelected(INDEX_PUBLISH),
-      ),
-      floatingActionButtonLocation: ConvexAppBar.centerDocked,
       bottomNavigationBar: ConvexAppBar(
         items: TAB_ITEMS,
-        index: _selectedIndex,
-        activeColor: ACTIVE_COLOR,
-        color: NORMAL_COLOR,
-        onTap: onTabSelected,
+        onTap: (int i) => setState(() {
+          _selectedIndex = i;
+        }),
+        actionItem: const TabItem(icon: Icons.add, title: "Publish"),
+        onTapActionButton: () => setState(() {
+          _selectedIndex = -1;
+        }),
       ),
     );
-  }
-
-  bool onTabSelected(int index) {
-    debugPrint('click $index');
-    setState(() {
-      _selectedIndex = index;
-    });
-    return true;
   }
 }

@@ -1,79 +1,126 @@
 ![preview](doc/preview.png)
 
-# convex_bottom_bar|[中文](README-zh.md)
+Language: [English](README.md) | [中文简体](README-zh.md)
 
-This package extends the official BottomAppBar to display a convex tab, example can be preview as bellow.
+# convex_bottom_bar
 
-> Currently the BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB.
+The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
 ![Screenshot](doc/Screenshot_1571041912.png)
 
 **Install Demo** [app-release.apk](doc/app-release.apk)
 
 ## How to use
-To use ConvexAppBar, follow these steps to setup `Scaffold`:
-1. add FAB with `floatingActionButton`
-2. center the FAB with `floatingActionButtonLocation`
-3. setup App Bar by `bottomNavigationBar`
+Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
 
-The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default layout to simplify the tab creation.
- 
+The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default style to simplify the tab creation.
+
 ```dart
 Scaffold(
-  appBar: AppBar(
-    title: const Text('Default ConvexAppBar'),
-  ),
-  body: Center(
-    child: Text('TAB $_selectedIndex', style: TextStyle(fontSize: 20)),
-  ),
-  floatingActionButton: ConvexAppBar.fab(
-    text: 'Publish',
-    active: _selectedIndex == INDEX_PUBLISH,
-    activeColor: ACTIVE_COLOR,
-    color: NORMAL_COLOR,
-    onTap: () => onTabSelected(INDEX_PUBLISH),
-  ),
-  floatingActionButtonLocation: ConvexAppBar.centerDocked,
   bottomNavigationBar: ConvexAppBar(
     items: TAB_ITEMS,
-    index: _selectedIndex,
-    activeColor: ACTIVE_COLOR,
-    color: NORMAL_COLOR,
-    onTap: onTabSelected,
+    onTap: (int i) => setState(() {
+      _selectedIndex = i;
+    }),
+    actionItem: const TabItem(icon: Icons.add, title: "Publish"),
+    onTapActionButton: () => setState(() {
+      _selectedIndex = -1;
+    }),
   ),
-)
-```
-
-### Custom
-If the default style does not match with your situation， try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
-
-```dart
-Scaffold(
-  appBar: AppBar(title: const Text('Custom ConvexAppBar')),
-  body: paletteBody(),
-  floatingActionButton: GestureDetector(
-    onTap: () => _onItemTapped(INDEX_PUBLISH),
-    child: fabContent(convexColor),
-  ),
-  floatingActionButtonLocation: ConvexAppBar.centerDocked,
-  bottomNavigationBar: ConvexAppBar.builder(
-      count: 5,
-      backgroundColor: _tabBackgroundColor,
-      builder: (BuildContext context, int index) {
-        var data = _navigationItems[index];
-        var color = _currentIndex == index ? Colors.white : Colors.white60;
-        return GestureDetector(
-            onTap: () => _onItemTapped(index),
-            child: tabContent(data, color));
-      }),
 );
 ```
 
-## Example
-For more detail, please refer to the [example](example) project
+Thanks to he **GFW**, this project is not [published](https://pub.dartlang.org) yet. Add dependence as bellow:
+
+```yaml
+dependencies:
+  convex_bottom_bar:
+    git:
+      url: https://github.com/hacktons/convex_bottom_bar.git
+      ref: 1.0.0
+```
+
+## Table of contents
+
+- [Theming](#theming)
+
+- [Custom Example](#custom-example)
+
+- [Contribution](#contribution)
+
+- [Help](#help)
+
+## Theming
+The bar will use default style, if you may want to theme it. Here are some supported attributes:
+
+![](doc/appbar-theming.png)
+
+| Attributes      | Description                           |
+| --------------- | ------------------------------------- |
+| backgroundColor | AppBar background                     |
+| height          | AppBar height                         |
+| color           | tab icon/text color                   |
+| activeColor     | tab icon/text color **when selected** |
+| curveSize       | size of the convex shape              |
+| top   | top edge of the convex shape relative to AppBar |
+
+
+## Custom Example
+If the default style does not match with your situation， try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
+
+Here is a custom sample:
+![custom preview](doc/device-2019-10-18-173024.png)
+
+```dart
+Scaffold(
+  bottomNavigationBar: ConvexAppBar.builder(
+    count: items.length,
+    backgroundColor: _tabBackgroundColor,
+    tabBuilder: (BuildContext context, int index, bool active) {
+      var navigationItem = items[index];
+      var _color = active ? Colors.white : Colors.white60;
+      var _icon = active
+          ? navigationItem.activeIcon ?? navigationItem.icon
+          : navigationItem.icon;
+      return Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(_icon, color: _color),
+            Text(navigationItem.title, style: TextStyle(color: _color))
+          ],
+        ),
+      );
+    },
+    actionBuilder: (BuildContext context, int index, bool active) {
+      var _color = active ? Colors.white : Colors.white60;
+      return Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Container(
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: _color),
+              child: Icon(
+                Icons.add,
+                size: 40,
+                color: _tabBackgroundColor,
+              ),
+            ),
+          )
+        ],
+      );
+    },
+  ),
+);
+```
+
+## Contribution
+Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
 
 ## Help
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+For more detail, please refer to the [example](example) project.
