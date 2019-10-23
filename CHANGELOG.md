@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 2019.10.23
 
-* TODO: Describe initial release.
+* Publish the packages to pub.dev
+
+## [1.0.1] - 2019.10.23
+
+* Fix maintenance suggestions to get higher score

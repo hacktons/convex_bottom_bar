@@ -14,6 +14,13 @@ Language: [English](README.md) | [中文简体](README-zh.md)
 通常`ConvexAppBar`都是`Scaffold`和配合工作，只需要设置`bottomNavigationBar`属性。
 
 `ConvexAppBar`提供两个构造函数，使用`ConvexAppBar()`的时候将启用默认的一套样式配置，可以大幅简化Tab的创建工作。 
+
+
+```yaml
+dependencies:
+  convex_bottom_bar: ^0.0.1
+```
+
 ```dart
 Scaffold(
   bottomNavigationBar: ConvexAppBar(
@@ -27,15 +34,6 @@ Scaffold(
     }),
   ),
 );
-```
-由于科学上网问题, 插件还没有[发布](https://pub.dartlang.org) . 通过如下方式引用：
-
-```yaml
-dependencies:
-  convex_bottom_bar:
-    git:
-      url: https://github.com/hacktons/convex_bottom_bar.git
-      ref: 1.0.0
 ```
 
 ## 目录
