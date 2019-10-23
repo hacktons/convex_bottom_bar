@@ -1,3 +1,12 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.2+1]
 
-* TODO: Describe initial release.
+* Documentation fixes.
+
+## [1.0.2]
+
+* Fix maintenance suggestions to get higher score
+
+## [0.0.1]
+
+* Publish the packages to pub.dev
+

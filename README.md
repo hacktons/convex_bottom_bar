@@ -4,6 +4,9 @@ Language: [English](README.md) | [中文简体](README-zh.md)
 
 # convex_bottom_bar
 
+[![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
+[![github](https://img.shields.io/badge/platform-flutter-ff69b4.svg)](https://github.com/hacktons/convex_bottom_bar)
+
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
 ![Screenshot](doc/Screenshot_1571041912.png)
@@ -14,6 +17,13 @@ The official BottomAppBar can only display a notch FAB with app bar, sometimes w
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
 
 The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default style to simplify the tab creation.
+
+Add this to your package's pubspec.yaml file, use the [latest version](https://pub.dev/packages/convex_bottom_bar#-installing-tab-):
+
+```yaml
+dependencies:
+  convex_bottom_bar: ^0.0.1
+```
 
 ```dart
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -30,16 +40,6 @@ Scaffold(
     }),
   ),
 );
-```
-
-Thanks to the **GFW**, this project is not [published](https://pub.dartlang.org) yet. Add dependence as bellow:
-
-```yaml
-dependencies:
-  convex_bottom_bar:
-    git:
-      url: https://github.com/hacktons/convex_bottom_bar.git
-      ref: 1.0.0
 ```
 
 ## Table of contents

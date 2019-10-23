@@ -200,7 +200,7 @@ class _State extends State<ConvexAppBar> {
                 child: widget.actionBuilder.build(
                     context, CURVE_INDEX, CURVE_INDEX == _currentSelectedIndex),
                 onTap: () {
-                  debugPrint('click action tab');
+                  //debugPrint('click action tab');
                   setState(() {
                     _currentSelectedIndex = CURVE_INDEX;
                   });
@@ -242,7 +242,7 @@ class _State extends State<ConvexAppBar> {
   }
 
   void _onTabClick(int i) {
-    debugPrint('click tab#$i');
+    //debugPrint('click tab#$i');
     if (widget.onTap != null) {
       widget.onTap(i);
     }
