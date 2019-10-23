@@ -2,6 +2,8 @@
 
 Language: [English](README.md) | [中文简体](README-zh.md)
 
+![pub](https://img.shields.io/pub/v/convex_bottom_bar)
+
 # convex_bottom_bar
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
