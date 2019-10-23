@@ -1,8 +1,12 @@
-## [0.0.1] - 2019.10.23
+## [1.0.2+1]
 
-* Publish the packages to pub.dev
+* Documentation fixes.
 
-## [1.0.2] - 2019.10.23
+## [1.0.2]
 
 * Fix maintenance suggestions to get higher score
+
+## [0.0.1]
+
+* Publish the packages to pub.dev
 

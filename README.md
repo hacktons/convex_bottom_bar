@@ -2,9 +2,10 @@
 
 Language: [English](README.md) | [中文简体](README-zh.md)
 
-![pub](https://img.shields.io/pub/v/convex_bottom_bar)
-
 # convex_bottom_bar
+
+[![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
+[![github](https://img.shields.io/badge/platform-flutter-ff69b4.svg)](https://github.com/hacktons/convex_bottom_bar)
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
