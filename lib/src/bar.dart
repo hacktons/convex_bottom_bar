@@ -17,6 +17,7 @@ const double CURVE_TOP = -25;
 const double ACTION_LAYOUT_SIZE = 60;
 const double ACTION_INNER_BUTTON_SIZE = 50;
 const int CURVE_INDEX = -1;
+const double ELEVATION = 2;
 
 class ConvexAppBar extends StatefulWidget {
   /// TAB item builder
@@ -44,6 +45,9 @@ class ConvexAppBar extends StatefulWidget {
   /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
   final double top;
 
+  /// Elevation for the bar top edge
+  final double elevation;
+
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
@@ -56,16 +60,17 @@ class ConvexAppBar extends StatefulWidget {
     this.height = BAR_HEIGHT,
     this.curveSize = CONVEX_SIZE,
     this.top = CURVE_TOP,
+    this.elevation = ELEVATION,
   })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
         assert(items.length % 2 == 0, 'item count should be even'),
         assert(top <= 0, 'top should be negative'),
         count = items.length,
-        tabBuilder = DefaultTabBuilder(
+        tabBuilder = _DefaultTabBuilder(
           items: items,
           color: color,
           activeColor: activeColor,
         ),
-        actionBuilder = DefaultActionButtonBuilder(
+        actionBuilder = _DefaultActionButtonBuilder(
           item: actionItem,
           color: color,
           activeColor: activeColor,
@@ -81,6 +86,7 @@ class ConvexAppBar extends StatefulWidget {
     this.height = BAR_HEIGHT,
     this.curveSize = CONVEX_SIZE,
     this.top = CURVE_TOP,
+    this.elevation = ELEVATION,
   })  : assert(count % 2 == 0, 'item count should be even'),
         assert(top <= 0, 'top should be negative'),
         tabBuilder = _CustomTabBuilder(tabBuilder),
@@ -107,12 +113,12 @@ class _CustomTabBuilder extends DelegateBuilder {
   }
 }
 
-class DefaultTabBuilder extends DelegateBuilder {
+class _DefaultTabBuilder extends DelegateBuilder {
   final List<TabItem> items;
   final Color activeColor;
   final Color color;
 
-  DefaultTabBuilder({this.items, this.activeColor, this.color});
+  _DefaultTabBuilder({this.items, this.activeColor, this.color});
 
   @override
   Widget build(BuildContext context, int index, bool active) {
@@ -138,12 +144,12 @@ class DefaultTabBuilder extends DelegateBuilder {
   }
 }
 
-class DefaultActionButtonBuilder extends DelegateBuilder {
+class _DefaultActionButtonBuilder extends DelegateBuilder {
   final TabItem item;
   final Color activeColor;
   final Color color;
 
-  DefaultActionButtonBuilder({this.item, this.activeColor, this.color});
+  _DefaultActionButtonBuilder({this.item, this.activeColor, this.color});
 
   @override
   Widget build(BuildContext context, int index, bool active) {
@@ -187,6 +193,7 @@ class _State extends State<ConvexAppBar> {
               width: widget.curveSize,
               height: widget.curveSize,
               color: widget.backgroundColor,
+              sigma: widget.elevation,
             ),
           ),
         ),
