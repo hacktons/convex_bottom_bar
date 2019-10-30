@@ -1,3 +1,7 @@
+## [1.1.0]
+
+* Add elevation attribute.
+
 ## [1.0.2+1]
 
 * Documentation fixes.
