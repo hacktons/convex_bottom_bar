@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'dart:math' as math;
 import 'item.dart';
 import 'painter.dart';
 
@@ -180,12 +180,15 @@ class _State extends State<ConvexAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    // take care of iPhoneX' safe area at bottom edge
+    final double additionalBottomPadding =
+        math.max(MediaQuery.of(context).padding.bottom, 0.0);
     return Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(
-          height: widget.height,
+          height: widget.height + additionalBottomPadding,
           width: MediaQuery.of(context).size.width,
           child: CustomPaint(
             painter: ConvexPainter(
@@ -197,9 +200,10 @@ class _State extends State<ConvexAppBar> {
             ),
           ),
         ),
-        barContent(),
+        barContent(additionalBottomPadding),
         Positioned.fill(
           top: widget.top,
+          bottom: additionalBottomPadding,
           child: FractionallySizedBox(
               widthFactor: 1 / widget.count,
               alignment: Alignment.center,
@@ -221,7 +225,7 @@ class _State extends State<ConvexAppBar> {
     );
   }
 
-  Container barContent() {
+  Container barContent(double paddingBottom) {
     List<Widget> children = [];
     for (var i = 0; i < widget.count; i++) {
       children.add(Expanded(
@@ -239,7 +243,8 @@ class _State extends State<ConvexAppBar> {
     var curveTabIndex = widget.count ~/ 2;
     children.insert(curveTabIndex, Expanded(child: Container()));
     return Container(
-      height: widget.height,
+      height: widget.height + paddingBottom,
+      padding: EdgeInsets.only(bottom: paddingBottom),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,

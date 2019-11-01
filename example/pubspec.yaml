@@ -1,5 +1,5 @@
-name: bulged_bottom_bar_example
-description: Demonstrates how to use the bulged_bottom_bar plugin.
+name: convex_app_bar_example
+description: Demonstrates how to use the convex_app_bar plugin.
 publish_to: 'none'
 
 environment:

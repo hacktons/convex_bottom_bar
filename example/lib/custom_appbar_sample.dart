@@ -1,6 +1,7 @@
-import 'package:bulged_bottom_bar_example/color_item_view.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+
+import 'color_item_view.dart';
 
 class CustomAppBarDemo extends StatefulWidget {
   @override

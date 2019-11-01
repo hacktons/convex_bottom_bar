@@ -1,3 +1,7 @@
+## [1.2.0]
+
+* Support iPhoneX' safe area at bottom edge. [#issues/7](https://github.com/hacktons/convex_bottom_bar/issues/7)
+
 ## [1.1.0]
 
 * Add elevation attribute.
