@@ -1,6 +1,7 @@
-import 'package:bulged_bottom_bar_example/custom_appbar_sample.dart';
-import 'package:bulged_bottom_bar_example/default_appbar_demo.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_appbar_sample.dart';
+import 'default_appbar_demo.dart';
 
 void main() => runApp(MyApp());
 
