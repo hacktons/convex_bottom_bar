@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 
-/// Convex tab is fixed center
+/// Convex shape is fixed center
 class FixedTabStyle extends DelegateBuilder {
   final List<TabItem> items;
   final Color activeColor;

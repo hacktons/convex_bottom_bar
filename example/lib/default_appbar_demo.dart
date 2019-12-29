@@ -1,7 +1,12 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'components/colors_item.dart';
+import 'components/heading.dart';
+import 'components/radio_item.dart';
+import 'model/choice_value.dart';
+import 'model/named_color.dart';
 
 class DefaultAppBarDemo extends StatefulWidget {
   @override
@@ -16,48 +21,115 @@ class _State extends State<DefaultAppBarDemo> {
   static const TAB_ITEMS = const <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
-    TabItem(icon: Icons.add, title: "Publish"),
+    TabItem(icon: Icons.publish, title: "Publish"),
     TabItem(icon: Icons.message, title: 'Message'),
     TabItem(icon: Icons.people, title: 'Profile'),
   ];
   static const ACTIVE_COLOR = Colors.red;
   static const NORMAL_COLOR = Colors.black;
 
-  var styles = [
-    {"text": "TabStyle.fixed", "value": TabStyle.fixed},
-    {"text": "TabStyle.fixedCircle", "value": TabStyle.fixedCircle},
-    {"text": "TabStyle.scale", "value": TabStyle.scale},
-    {"text": "TabStyle.pop", "value": TabStyle.pop},
+  static const kStyles = [
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.fixed',
+      label: 'Appbar use fixed style',
+      value: TabStyle.fixed,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.fixedCircle',
+      label: 'Appbar use fixedCircle style',
+      value: TabStyle.fixedCircle,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.react',
+      label: 'Appbar use react style',
+      value: TabStyle.react,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.reactCircle',
+      label: 'Appbar use reactCircle style',
+      value: TabStyle.reactCircle,
+    ),
   ];
-  int style = 0;
+  static const kCurves = [
+    ChoiceValue<Curve>(
+      title: 'Curves.linear',
+      label: 'The curve linear is used',
+      value: Curves.linear,
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.decelerate',
+      value: Curves.decelerate,
+      label: 'The curve decelerate is used',
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.easeInOut',
+      value: Curves.easeInOut,
+      label: 'The curve easeInOut is used',
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.fastOutSlowIn',
+      value: Curves.fastOutSlowIn,
+      label: 'The curve fastOutSlowIn is used',
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.slowMiddle',
+      value: Curves.slowMiddle,
+      label: 'The curve slowMiddle is used',
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.bounceOut',
+      value: Curves.bounceOut,
+      label: 'The curve bounceOut is used',
+    ),
+    ChoiceValue<Curve>(
+      title: 'Curves.elasticOut',
+      value: Curves.elasticOut,
+      label: 'The curve elasticOut is used',
+    ),
+  ];
+  static const List<NamedColor> kBabColors = <NamedColor>[
+    NamedColor(Colors.blue, 'Blue'),
+    NamedColor(Color(0xFFf44336), 'Read'),
+    NamedColor(Color(0xFF673AB7), 'Purple'),
+    NamedColor(Color(0xFF009688), 'Green'),
+    NamedColor(Color(0xFFFFC107), 'Yellow'),
+    NamedColor(Color(0xFF607D8B), 'Grey'),
+  ];
+  ChoiceValue<TabStyle> _style = kStyles.first;
+  ChoiceValue<Curve> _curve = kCurves.first;
+  Color _babColor = kBabColors.first.color;
 
   @override
   Widget build(BuildContext context) {
     debugPrint('build');
+    var options = <Widget>[
+      const Heading('Appbar Color'),
+      ColorsItem(kBabColors, _babColor, _onBabColorChanged),
+      const Divider(),
+      const Heading('Tab Style'),
+    ];
+    options.addAll(
+        kStyles.map((s) => RadioItem<TabStyle>(s, _style, handleStyle)));
+    options.add(const Divider());
+    if (_style.value != TabStyle.fixed &&
+        _style.value != TabStyle.fixedCircle) {
+      options.add(const Heading('Animation Curve'));
+      options
+          .addAll(kCurves.map((c) => RadioItem<Curve>(c, _curve, handleCurve)));
+      options.add(const Divider());
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Default ConvexAppBar'),
+        backgroundColor: _babColor,
       ),
-      body: Column(
-        children: [
-          // ignore: sdk_version_ui_as_code
-          ...List.generate(styles.length, (i) {
-            var e = styles[i];
-            return ListTile(
-              title: Text(e['text']),
-              trailing: Radio<int>(
-                  value: i, groupValue: style, onChanged: handleStyle),
-              onTap: () => handleStyle(i),
-            );
-          }),
-          Expanded(
-            child: Center(child: Text('click TAB $_selectedIndex')),
-          )
-        ],
-      ),
+      body: ListView(children: options),
       bottomNavigationBar: ConvexAppBar(
         items: TAB_ITEMS,
-        style: styles[style]['value'],
+        style: _style.value,
+        curve: _curve.value,
+        backgroundColor: _babColor,
         onTap: (int i) => setState(() {
           _selectedIndex = i;
         }),
@@ -65,9 +137,21 @@ class _State extends State<DefaultAppBarDemo> {
     );
   }
 
-  void handleStyle(int value) {
+  void handleStyle(ChoiceValue<TabStyle> value) {
     setState(() {
-      style = value;
+      _style = value;
+    });
+  }
+
+  void handleCurve(ChoiceValue<Curve> value) {
+    setState(() {
+      _curve = value;
+    });
+  }
+
+  void _onBabColorChanged(Color value) {
+    setState(() {
+      _babColor = value;
     });
   }
 }

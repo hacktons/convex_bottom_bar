@@ -39,6 +39,7 @@ class ConvexPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ConvexPainter oldDelegate) {
-    return oldDelegate.leftPercent.value != leftPercent.value;
+    return oldDelegate.leftPercent.value != leftPercent.value ||
+        oldDelegate._paint != _paint;
   }
 }
