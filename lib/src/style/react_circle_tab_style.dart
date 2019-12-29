@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/src/style/scaled_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,14 @@ class ReactCircleTabStyle extends DelegateBuilder {
   final Color activeColor;
   final Color color;
   final Color backgroundColor;
+  final Curve curve;
 
   ReactCircleTabStyle({
     this.items,
     this.activeColor,
     this.color,
     this.backgroundColor,
+    this.curve,
   });
 
   @override
@@ -25,10 +28,10 @@ class ReactCircleTabStyle extends DelegateBuilder {
       return Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          SizedBox(
-            width: ACTION_LAYOUT_SIZE,
-            height: ACTION_LAYOUT_SIZE,
+          ScaledContainer(
             child: Container(
+              width: ACTION_LAYOUT_SIZE,
+              height: ACTION_LAYOUT_SIZE,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: active ? activeColor : color,
@@ -39,7 +42,8 @@ class ReactCircleTabStyle extends DelegateBuilder {
                 color: backgroundColor,
               ),
             ),
-          )
+            curve: curve,
+          ),
         ],
       );
     }

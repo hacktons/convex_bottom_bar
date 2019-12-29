@@ -87,7 +87,7 @@ class ConvexAppBar extends StatefulWidget {
     this.top = CURVE_TOP,
     this.elevation,
     this.style = TabStyle.fixed,
-    this.curve,
+    this.curve = Curves.easeInOut,
   })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
         assert(items.length % 2 == 1, 'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
@@ -98,6 +98,7 @@ class ConvexAppBar extends StatefulWidget {
           color: color,
           activeColor: activeColor,
           backgroundColor: backgroundColor,
+          curve: curve,
         );
 
   ConvexAppBar.builder({
@@ -112,7 +113,7 @@ class ConvexAppBar extends StatefulWidget {
     this.top = CURVE_TOP,
     this.elevation,
     this.style = TabStyle.custom,
-    this.curve,
+    this.curve = Curves.easeInOut,
   })  : assert(count % 2 == 1, 'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
         tabBuilder = _CustomTabBuilder(tabBuilder);
@@ -171,7 +172,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     );
     final Animation curve = CurvedAnimation(
       parent: _controller,
-      curve: widget.curve ?? Curves.easeOut,
+      curve: widget.curve,
     );
     _animation = Tween(begin: lower, end: upper).animate(curve);
     return _animation;

@@ -10,7 +10,8 @@ DelegateBuilder supportedStyle(TabStyle style,
     {List<TabItem> items,
     Color color,
     Color activeColor,
-    Color backgroundColor}) {
+    Color backgroundColor,
+    Curve curve}) {
   DelegateBuilder builder;
   switch (style) {
     case TabStyle.fixed:
@@ -35,6 +36,7 @@ DelegateBuilder supportedStyle(TabStyle style,
         items: items,
         color: color,
         activeColor: activeColor,
+        curve: curve,
       );
       break;
     case TabStyle.reactCircle:
@@ -43,6 +45,7 @@ DelegateBuilder supportedStyle(TabStyle style,
         color: color,
         activeColor: activeColor,
         backgroundColor: backgroundColor,
+        curve: curve,
       );
       break;
     case TabStyle.custom:
