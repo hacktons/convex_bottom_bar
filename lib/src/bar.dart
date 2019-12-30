@@ -191,6 +191,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
     var halfSize = widget.count ~/ 2;
     final convexIndex = isFixed() ? halfSize : _currentSelectedIndex;
+    final active = isFixed() ? convexIndex == _currentSelectedIndex : true;
     return Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
@@ -219,7 +220,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
               widthFactor: 1 / widget.count,
               alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
               child: GestureDetector(
-                child: widget.tabBuilder.build(context, convexIndex, true),
+                child: widget.tabBuilder.build(context, convexIndex, active),
                 onTap: () {
                   _onTabClick(convexIndex);
                   setState(() {
