@@ -1,3 +1,4 @@
+import 'package:convex_app_bar_example/custom_appbar_sample.dart';
 import 'package:flutter/material.dart';
 
 import 'default_appbar_demo.dart';
@@ -16,6 +17,7 @@ class _State extends State<MyApp> {
       initialRoute: "/",
       routes: {
         "/": (BuildContext context) => DefaultAppBarDemo(),
+        "/custom": (BuildContext context) => CustomAppBarDemo(),
       },
     );
   }

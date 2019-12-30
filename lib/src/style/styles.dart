@@ -48,9 +48,6 @@ DelegateBuilder supportedStyle(TabStyle style,
         curve: curve,
       );
       break;
-    case TabStyle.custom:
-    // TODO: Handle this case.
-//      break;
     default:
       builder = FixedTabStyle(
         items: items,

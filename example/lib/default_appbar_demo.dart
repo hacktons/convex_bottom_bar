@@ -123,6 +123,14 @@ class _State extends State<DefaultAppBarDemo> {
       appBar: AppBar(
         title: const Text('Default ConvexAppBar'),
         backgroundColor: _babColor,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.style),
+            color: Colors.white,
+            tooltip: "Custom style example",
+            onPressed: () => Navigator.of(context).pushNamed('/custom'),
+          )
+        ],
       ),
       body: ListView(children: options),
       bottomNavigationBar: ConvexAppBar(

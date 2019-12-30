@@ -38,6 +38,8 @@ enum TabStyle {
 
   /// convex shape is moved with circle after selection, see [ReactCircleTabStyle]
   reactCircle,
+
+  /// user defined style
   custom,
 }
 
@@ -47,7 +49,6 @@ class ConvexAppBar extends StatefulWidget {
 
   /// Tab Click handler
   final GestureTapIndexCallback onTap;
-  final GestureTapCallback onTapActionButton;
 
   /// Color of the AppBar
   final Color backgroundColor;
@@ -76,9 +77,7 @@ class ConvexAppBar extends StatefulWidget {
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
-    @Deprecated('is no loanger not supported ') TabItem actionItem,
     this.onTap,
-    this.onTapActionButton,
     Color color = Colors.white60,
     Color activeColor = Colors.white,
     this.backgroundColor = Colors.blue,
@@ -102,11 +101,9 @@ class ConvexAppBar extends StatefulWidget {
         );
 
   ConvexAppBar.builder({
-    @Deprecated('is no loanger not supported ') CustomTabBuilder actionBuilder,
-    @required CustomTabBuilder tabBuilder,
+    @required DelegateBuilder builder,
     @required this.count,
     this.onTap,
-    this.onTapActionButton,
     this.backgroundColor = Colors.blue,
     this.height,
     this.curveSize,
@@ -116,7 +113,8 @@ class ConvexAppBar extends StatefulWidget {
     this.curve = Curves.easeInOut,
   })  : assert(count % 2 == 1, 'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
-        tabBuilder = _CustomTabBuilder(tabBuilder);
+        assert(builder != null, 'provide custom buidler'),
+        tabBuilder = builder;
 
   @override
   _State createState() {
@@ -129,17 +127,6 @@ abstract class DelegateBuilder {
 
   bool fixed() {
     return false;
-  }
-}
-
-class _CustomTabBuilder extends DelegateBuilder {
-  final CustomTabBuilder builder;
-
-  _CustomTabBuilder(this.builder);
-
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    return builder(context, index, active);
   }
 }
 
@@ -164,8 +151,6 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     to ??= from;
     var lower = (2 * from + 1) / (2 * widget.count);
     var upper = (2 * to + 1) / (2 * widget.count);
-    debugPrint("tab index $from => $to");
-    debugPrint("$lower => $upper");
     _controller = AnimationController(
       duration: Duration(milliseconds: 150),
       vsync: this,
@@ -241,7 +226,6 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     var curveTabIndex = isFixed() ? widget.count ~/ 2 : _currentSelectedIndex;
     for (var i = 0; i < widget.count; i++) {
       if (i == curveTabIndex) {
-        debugPrint('place holder =>$i');
         children.add(Expanded(child: Container()));
         continue;
       }
