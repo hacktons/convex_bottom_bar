@@ -1,9 +1,16 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:math' as math;
+
 import 'item.dart';
 import 'painter.dart';
+import 'style/fixed_circle_tab_style.dart';
+import 'style/fixed_tab_style.dart';
+import 'style/react_circle_tab_style.dart';
+import 'style/react_tab_style.dart';
+import 'style/styles.dart';
 
 /// Default size of the curve line
 const double CONVEX_SIZE = 80;
@@ -15,9 +22,26 @@ const double BAR_HEIGHT = 50;
 const double CURVE_TOP = -25;
 
 const double ACTION_LAYOUT_SIZE = 60;
-const double ACTION_INNER_BUTTON_SIZE = 50;
+const double ACTION_INNER_BUTTON_SIZE = 40;
 const int CURVE_INDEX = -1;
 const double ELEVATION = 2;
+
+enum TabStyle {
+  /// convex shape fixed center, see [FixedTabStyle]
+  fixed,
+
+  /// convex shape is fixed center with circle, see [FixedCircleTabStyle]
+  fixedCircle,
+
+  /// convex shape is moved after selection, see [ReactTabStyle]
+  react,
+
+  /// convex shape is moved with circle after selection, see [ReactCircleTabStyle]
+  reactCircle,
+
+  /// user defined style
+  custom,
+}
 
 class ConvexAppBar extends StatefulWidget {
   /// TAB item builder
@@ -25,10 +49,6 @@ class ConvexAppBar extends StatefulWidget {
 
   /// Tab Click handler
   final GestureTapIndexCallback onTap;
-  final GestureTapCallback onTapActionButton;
-
-  /// Fixed-Centered Button
-  final DelegateBuilder actionBuilder;
 
   /// Color of the AppBar
   final Color backgroundColor;
@@ -48,49 +68,53 @@ class ConvexAppBar extends StatefulWidget {
   /// Elevation for the bar top edge
   final double elevation;
 
+  /// Style to describe the convex shape
+  final TabStyle style;
+
+  /// The curve to use in the forward direction. Only works when tab style is not fixed.
+  final Curve curve;
+
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
-    @required TabItem actionItem,
     this.onTap,
-    this.onTapActionButton,
-    Color color = Colors.black,
-    Color activeColor = Colors.redAccent,
-    this.backgroundColor = Colors.white,
-    this.height = BAR_HEIGHT,
-    this.curveSize = CONVEX_SIZE,
+    Color color = Colors.white60,
+    Color activeColor = Colors.white,
+    this.backgroundColor = Colors.blue,
+    this.height,
+    this.curveSize,
     this.top = CURVE_TOP,
-    this.elevation = ELEVATION,
+    this.elevation,
+    this.style = TabStyle.fixed,
+    this.curve = Curves.easeInOut,
   })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
-        assert(items.length % 2 == 0, 'item count should be even'),
+        assert(items.length % 2 == 1, 'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
         count = items.length,
-        tabBuilder = _DefaultTabBuilder(
+        tabBuilder = supportedStyle(
+          style,
           items: items,
           color: color,
           activeColor: activeColor,
-        ),
-        actionBuilder = _DefaultActionButtonBuilder(
-          item: actionItem,
-          color: color,
-          activeColor: activeColor,
+          backgroundColor: backgroundColor,
+          curve: curve,
         );
 
   ConvexAppBar.builder({
-    @required CustomTabBuilder actionBuilder,
-    @required CustomTabBuilder tabBuilder,
+    @required DelegateBuilder builder,
     @required this.count,
     this.onTap,
-    this.onTapActionButton,
-    this.backgroundColor = Colors.white,
-    this.height = BAR_HEIGHT,
-    this.curveSize = CONVEX_SIZE,
+    this.backgroundColor = Colors.blue,
+    this.height,
+    this.curveSize,
     this.top = CURVE_TOP,
-    this.elevation = ELEVATION,
-  })  : assert(count % 2 == 0, 'item count should be even'),
+    this.elevation,
+    this.style = TabStyle.custom,
+    this.curve = Curves.easeInOut,
+  })  : assert(count % 2 == 1, 'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
-        tabBuilder = _CustomTabBuilder(tabBuilder),
-        actionBuilder = _CustomTabBuilder(actionBuilder);
+        assert(builder != null, 'provide custom buidler'),
+        tabBuilder = builder;
 
   @override
   _State createState() {
@@ -100,103 +124,76 @@ class ConvexAppBar extends StatefulWidget {
 
 abstract class DelegateBuilder {
   Widget build(BuildContext context, int index, bool active);
-}
 
-class _CustomTabBuilder extends DelegateBuilder {
-  final CustomTabBuilder builder;
-
-  _CustomTabBuilder(this.builder);
-
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    return builder(context, index, active);
+  bool fixed() {
+    return false;
   }
 }
 
-class _DefaultTabBuilder extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
-
-  _DefaultTabBuilder({this.items, this.activeColor, this.color});
-
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    var navigationItem = items[index];
-    return Container(
-      color: Colors.transparent,
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Icon(
-              active
-                  ? navigationItem.activeIcon ?? navigationItem.icon
-                  : navigationItem.icon,
-              color: active ? activeColor : color),
-          Text(
-            navigationItem.title,
-            style: TextStyle(color: active ? activeColor : color),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _DefaultActionButtonBuilder extends DelegateBuilder {
-  final TabItem item;
-  final Color activeColor;
-  final Color color;
-
-  _DefaultActionButtonBuilder({this.item, this.activeColor, this.color});
-
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    return Container(
-      height: ACTION_LAYOUT_SIZE,
-      color: Colors.transparent,
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Icon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            color: active ? activeColor : color,
-            size: ACTION_INNER_BUTTON_SIZE,
-          ),
-          Text(
-            item.title,
-            style: TextStyle(color: active ? activeColor : color),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _State extends State<ConvexAppBar> {
+class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
   int _currentSelectedIndex = 0;
+  Animation<double> _animation;
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    if (!isFixed()) {
+      _initAnimation();
+    }
+    super.initState();
+  }
+
+  Animation<double> _initAnimation({int from, int to}) {
+    if (from != null && (from == to)) {
+      return _animation;
+    }
+    from ??= 0;
+    to ??= from;
+    var lower = (2 * from + 1) / (2 * widget.count);
+    var upper = (2 * to + 1) / (2 * widget.count);
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 150),
+      vsync: this,
+    );
+    final Animation curve = CurvedAnimation(
+      parent: _controller,
+      curve: widget.curve,
+    );
+    _animation = Tween(begin: lower, end: upper).animate(curve);
+    return _animation;
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     // take care of iPhoneX' safe area at bottom edge
     final double additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
+    var halfSize = widget.count ~/ 2;
+    final convexIndex = isFixed() ? halfSize : _currentSelectedIndex;
+    final active = isFixed() ? convexIndex == _currentSelectedIndex : true;
     return Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(
-          height: widget.height + additionalBottomPadding,
+          height: widget.height ?? BAR_HEIGHT + additionalBottomPadding,
           width: MediaQuery.of(context).size.width,
           child: CustomPaint(
             painter: ConvexPainter(
               top: widget.top,
-              width: widget.curveSize,
-              height: widget.curveSize,
+              width: widget.curveSize ?? CONVEX_SIZE,
+              height: widget.curveSize ?? CONVEX_SIZE,
               color: widget.backgroundColor,
-              sigma: widget.elevation,
+              sigma: widget.elevation ?? ELEVATION,
+              leftPercent: isFixed()
+                  ? const AlwaysStoppedAnimation<double>(0.5)
+                  : _animation ?? _initAnimation(),
             ),
           ),
         ),
@@ -206,18 +203,14 @@ class _State extends State<ConvexAppBar> {
           bottom: additionalBottomPadding,
           child: FractionallySizedBox(
               widthFactor: 1 / widget.count,
-              alignment: Alignment.center,
+              alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
               child: GestureDetector(
-                child: widget.actionBuilder.build(
-                    context, CURVE_INDEX, CURVE_INDEX == _currentSelectedIndex),
+                child: widget.tabBuilder.build(context, convexIndex, active),
                 onTap: () {
-                  //debugPrint('click action tab');
+                  _onTabClick(convexIndex);
                   setState(() {
-                    _currentSelectedIndex = CURVE_INDEX;
+                    _currentSelectedIndex = convexIndex;
                   });
-                  if (widget.onTapActionButton != null) {
-                    widget.onTapActionButton();
-                  }
                 },
               )),
         ),
@@ -225,25 +218,31 @@ class _State extends State<ConvexAppBar> {
     );
   }
 
+  bool isFixed() => widget.tabBuilder.fixed();
+
   Container barContent(double paddingBottom) {
     List<Widget> children = [];
+    // add placeholder Widget
+    var curveTabIndex = isFixed() ? widget.count ~/ 2 : _currentSelectedIndex;
     for (var i = 0; i < widget.count; i++) {
+      if (i == curveTabIndex) {
+        children.add(Expanded(child: Container()));
+        continue;
+      }
       children.add(Expanded(
           child: GestureDetector(
         child: widget.tabBuilder.build(context, i, _currentSelectedIndex == i),
         onTap: () {
+          _onTabClick(i);
           setState(() {
             _currentSelectedIndex = i;
           });
-          _onTabClick(i);
         },
       )));
     }
-    // add placeholder Widget
-    var curveTabIndex = widget.count ~/ 2;
-    children.insert(curveTabIndex, Expanded(child: Container()));
+
     return Container(
-      height: widget.height + paddingBottom,
+      height: widget.height ?? BAR_HEIGHT + paddingBottom,
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -254,7 +253,8 @@ class _State extends State<ConvexAppBar> {
   }
 
   void _onTabClick(int i) {
-    //debugPrint('click tab#$i');
+    _initAnimation(from: _currentSelectedIndex, to: i);
+    _controller?.forward();
     if (widget.onTap != null) {
       widget.onTap(i);
     }

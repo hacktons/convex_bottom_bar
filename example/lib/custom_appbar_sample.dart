@@ -14,6 +14,7 @@ class _State extends State<CustomAppBarDemo> {
   List<TabItem> items = <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
+    TabItem(icon: Icons.add, title: 'Add'),
     TabItem(icon: Icons.message, title: 'Message'),
     TabItem(icon: Icons.people, title: 'Profile')
   ];
@@ -48,46 +49,8 @@ class _State extends State<CustomAppBarDemo> {
       bottomNavigationBar: ConvexAppBar.builder(
         count: items.length,
         backgroundColor: _tabBackgroundColor,
-        tabBuilder: (BuildContext context, int index, bool active) {
-          var navigationItem = items[index];
-          var _color = active ? Colors.white : Colors.white60;
-          var _icon = active
-              ? navigationItem.activeIcon ?? navigationItem.icon
-              : navigationItem.icon;
-          return Container(
-            color: Colors.transparent,
-            padding: EdgeInsets.only(bottom: 2),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Icon(_icon, color: _color),
-                Text(navigationItem.title, style: TextStyle(color: _color))
-              ],
-            ),
-          );
-        },
-        actionBuilder: (BuildContext context, int index, bool active) {
-          var _color = active ? Colors.white : Colors.white60;
-
-          return Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: Container(
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: _color),
-                  child: Icon(
-                    Icons.add,
-                    size: 40,
-                    color: _tabBackgroundColor,
-                  ),
-                ),
-              )
-            ],
-          );
-        },
+        style: TabStyle.fixed,
+        builder: _CustomBuilder(items, _tabBackgroundColor),
       ),
     );
   }
@@ -124,5 +87,57 @@ class _State extends State<CustomAppBarDemo> {
     setState(() {
       _tabBackgroundColor = color;
     });
+  }
+}
+
+class _CustomBuilder extends DelegateBuilder {
+  final List<TabItem> items;
+  final Color _tabBackgroundColor;
+
+  _CustomBuilder(this.items, this._tabBackgroundColor);
+
+  @override
+  Widget build(BuildContext context, int index, bool active) {
+    var navigationItem = items[index];
+    var _color = active ? Colors.white : Colors.white60;
+
+    if (index == items.length ~/ 2) {
+      return Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, color: _color),
+              child: Icon(
+                Icons.add,
+                size: 40,
+                color: _tabBackgroundColor,
+              ),
+            ),
+          )
+        ],
+      );
+    }
+    var _icon = active
+        ? navigationItem.activeIcon ?? navigationItem.icon
+        : navigationItem.icon;
+    return Container(
+      color: Colors.transparent,
+      padding: EdgeInsets.only(bottom: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Icon(_icon, color: _color),
+          Text(navigationItem.title, style: TextStyle(color: _color))
+        ],
+      ),
+    );
+  }
+
+  @override
+  bool fixed() {
+    return true;
   }
 }

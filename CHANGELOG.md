@@ -1,3 +1,8 @@
+## [1.3.0]
+
+* Add new tab style;
+* Support animated tab transition；
+
 ## [1.2.0]
 
 * Support iPhoneX' safe area at bottom edge. [#issues/7](https://github.com/hacktons/convex_bottom_bar/issues/7)

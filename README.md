@@ -10,9 +10,15 @@ Language: [English](README.md) | [中文简体](README-zh.md)
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
-![Screenshot](doc/Screenshot_1571041912.png)
+There are some supported tab style:
 
-**Install Demo** [app-release.apk](doc/app-release.apk)
+|              fixed               |              react               |
+| :------------------------------: | :------------------------------: |
+|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
+|           fixedCircle            |           reactCircle            |
+| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
+
+**Install Demo** [app-release-arm64.apk](doc/app-release-arm64.apk)
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -23,7 +29,7 @@ Add this to your package's pubspec.yaml file, use the [latest version](https://p
 
 ```yaml
 dependencies:
-  convex_bottom_bar: ^0.0.1
+  convex_bottom_bar: ^1.3.0
 ```
 
 ```dart
@@ -32,14 +38,13 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 Scaffold(
   bottomNavigationBar: ConvexAppBar(
     items: TAB_ITEMS,
+    style: _style.value,
+    curve: _curve.value,
+    backgroundColor: _babColor,
     onTap: (int i) => setState(() {
       _selectedIndex = i;
     }),
-    actionItem: const TabItem(icon: Icons.add, title: "Publish"),
-    onTapActionButton: () => setState(() {
-      _selectedIndex = -1;
-    }),
-  ),
+  )
 );
 ```
 
@@ -66,59 +71,22 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | activeColor     | tab icon/text color **when selected** |
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
+| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle** |
 
+![](doc/appbar-demo.gif)
 
 ## Custom Example
-If the default style does not match with your situation， try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
 
-Here is a custom sample:
-![custom preview](doc/device-2019-10-18-173024.png)
+If the default style does not match with your situation， try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
 
 ```dart
 Scaffold(
   bottomNavigationBar: ConvexAppBar.builder(
     count: items.length,
     backgroundColor: _tabBackgroundColor,
-    tabBuilder: (BuildContext context, int index, bool active) {
-      var navigationItem = items[index];
-      var _color = active ? Colors.white : Colors.white60;
-      var _icon = active
-          ? navigationItem.activeIcon ?? navigationItem.icon
-          : navigationItem.icon;
-      return Container(
-        color: Colors.transparent,
-        padding: EdgeInsets.only(bottom: 2),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Icon(_icon, color: _color),
-            Text(navigationItem.title, style: TextStyle(color: _color))
-          ],
-        ),
-      );
-    },
-    actionBuilder: (BuildContext context, int index, bool active) {
-      var _color = active ? Colors.white : Colors.white60;
-      return Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 60,
-            height: 60,
-            child: Container(
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: _color),
-              child: Icon(
-                Icons.add,
-                size: 40,
-                color: _tabBackgroundColor,
-              ),
-            ),
-          )
-        ],
-      );
-    },
-  ),
+    style: TabStyle.fixed,
+    builder: _CustomBuilder(items, _tabBackgroundColor),
+  )
 );
 ```
 

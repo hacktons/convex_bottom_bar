@@ -1,6 +1,6 @@
+import 'package:convex_app_bar_example/custom_appbar_sample.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_appbar_sample.dart';
 import 'default_appbar_demo.dart';
 
 void main() => runApp(MyApp());
@@ -16,50 +16,9 @@ class _State extends State<MyApp> {
     return MaterialApp(
       initialRoute: "/",
       routes: {
-        "/": (BuildContext context) => Home(),
-        "/default": (BuildContext context) => DefaultAppBarDemo(),
+        "/": (BuildContext context) => DefaultAppBarDemo(),
         "/custom": (BuildContext context) => CustomAppBarDemo(),
       },
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ConvexAppBar Example'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FlatButton(
-              child: Text('Default  ConvexAppBar',
-                  style: TextStyle(fontSize: 20.0)),
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.all(8.0),
-              splashColor: Colors.blueAccent,
-              onPressed: () => Navigator.of(context).pushNamed('/default'),
-            ),
-            FlatButton(
-              child:
-                  Text('Custom ConvexAppBar', style: TextStyle(fontSize: 20.0)),
-              color: Colors.blue,
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.all(8.0),
-              splashColor: Colors.blueAccent,
-              onPressed: () => Navigator.of(context).pushNamed('/custom'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
