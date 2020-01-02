@@ -53,6 +53,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Color of the AppBar
   final Color backgroundColor;
 
+  /// If provided, backgroundColor for tab app will be ignored
+  final Gradient gradient;
+
   /// Tab count
   final int count;
 
@@ -81,6 +84,7 @@ class ConvexAppBar extends StatefulWidget {
     Color color = Colors.white60,
     Color activeColor = Colors.white,
     this.backgroundColor = Colors.blue,
+    this.gradient,
     this.height,
     this.curveSize,
     this.top = CURVE_TOP,
@@ -104,7 +108,8 @@ class ConvexAppBar extends StatefulWidget {
     @required DelegateBuilder builder,
     @required this.count,
     this.onTap,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor,
+    this.gradient,
     this.height,
     this.curveSize,
     this.top = CURVE_TOP,
@@ -190,6 +195,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
               width: widget.curveSize ?? CONVEX_SIZE,
               height: widget.curveSize ?? CONVEX_SIZE,
               color: widget.backgroundColor,
+              gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: isFixed()
                   ? const AlwaysStoppedAnimation<double>(0.5)
