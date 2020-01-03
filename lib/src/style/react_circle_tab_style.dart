@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:convex_bottom_bar/src/style/scaled_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,11 +33,13 @@ class ReactCircleTabStyle extends DelegateBuilder {
             child: Container(
               width: ACTION_LAYOUT_SIZE,
               height: ACTION_LAYOUT_SIZE,
+              padding: EdgeInsets.all(
+                  (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: active ? activeColor : color,
               ),
-              child: Icon(
+              child: BlendImageIcon(
                 item.icon,
                 size: ACTION_INNER_BUTTON_SIZE,
                 color: backgroundColor,
@@ -53,7 +56,7 @@ class ReactCircleTabStyle extends DelegateBuilder {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(item.icon, color: color),
+          BlendImageIcon(item.icon, color: color),
           Text(item.title, style: TextStyle(color: color))
         ],
       ),

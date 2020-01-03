@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
+import 'blend_image_icon.dart';
 
 /// Convex shape is fixed center with circle
 class FixedCircleTabStyle extends DelegateBuilder {
@@ -36,7 +37,7 @@ class FixedCircleTabStyle extends DelegateBuilder {
                 shape: BoxShape.circle,
                 color: active ? activeColor : color,
               ),
-              child: Icon(
+              child: BlendImageIcon(
                 item.icon,
                 size: ACTION_INNER_BUTTON_SIZE,
                 color: backgroundColor,
@@ -53,7 +54,7 @@ class FixedCircleTabStyle extends DelegateBuilder {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(
+          BlendImageIcon(
               active
                   ? navigationItem.activeIcon ?? navigationItem.icon
                   : navigationItem.icon,

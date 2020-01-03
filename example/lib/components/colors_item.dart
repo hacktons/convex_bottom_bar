@@ -1,6 +1,7 @@
-import 'package:convex_app_bar_example/model/named_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../model/named_color.dart';
 
 class ColorsItem extends StatelessWidget {
   const ColorsItem(this.colors, this.selectedColor, this.onChanged);

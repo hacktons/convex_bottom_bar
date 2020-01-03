@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
+import 'blend_image_icon.dart';
 
 /// Convex shape is moved after selection
 class ReactTabStyle extends DelegateBuilder {
@@ -25,7 +26,7 @@ class ReactTabStyle extends DelegateBuilder {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             ScaledContainer(
-              child: Icon(
+              child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: activeColor,
                 size: ACTION_INNER_BUTTON_SIZE,
@@ -44,7 +45,7 @@ class ReactTabStyle extends DelegateBuilder {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(item.icon, color: color),
+          BlendImageIcon(item.icon, color: color),
           Text(item.title, style: TextStyle(color: color))
         ],
       ),

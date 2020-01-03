@@ -1,6 +1,7 @@
-import 'package:convex_app_bar_example/model/choice_value.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../model/choice_value.dart';
 
 // copy of _RadioItem from flutter gallery
 class RadioItem<T> extends StatelessWidget {

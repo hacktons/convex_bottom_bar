@@ -1,5 +1,7 @@
+import 'package:convex_app_bar_example/components/gradient_item.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'components/colors_item.dart';
@@ -16,14 +18,15 @@ class DefaultAppBarDemo extends StatefulWidget {
 }
 
 class _State extends State<DefaultAppBarDemo> {
-  int _selectedIndex = 0;
   static const INDEX_PUBLISH = 2;
-  static const TAB_ITEMS = const <TabItem>[
-    TabItem(icon: Icons.home, title: 'Home'),
-    TabItem(icon: Icons.map, title: 'Discovery'),
-    TabItem(icon: Icons.publish, title: "Publish"),
-    TabItem(icon: Icons.message, title: 'Message'),
-    TabItem(icon: Icons.people, title: 'Profile'),
+  final tabItems = <TabItem>[
+    // use icon
+    const TabItem<IconData>(icon: Icons.home, title: 'Home'),
+    // use image
+    TabItem<Widget>(icon: Image.asset('images/sample.png'), title: 'Discovery'),
+    const TabItem<IconData>(icon: Icons.publish, title: "Publish"),
+    const TabItem<IconData>(icon: Icons.message, title: 'Message'),
+    const TabItem<IconData>(icon: Icons.people, title: 'Profile'),
   ];
   static const ACTIVE_COLOR = Colors.red;
   static const NORMAL_COLOR = Colors.black;
@@ -76,18 +79,8 @@ class _State extends State<DefaultAppBarDemo> {
       value: Curves.slowMiddle,
       label: 'The curve slowMiddle is used',
     ),
-    ChoiceValue<Curve>(
-      title: 'Curves.bounceOut',
-      value: Curves.bounceOut,
-      label: 'The curve bounceOut is used',
-    ),
-    ChoiceValue<Curve>(
-      title: 'Curves.elasticOut',
-      value: Curves.elasticOut,
-      label: 'The curve elasticOut is used',
-    ),
   ];
-  static const List<NamedColor> kBabColors = <NamedColor>[
+  static const List<NamedColor> kBabColors = [
     NamedColor(Colors.blue, 'Blue'),
     NamedColor(Color(0xFFf44336), 'Read'),
     NamedColor(Color(0xFF673AB7), 'Purple'),
@@ -95,17 +88,41 @@ class _State extends State<DefaultAppBarDemo> {
     NamedColor(Color(0xFFFFC107), 'Yellow'),
     NamedColor(Color(0xFF607D8B), 'Grey'),
   ];
+  static const List<Gradient> kGradients = [
+    null,
+    LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Colors.blue, Colors.redAccent, Colors.green, Colors.blue],
+      tileMode: TileMode.repeated,
+    ),
+    LinearGradient(
+      begin: Alignment.center,
+      end: Alignment(-1, 1),
+      colors: [Colors.redAccent, Colors.green, Colors.blue],
+      tileMode: TileMode.repeated,
+    ),
+    RadialGradient(
+      center: const Alignment(0, 0), // near the top right
+      radius: 5,
+      colors: [Colors.green, Colors.blue, Colors.redAccent],
+    )
+  ];
+
   ChoiceValue<TabStyle> _style = kStyles.first;
   ChoiceValue<Curve> _curve = kCurves.first;
   Color _babColor = kBabColors.first.color;
+  Gradient _gradient = kGradients.first;
 
   @override
   Widget build(BuildContext context) {
     debugPrint('build');
     var options = <Widget>[
-      const Heading('Appbar Color'),
+      const Heading('Appbar Color Example'),
       ColorsItem(kBabColors, _babColor, _onBabColorChanged),
       const Divider(),
+      const Heading('Background Gradient Example'),
+      GradientItem(kGradients, _gradient, _onGradientChanged),
       const Heading('Tab Style'),
     ];
     options.addAll(
@@ -113,7 +130,7 @@ class _State extends State<DefaultAppBarDemo> {
     options.add(const Divider());
     if (_style.value != TabStyle.fixed &&
         _style.value != TabStyle.fixedCircle) {
-      options.add(const Heading('Animation Curve'));
+      options.add(const Heading('Animation Curve Example'));
       options
           .addAll(kCurves.map((c) => RadioItem<Curve>(c, _curve, handleCurve)));
       options.add(const Divider());
@@ -134,13 +151,12 @@ class _State extends State<DefaultAppBarDemo> {
       ),
       body: ListView(children: options),
       bottomNavigationBar: ConvexAppBar(
-        items: TAB_ITEMS,
+        items: tabItems,
         style: _style.value,
         curve: _curve.value,
         backgroundColor: _babColor,
-        onTap: (int i) => setState(() {
-          _selectedIndex = i;
-        }),
+        gradient: _gradient,
+        onTap: (int i) => debugPrint('select index=$i'),
       ),
     );
   }
@@ -160,6 +176,12 @@ class _State extends State<DefaultAppBarDemo> {
   void _onBabColorChanged(Color value) {
     setState(() {
       _babColor = value;
+    });
+  }
+
+  void _onGradientChanged(Gradient value) {
+    setState(() {
+      _gradient = value;
     });
   }
 }
