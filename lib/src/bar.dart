@@ -104,40 +104,12 @@ class ConvexAppBar extends StatefulWidget {
           curve: curve,
         );
 
-  /// use image for tab item
-  ConvexAppBar.image({
-    Key key,
-    @required List<TabItem> items,
-    this.onTap,
-    Color color = Colors.white60,
-    Color activeColor = Colors.white,
-    this.backgroundColor = Colors.blue,
-    this.gradient,
-    this.height,
-    this.curveSize,
-    this.top = CURVE_TOP,
-    this.elevation,
-    this.style = TabStyle.fixed,
-    this.curve = Curves.easeInOut,
-  })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
-        assert(items.length % 2 == 1, 'item count should be an odd number'),
-        assert(top <= 0, 'top should be negative'),
-        count = items.length,
-        tabBuilder = supportedStyle(
-          style,
-          items: items,
-          color: color,
-          activeColor: activeColor,
-          backgroundColor: backgroundColor,
-          curve: curve,
-        );
-
   /// define a custom tab style by implement a [DelegateBuilder]
   ConvexAppBar.builder({
     @required DelegateBuilder builder,
     @required this.count,
     this.onTap,
-    this.backgroundColor,
+    this.backgroundColor = Colors.blue,
     this.gradient,
     this.height,
     this.curveSize,

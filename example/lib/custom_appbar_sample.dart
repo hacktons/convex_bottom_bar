@@ -45,41 +45,7 @@ class _State extends State<CustomAppBarDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Custom ConvexAppBar')),
-      body: /*paletteBody()*/
-          Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-                  Colors.yellow,
-                  Colors.green,
-                  Colors.deepOrange.shade900
-                ],
-                tileMode: TileMode.repeated,
-              )),
-              child: Container(
-                  margin: EdgeInsets.all(40),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: ShaderMask(
-                    blendMode: BlendMode.srcATop,
-                    shaderCallback: (Rect bounds) {
-                      return LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: <Color>[
-                          Colors.yellow,
-                          Colors.green,
-                          Colors.deepOrange.shade900
-                        ],
-                        tileMode: TileMode.repeated,
-                      ).createShader(Rect.fromLTWH(0, 0, 300, 300));
-                    },
-                    child: Icon(Icons.shop, size: 60, color: Colors.green),
-                  ))),
+      body: paletteBody(),
       bottomNavigationBar: ConvexAppBar.builder(
         count: items.length,
         backgroundColor: _tabBackgroundColor,

@@ -24,7 +24,7 @@ class _State extends State<DefaultAppBarDemo> {
     const TabItem<IconData>(icon: Icons.home, title: 'Home'),
     // use image
     TabItem<Widget>(icon: Image.asset('images/sample.png'), title: 'Discovery'),
-    TabItem<IconData>(icon: Icons.publish, title: "Publish"),
+    const TabItem<IconData>(icon: Icons.publish, title: "Publish"),
     const TabItem<IconData>(icon: Icons.message, title: 'Message'),
     const TabItem<IconData>(icon: Icons.people, title: 'Profile'),
   ];

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 /// decorate the provided [Image] or [IconData]
 class BlendImageIcon<T> extends StatelessWidget {
@@ -15,6 +17,14 @@ class BlendImageIcon<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     if (image is Widget) {
       var s = size ?? IconTheme.of(context).size;
+      // flutter web do not support shader mask. (flutter v1.12.x)
+      if (kIsWeb) {
+        return SizedBox(
+          width: s,
+          height: s,
+          child: image as Widget,
+        );
+      }
       return SizedBox(
         width: s,
         height: s,
