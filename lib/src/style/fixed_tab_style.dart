@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
+import 'blend_image_icon.dart';
 
 /// Convex shape is fixed center
 class FixedTabStyle extends DelegateBuilder {
@@ -27,7 +28,7 @@ class FixedTabStyle extends DelegateBuilder {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Icon(
+            BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
               color: active ? activeColor : color,
               size: ACTION_INNER_BUTTON_SIZE,
@@ -40,20 +41,19 @@ class FixedTabStyle extends DelegateBuilder {
         ),
       );
     }
-    var navigationItem = items[index];
+    var item = items[index];
     return Container(
       color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(
-              active
-                  ? navigationItem.activeIcon ?? navigationItem.icon
-                  : navigationItem.icon,
-              color: active ? activeColor : color),
+          BlendImageIcon(
+            active ? item.activeIcon ?? item.icon : item.icon,
+            color: active ? activeColor : color,
+          ),
           Text(
-            navigationItem.title,
+            item.title,
             style: TextStyle(color: active ? activeColor : color),
           )
         ],

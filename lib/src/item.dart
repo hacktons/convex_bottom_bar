@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
-class TabItem {
+class TabItem<T> {
   final String title;
-  final IconData icon;
+
+  /// IconData or Image
+  final T icon;
 
   /// Optional if not provided ,[icon] is used
-  final IconData activeIcon;
+  final T activeIcon;
 
   const TabItem({
     this.title,
     @required this.icon,
     this.activeIcon,
-  });
+  }) : assert(icon is IconData || icon is Widget,
+            "TabItem only support IconData and Widget");
 }
