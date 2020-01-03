@@ -10,7 +10,10 @@ Language: [English](README.md) | [中文简体](README-zh.md)
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
-There are some supported tab style:
+>Example can be found at [http://hacktons.cn/convex_bottom_bar]  
+*PS: Based on flutter-web and github-pages*
+
+Here are some supported tab style:
 
 |              fixed               |              react               |
 | :------------------------------: | :------------------------------: |
@@ -19,6 +22,7 @@ There are some supported tab style:
 | ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
 
 **Install Demo** [app-release-arm64.apk](doc/app-release-arm64.apk)
+
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.

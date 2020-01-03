@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ##################################################################
 ##
-##  Add script description here
+##  Build and generate the example for github pages
 ##
 ##
 ##  Author: Chaobin Wu
