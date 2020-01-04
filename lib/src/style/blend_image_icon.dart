@@ -18,7 +18,8 @@ class BlendImageIcon<T> extends StatelessWidget {
     if (image is Widget) {
       var s = size ?? IconTheme.of(context).size;
       // flutter web do not support shader mask. (flutter v1.12.x)
-      if (kIsWeb) {
+      var showRawImage = kIsWeb || color == null;
+      if (showRawImage) {
         return SizedBox(
           width: s,
           height: s,

@@ -1,14 +1,14 @@
-import 'package:convex_app_bar_example/components/gradient_item.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'components/colors_item.dart';
+import 'components/gradient_item.dart';
 import 'components/heading.dart';
 import 'components/radio_item.dart';
+import 'data.dart';
 import 'model/choice_value.dart';
-import 'model/named_color.dart';
 
 class DefaultAppBarDemo extends StatefulWidget {
   @override
@@ -19,16 +19,6 @@ class DefaultAppBarDemo extends StatefulWidget {
 
 class _State extends State<DefaultAppBarDemo> {
   static const INDEX_PUBLISH = 2;
-  final tabItems = <TabItem>[
-    const TabItem<IconData>(icon: Icons.home, title: 'Home'),
-    // use image
-    //TabItem<Widget>(icon: Image.asset('images/sample.png'), title: 'Discovery'),
-    const TabItem<IconData>(icon: Icons.map, title: "Discovery"),
-    const TabItem<IconData>(icon: Icons.publish, title: "Publish"),
-    const TabItem<IconData>(icon: Icons.message, title: 'Message'),
-    const TabItem<IconData>(icon: Icons.people, title: 'Profile'),
-  ];
-
   static const kStyles = [
     ChoiceValue<TabStyle>(
       title: 'TabStyle.fixed',
@@ -51,76 +41,40 @@ class _State extends State<DefaultAppBarDemo> {
       value: TabStyle.reactCircle,
     ),
   ];
-  static const kCurves = [
-    ChoiceValue<Curve>(
-      title: 'Curves.linear',
-      label: 'The curve linear is used',
-      value: Curves.linear,
+
+  static final kTabItem = [
+    ChoiceValue<List<TabItem>>(
+      title: 'Icon Tab',
+      label: 'Appbar use Icon as Tab',
+      value: Data.items(image: false),
     ),
-    ChoiceValue<Curve>(
-      title: 'Curves.decelerate',
-      value: Curves.decelerate,
-      label: 'The curve decelerate is used',
-    ),
-    ChoiceValue<Curve>(
-      title: 'Curves.easeInOut',
-      value: Curves.easeInOut,
-      label: 'The curve easeInOut is used',
-    ),
-    ChoiceValue<Curve>(
-      title: 'Curves.fastOutSlowIn',
-      value: Curves.fastOutSlowIn,
-      label: 'The curve fastOutSlowIn is used',
-    ),
-    ChoiceValue<Curve>(
-      title: 'Curves.slowMiddle',
-      value: Curves.slowMiddle,
-      label: 'The curve slowMiddle is used',
+    ChoiceValue<List<TabItem>>(
+      title: 'Image Tab',
+      label: 'Appbar use Image as Tab',
+      value: Data.items(image: true),
     ),
   ];
-  static const List<NamedColor> kBabColors = [
-    NamedColor(Colors.blue, 'Blue'),
-    NamedColor(Color(0xFFf44336), 'Read'),
-    NamedColor(Color(0xFF673AB7), 'Purple'),
-    NamedColor(Color(0xFF009688), 'Green'),
-    NamedColor(Color(0xFFFFC107), 'Yellow'),
-    NamedColor(Color(0xFF607D8B), 'Grey'),
-  ];
-  static const List<Gradient> kGradients = [
-    null,
-    LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Colors.blue, Colors.redAccent, Colors.green, Colors.blue],
-      tileMode: TileMode.repeated,
-    ),
-    LinearGradient(
-      begin: Alignment.center,
-      end: Alignment(-1, 1),
-      colors: [Colors.redAccent, Colors.green, Colors.blue],
-      tileMode: TileMode.repeated,
-    ),
-    RadialGradient(
-      center: const Alignment(0, 0), // near the top right
-      radius: 5,
-      colors: [Colors.green, Colors.blue, Colors.redAccent],
-    )
-  ];
+  var _tabItems = kTabItem.first;
 
   ChoiceValue<TabStyle> _style = kStyles.first;
-  ChoiceValue<Curve> _curve = kCurves.first;
-  Color _babColor = kBabColors.first.color;
-  Gradient _gradient = kGradients.first;
+  ChoiceValue<Curve> _curve = Data.curves.first;
+  Color _babColor = Data.namedColors.first.color;
+  Gradient _gradient = Data.gradients.first;
 
   @override
   Widget build(BuildContext context) {
     debugPrint('build');
     var options = <Widget>[
-      const Heading('Appbar Color Example'),
-      ColorsItem(kBabColors, _babColor, _onBabColorChanged),
+      const Heading('Appbar Color'),
+      ColorsItem(Data.namedColors, _babColor, _onBabColorChanged),
       const Divider(),
-      const Heading('Background Gradient Example'),
-      GradientItem(kGradients, _gradient, _onGradientChanged),
+      const Heading('Background Gradient'),
+      GradientItem(Data.gradients, _gradient, _onGradientChanged),
+      const Divider(),
+      const Heading('Tab Item'),
+      RadioItem<List<TabItem>>(kTabItem[0], _tabItems, handleTabItem),
+      RadioItem<List<TabItem>>(kTabItem[1], _tabItems, handleTabItem),
+      const Divider(),
       const Heading('Tab Style'),
     ];
     options.addAll(
@@ -128,9 +82,9 @@ class _State extends State<DefaultAppBarDemo> {
     options.add(const Divider());
     if (_style.value != TabStyle.fixed &&
         _style.value != TabStyle.fixedCircle) {
-      options.add(const Heading('Animation Curve Example'));
-      options
-          .addAll(kCurves.map((c) => RadioItem<Curve>(c, _curve, handleCurve)));
+      options.add(const Heading('Animation Curve'));
+      options.addAll(
+          Data.curves.map((c) => RadioItem<Curve>(c, _curve, handleCurve)));
       options.add(const Divider());
     }
 
@@ -149,8 +103,7 @@ class _State extends State<DefaultAppBarDemo> {
       ),
       body: ListView(children: options),
       bottomNavigationBar: ConvexAppBar(
-        elevation: 0,
-        items: tabItems,
+        items: _tabItems.value,
         style: _style.value,
         curve: _curve.value,
         backgroundColor: _babColor,
@@ -158,6 +111,12 @@ class _State extends State<DefaultAppBarDemo> {
         onTap: (int i) => debugPrint('select index=$i'),
       ),
     );
+  }
+
+  void handleTabItem(ChoiceValue<List<TabItem>> value) {
+    setState(() {
+      _tabItems = value;
+    });
   }
 
   void handleStyle(ChoiceValue<TabStyle> value) {

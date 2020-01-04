@@ -40,9 +40,9 @@ class ReactCircleTabStyle extends DelegateBuilder {
                 color: active ? activeColor : color,
               ),
               child: BlendImageIcon(
-                item.icon,
+                active ? item.activeIcon ?? item.icon : item.icon,
                 size: ACTION_INNER_BUTTON_SIZE,
-                color: backgroundColor,
+                color: item.blend ? backgroundColor : null,
               ),
             ),
             curve: curve,
@@ -56,7 +56,10 @@ class ReactCircleTabStyle extends DelegateBuilder {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          BlendImageIcon(item.icon, color: color),
+          BlendImageIcon(
+            active ? item.activeIcon ?? item.icon : item.icon,
+            color: item.blend ? color : null,
+          ),
           Text(item.title, style: TextStyle(color: color))
         ],
       ),

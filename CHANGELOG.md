@@ -1,7 +1,13 @@
+## [1.3.1+1]
+
+* Bug fix: activate icon is not working in some style;
+* Improvement: enable image with/without color blend;
+ 
 ## [1.3.1]
 
 * Support gradient background;
 * Tab item are generic type, both `IconData` and `Widget` can be used;
+
 ## [1.3.0]
 
 * Add new tab style;

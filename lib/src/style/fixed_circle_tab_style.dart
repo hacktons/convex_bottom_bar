@@ -37,17 +37,19 @@ class FixedCircleTabStyle extends DelegateBuilder {
                 shape: BoxShape.circle,
                 color: active ? activeColor : color,
               ),
+              padding: EdgeInsets.all(
+                  (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 2),
               child: BlendImageIcon(
-                item.icon,
+                active ? item.activeIcon ?? item.icon : item.icon,
                 size: ACTION_INNER_BUTTON_SIZE,
-                color: backgroundColor,
+                color: item.blend ? backgroundColor : null,
               ),
             ),
           )
         ],
       );
     }
-    var navigationItem = items[index];
+    var item = items[index];
     return Container(
       color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
@@ -55,12 +57,11 @@ class FixedCircleTabStyle extends DelegateBuilder {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           BlendImageIcon(
-              active
-                  ? navigationItem.activeIcon ?? navigationItem.icon
-                  : navigationItem.icon,
-              color: active ? activeColor : color),
+            active ? item.activeIcon ?? item.icon : item.icon,
+            color: item.blend ? (active ? activeColor : color) : null,
+          ),
           Text(
-            navigationItem.title,
+            item.title,
             style: TextStyle(color: active ? activeColor : color),
           )
         ],

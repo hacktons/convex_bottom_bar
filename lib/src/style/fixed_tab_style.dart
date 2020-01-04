@@ -30,7 +30,7 @@ class FixedTabStyle extends DelegateBuilder {
           children: <Widget>[
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
-              color: active ? activeColor : color,
+              color: item.blend ? (active ? activeColor : color) : null,
               size: ACTION_INNER_BUTTON_SIZE,
             ),
             Text(
@@ -50,7 +50,7 @@ class FixedTabStyle extends DelegateBuilder {
         children: <Widget>[
           BlendImageIcon(
             active ? item.activeIcon ?? item.icon : item.icon,
-            color: active ? activeColor : color,
+            color: item.blend ? (active ? activeColor : color) : null,
           ),
           Text(
             item.title,
