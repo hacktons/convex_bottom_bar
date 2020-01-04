@@ -20,16 +20,14 @@ class DefaultAppBarDemo extends StatefulWidget {
 class _State extends State<DefaultAppBarDemo> {
   static const INDEX_PUBLISH = 2;
   final tabItems = <TabItem>[
-    // use icon
     const TabItem<IconData>(icon: Icons.home, title: 'Home'),
     // use image
-    TabItem<Widget>(icon: Image.asset('images/sample.png'), title: 'Discovery'),
+    //TabItem<Widget>(icon: Image.asset('images/sample.png'), title: 'Discovery'),
+    const TabItem<IconData>(icon: Icons.map, title: "Discovery"),
     const TabItem<IconData>(icon: Icons.publish, title: "Publish"),
     const TabItem<IconData>(icon: Icons.message, title: 'Message'),
     const TabItem<IconData>(icon: Icons.people, title: 'Profile'),
   ];
-  static const ACTIVE_COLOR = Colors.red;
-  static const NORMAL_COLOR = Colors.black;
 
   static const kStyles = [
     ChoiceValue<TabStyle>(
@@ -151,6 +149,7 @@ class _State extends State<DefaultAppBarDemo> {
       ),
       body: ListView(children: options),
       bottomNavigationBar: ConvexAppBar(
+        elevation: 0,
         items: tabItems,
         style: _style.value,
         curve: _curve.value,

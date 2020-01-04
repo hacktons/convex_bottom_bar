@@ -10,7 +10,7 @@ Language: [English](README.md) | [中文简体](README-zh.md)
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
->Example can be found at [http://hacktons.cn/convex_bottom_bar]  
+>Example can be found at [http://hacktons.cn/convex_bottom_bar](http://hacktons.cn/convex_bottom_bar)  
 *PS: Based on flutter-web and github-pages*
 
 Here are some supported tab style:
@@ -70,6 +70,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | Attributes      | Description                           |
 | --------------- | ------------------------------------- |
 | backgroundColor | AppBar background                     |
+| gradient        | gradient will override backgroundColor|
 | height          | AppBar height                         |
 | color           | tab icon/text color                   |
 | activeColor     | tab icon/text color **when selected** |
@@ -93,6 +94,10 @@ Scaffold(
   )
 );
 ```
+## FAQ
+
+* [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
+* [Is there anyway to remove elevation in the bottom bar?](doc/issue-remove-elevation.md) 
 
 ## Contribution
 Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
