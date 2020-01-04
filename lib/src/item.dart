@@ -9,10 +9,15 @@ class TabItem<T> {
   /// Optional if not provided ,[icon] is used
   final T activeIcon;
 
+  /// Whether icon should blend with color
+  final bool blend;
+
   const TabItem({
     this.title,
     @required this.icon,
     this.activeIcon,
-  }) : assert(icon is IconData || icon is Widget,
-            "TabItem only support IconData and Widget");
+    bool isIconBlend,
+  })  : assert(icon is IconData || icon is Widget,
+            "TabItem only support IconData and Widget"),
+        blend = isIconBlend ?? (icon is IconData);
 }

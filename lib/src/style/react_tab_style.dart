@@ -28,7 +28,7 @@ class ReactTabStyle extends DelegateBuilder {
             ScaledContainer(
               child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
-                color: activeColor,
+                color: item.blend ? activeColor : null,
                 size: ACTION_INNER_BUTTON_SIZE,
               ),
               curve: curve,
@@ -45,7 +45,10 @@ class ReactTabStyle extends DelegateBuilder {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          BlendImageIcon(item.icon, color: color),
+          BlendImageIcon(
+            active ? item.activeIcon ?? item.icon : item.icon,
+            color: item.blend ? color : null,
+          ),
           Text(item.title, style: TextStyle(color: color))
         ],
       ),

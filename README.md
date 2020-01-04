@@ -13,13 +13,15 @@ The official BottomAppBar can only display a notch FAB with app bar, sometimes w
 >Example can be found at [http://hacktons.cn/convex_bottom_bar](http://hacktons.cn/convex_bottom_bar)  
 *PS: Based on flutter-web and github-pages*
 
-Here are some supported tab style:
+Here are some supported style:
 
-|              fixed               |              react               |
+|            **fixed**             |            **react**             |
 | :------------------------------: | :------------------------------: |
 |    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
-|           fixedCircle            |           reactCircle            |
+|         **fixedCircle**          |         **reactCircle**          |
 | ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
+|      **gradient backgound**      |          **tab image**           |
+|   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-image.gif)     |
 
 **Install Demo** [app-release-arm64.apk](doc/app-release-arm64.apk)
 
