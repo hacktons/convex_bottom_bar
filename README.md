@@ -1,7 +1,5 @@
 ![preview](doc/preview.png)
 
-Language: [English](README.md) | [中文简体](README-zh.md)
-
 # convex_bottom_bar
 
 [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
