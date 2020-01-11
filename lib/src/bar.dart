@@ -28,27 +28,42 @@ const double ELEVATION = 2;
 
 enum TabStyle {
   /// convex shape fixed center, see [FixedTabStyle]
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-fixed.gif)
   fixed,
 
   /// convex shape is fixed center with circle, see [FixedCircleTabStyle]
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-fixed-circle.gif)
   fixedCircle,
 
   /// convex shape is moved after selection, see [ReactTabStyle]
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-react.gif)
   react,
 
   /// convex shape is moved with circle after selection, see [ReactCircleTabStyle]
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-react-circle.gif)
   reactCircle,
 
   /// tab icon, text animated with pop transition
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-textIn.gif)
   textIn,
 
   /// tab item is flipped when selected, does not support [flutter web]
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-flip.gif)
   flip,
 
   /// user defined style
   custom,
 }
 
+/// Online example can be found at http://hacktons.cn/convex_bottom_bar
+///
+/// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-theming.png)
 class ConvexAppBar extends StatefulWidget {
   /// TAB item builder
   final DelegateBuilder tabBuilder;
@@ -60,6 +75,8 @@ class ConvexAppBar extends StatefulWidget {
   final Color backgroundColor;
 
   /// If provided, backgroundColor for tab app will be ignored
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
   final Gradient gradient;
 
   /// Tab count

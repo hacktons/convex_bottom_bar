@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../bar.dart';
+import '../item.dart';
 import 'fixed_circle_tab_style.dart';
 import 'fixed_tab_style.dart';
 import 'flip_tab_style.dart';

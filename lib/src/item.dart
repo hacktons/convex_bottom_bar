@@ -4,6 +4,8 @@ class TabItem<T> {
   final String title;
 
   /// IconData or Image
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-image.gif)
   final T icon;
 
   /// Optional if not provided ,[icon] is used
