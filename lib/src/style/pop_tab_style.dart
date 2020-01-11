@@ -5,14 +5,14 @@ import '../../convex_bottom_bar.dart';
 import 'transition_container.dart';
 import 'blend_image_icon.dart';
 
-/// Convex shape is moved after selection
-class ReactTabStyle extends DelegateBuilder {
+/// tab icon, text animated with pop transition
+class PopTabStyle extends DelegateBuilder {
   final List<TabItem> items;
   final Color activeColor;
   final Color color;
   final Curve curve;
 
-  ReactTabStyle({this.items, this.activeColor, this.color, this.curve});
+  PopTabStyle({this.items, this.activeColor, this.color, this.curve});
 
   @override
   Widget build(BuildContext context, int index, bool active) {
@@ -33,24 +33,20 @@ class ReactTabStyle extends DelegateBuilder {
               ),
               curve: curve,
             ),
-            Text(item.title, style: TextStyle(color: activeColor))
+            TransitionContainer.slide(
+              child: Text(item.title, style: TextStyle(color: activeColor)),
+              curve: curve,
+            ),
           ],
         ),
       );
     }
+
     return Container(
       height: BAR_HEIGHT,
       color: Colors.transparent,
-      padding: const EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? color : null,
-          ),
-          Text(item.title, style: TextStyle(color: color))
-        ],
+      child: Center(
+        child: BlendImageIcon(item.icon, color: item.blend ? color : null),
       ),
     );
   }

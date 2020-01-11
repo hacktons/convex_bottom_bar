@@ -1,10 +1,12 @@
-import 'package:convex_bottom_bar/src/style/react_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/flip_tab_style.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'fixed_circle_tab_style.dart';
 import 'fixed_tab_style.dart';
+import 'pop_tab_style.dart';
 import 'react_circle_tab_style.dart';
+import 'react_tab_style.dart';
 
 DelegateBuilder supportedStyle(TabStyle style,
     {List<TabItem> items,
@@ -45,6 +47,22 @@ DelegateBuilder supportedStyle(TabStyle style,
         color: color,
         activeColor: activeColor,
         backgroundColor: backgroundColor,
+        curve: curve,
+      );
+      break;
+    case TabStyle.textIn:
+      builder = PopTabStyle(
+        items: items,
+        color: color,
+        activeColor: activeColor,
+        curve: curve,
+      );
+      break;
+    case TabStyle.flip:
+      builder = FlipTabStyle(
+        items: items,
+        color: color,
+        activeColor: activeColor,
         curve: curve,
       );
       break;

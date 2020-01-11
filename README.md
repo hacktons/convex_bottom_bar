@@ -20,6 +20,8 @@ Here are some supported style:
 |    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
 |         **fixedCircle**          |         **reactCircle**          |
 | ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
+|            **flip**              |            **textIn**            |
+|       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-textIn.gif)    |
 |      **gradient backgound**      |          **tab image**           |
 |   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-image.gif)     |
 
@@ -35,7 +37,7 @@ Add this to your package's pubspec.yaml file, use the [latest version](https://p
 
 ```yaml
 dependencies:
-  convex_bottom_bar: ^1.3.0
+  convex_bottom_bar: ^1.4.0
 ```
 
 ```dart

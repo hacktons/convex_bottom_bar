@@ -39,6 +39,12 @@ enum TabStyle {
   /// convex shape is moved with circle after selection, see [ReactCircleTabStyle]
   reactCircle,
 
+  /// tab icon, text animated with pop transition
+  textIn,
+
+  /// tab item is flipped when selected, does not support [flutter web]
+  flip,
+
   /// user defined style
   custom,
 }
