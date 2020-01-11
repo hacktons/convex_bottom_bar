@@ -1,4 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -21,16 +22,6 @@ class _State extends State<DefaultAppBarDemo> {
   static const INDEX_PUBLISH = 2;
   static const kStyles = [
     ChoiceValue<TabStyle>(
-      title: 'TabStyle.fixed',
-      label: 'Appbar use fixed style',
-      value: TabStyle.fixed,
-    ),
-    ChoiceValue<TabStyle>(
-      title: 'TabStyle.fixedCircle',
-      label: 'Appbar use fixedCircle style',
-      value: TabStyle.fixedCircle,
-    ),
-    ChoiceValue<TabStyle>(
       title: 'TabStyle.react',
       label: 'Appbar use react style',
       value: TabStyle.react,
@@ -39,6 +30,28 @@ class _State extends State<DefaultAppBarDemo> {
       title: 'TabStyle.reactCircle',
       label: 'Appbar use reactCircle style',
       value: TabStyle.reactCircle,
+    ),
+    ChoiceValue<TabStyle>(
+      title: kIsWeb
+          ? 'TabStyle.flip (Flutter Web is not supported)'
+          : 'TabStyle.flip',
+      label: 'Appbar use fixed style',
+      value: TabStyle.flip,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.textIn',
+      label: 'Appbar use pop style',
+      value: TabStyle.textIn,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.fixed',
+      label: 'Appbar use fixed style',
+      value: TabStyle.fixed,
+    ),
+    ChoiceValue<TabStyle>(
+      title: 'TabStyle.fixedCircle',
+      label: 'Appbar use fixedCircle style',
+      value: TabStyle.fixedCircle,
     ),
   ];
 
@@ -77,8 +90,8 @@ class _State extends State<DefaultAppBarDemo> {
       const Divider(),
       const Heading('Tab Style'),
     ];
-    options.addAll(
-        kStyles.map((s) => RadioItem<TabStyle>(s, _style, handleStyle)));
+    options.addAll(kStyles.map((s) => RadioItem<TabStyle>(
+        s, _style, s.value == TabStyle.flip && kIsWeb ? null : handleStyle)));
     options.add(const Divider());
     if (_style.value != TabStyle.fixed &&
         _style.value != TabStyle.fixedCircle) {

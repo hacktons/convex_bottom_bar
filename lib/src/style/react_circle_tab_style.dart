@@ -1,9 +1,9 @@
-import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
-import 'package:convex_bottom_bar/src/style/scaled_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
+import 'transition_container.dart';
+import 'blend_image_icon.dart';
 
 /// Convex shape is moved after selection
 class ReactCircleTabStyle extends DelegateBuilder {
@@ -29,7 +29,7 @@ class ReactCircleTabStyle extends DelegateBuilder {
       return Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          ScaledContainer(
+          TransitionContainer.scale(
             child: Container(
               width: ACTION_LAYOUT_SIZE,
               height: ACTION_LAYOUT_SIZE,

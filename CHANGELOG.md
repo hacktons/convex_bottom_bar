@@ -1,3 +1,8 @@
+## [1.4.0]
+
+* Add flip style;
+* Add textIn style;
+
 ## [1.3.1+1]
 
 * Bug fix: activate icon is not working in some style;
