@@ -24,7 +24,6 @@ class FixedCircleTabStyle extends DelegateBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
     if (index == convexIndex) {
-      debugPrint('build convex');
       final item = items[index];
       return Stack(
         alignment: Alignment.center,
@@ -51,7 +50,6 @@ class FixedCircleTabStyle extends DelegateBuilder {
     }
     var item = items[index];
     return Container(
-      color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,

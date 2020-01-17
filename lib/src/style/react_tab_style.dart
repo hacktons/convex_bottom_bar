@@ -20,7 +20,6 @@ class ReactTabStyle extends DelegateBuilder {
     if (active) {
       return Container(
         height: ACTION_LAYOUT_SIZE,
-        color: Colors.transparent,
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -40,15 +39,11 @@ class ReactTabStyle extends DelegateBuilder {
     }
     return Container(
       height: BAR_HEIGHT,
-      color: Colors.transparent,
       padding: const EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? color : null,
-          ),
+          BlendImageIcon(item.icon, color: item.blend ? color : null),
           Text(item.title, style: TextStyle(color: color))
         ],
       ),

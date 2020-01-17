@@ -34,7 +34,9 @@ class RadioItem<T> extends StatelessWidget {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    onChanged(value);
+                    if (onChanged != null) {
+                      onChanged(value);
+                    }
                   },
                   child: Text(
                     value.title,

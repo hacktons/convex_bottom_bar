@@ -52,6 +52,10 @@ enum TabStyle {
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-textIn.gif)
   textIn,
 
+  /// similar to [TabStyle.textIn], text first
+  ///
+  titled,
+
   /// tab item is flipped when selected, does not support [flutter web]
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-flip.gif)
@@ -115,7 +119,11 @@ class ConvexAppBar extends StatefulWidget {
     this.style = TabStyle.fixed,
     this.curve = Curves.easeInOut,
   })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
-        assert(items.length % 2 == 1, 'item count should be an odd number'),
+        assert(
+            ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
+                    items.length % 2 == 1) ||
+                (style != TabStyle.fixed && style != TabStyle.fixedCircle),
+            'item count should be an odd number'),
         assert(top <= 0, 'top should be negative'),
         count = items.length,
         tabBuilder = supportedStyle(
@@ -140,8 +148,7 @@ class ConvexAppBar extends StatefulWidget {
     this.elevation,
     this.style = TabStyle.custom,
     this.curve = Curves.easeInOut,
-  })  : assert(count % 2 == 1, 'item count should be an odd number'),
-        assert(top <= 0, 'top should be negative'),
+  })  : assert(top <= 0, 'top should be negative'),
         assert(builder != null, 'provide custom buidler'),
         tabBuilder = builder;
 
@@ -264,6 +271,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
       }
       children.add(Expanded(
           child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         child: widget.tabBuilder.build(context, i, _currentSelectedIndex == i),
         onTap: () {
           _onTabClick(i);

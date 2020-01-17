@@ -13,8 +13,12 @@ class TransitionContainer extends StatefulWidget {
   TransitionContainer.scale({Widget child, Curve curve, this.duration})
       : builder = ScaleBuilder(curve: curve, child: child);
 
-  TransitionContainer.slide({Widget child, Curve curve, this.duration})
-      : builder = SlideBuilder(curve: curve, child: child);
+  TransitionContainer.slide({
+    Widget child,
+    Curve curve,
+    this.duration,
+    bool reverse = false,
+  }) : builder = SlideBuilder(curve: curve, child: child, reverse: reverse);
 
   TransitionContainer.flip({
     Widget topChild,
@@ -30,19 +34,22 @@ class TransitionContainer extends StatefulWidget {
         );
 
   @override
-  State createState() {
+  _State createState() {
     return _State();
   }
 }
 
-class _State extends State<TransitionContainer>
-    with SingleTickerProviderStateMixin {
+class _State extends State<TransitionContainer> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation animation;
 
   @override
   void initState() {
     super.initState();
+    _setAnimation();
+  }
+
+  void _setAnimation() {
     animationController = AnimationController(
       vsync: this,
       duration: widget.duration ?? Duration(milliseconds: 150),
@@ -54,8 +61,13 @@ class _State extends State<TransitionContainer>
   @override
   void didUpdateWidget(TransitionContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    animationController.reset();
-    animationController.forward();
+    if (oldWidget.builder.runtimeType != widget.builder.runtimeType) {
+      animationController?.dispose();
+      _setAnimation();
+    } else {
+      animationController?.reset();
+      animationController?.forward();
+    }
   }
 
   @override

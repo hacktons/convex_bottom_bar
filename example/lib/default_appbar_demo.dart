@@ -44,6 +44,11 @@ class _State extends State<DefaultAppBarDemo> {
       value: TabStyle.textIn,
     ),
     ChoiceValue<TabStyle>(
+      title: 'TabStyle.titled',
+      label: 'Appbar use titled style',
+      value: TabStyle.titled,
+    ),
+    ChoiceValue<TabStyle>(
       title: 'TabStyle.fixed',
       label: 'Appbar use fixed style',
       value: TabStyle.fixed,
@@ -76,7 +81,6 @@ class _State extends State<DefaultAppBarDemo> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('build');
     var options = <Widget>[
       const Heading('Appbar Color'),
       ColorsItem(Data.namedColors, _babColor, _onBabColorChanged),

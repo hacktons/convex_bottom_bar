@@ -31,8 +31,9 @@ class ScaleBuilder extends TransitionContainerBuilder {
 
 class SlideBuilder extends TransitionContainerBuilder {
   Widget child;
+  final bool reverse;
 
-  SlideBuilder({Curve curve, this.child}) : super(curve);
+  SlideBuilder({Curve curve, this.child, this.reverse}) : super(curve);
 
   @override
   Widget build(Animation animation) {
@@ -42,8 +43,8 @@ class SlideBuilder extends TransitionContainerBuilder {
   @override
   Animation animation(AnimationController controller) {
     return Tween<Offset>(
-      begin: const Offset(0.0, 2.0),
-      end: Offset.zero,
+      begin: reverse ? Offset.zero : const Offset(0.0, 2.0),
+      end: reverse ? const Offset(0.0, 2.0) : Offset.zero,
     ).animate(CurvedAnimation(parent: controller, curve: curve));
   }
 }
