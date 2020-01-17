@@ -23,7 +23,6 @@ class FixedTabStyle extends DelegateBuilder {
       var item = items[convexIndex];
       return Container(
         height: ACTION_LAYOUT_SIZE,
-        color: Colors.transparent,
         padding: EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -43,7 +42,6 @@ class FixedTabStyle extends DelegateBuilder {
     }
     var item = items[index];
     return Container(
-      color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,

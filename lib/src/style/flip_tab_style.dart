@@ -26,20 +26,16 @@ class FlipTabStyle extends DelegateBuilder {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               BlendImageIcon(
-                active ? item.activeIcon ?? item.icon : item.icon,
-                color: item.blend ? (active ? activeColor : color) : null,
+                item.activeIcon ?? item.icon,
+                color: item.blend ? activeColor : null,
                 size: ACTION_INNER_BUTTON_SIZE,
               ),
-              Text(
-                item.title,
-                style: TextStyle(color: active ? activeColor : color),
-              )
+              Text(item.title, style: TextStyle(color: activeColor))
             ],
           ),
         ),
         topChild: Container(
           height: BAR_HEIGHT,
-          color: Colors.transparent,
           child: Center(
             child: BlendImageIcon(item.icon, color: item.blend ? color : null),
           ),
@@ -47,12 +43,8 @@ class FlipTabStyle extends DelegateBuilder {
         curve: curve,
       );
     }
-    return Container(
-      height: BAR_HEIGHT,
-      color: Colors.transparent,
-      child: Center(
-        child: BlendImageIcon(item.icon, color: item.blend ? color : null),
-      ),
+    return Center(
+      child: BlendImageIcon(item.icon, color: item.blend ? color : null),
     );
   }
 }

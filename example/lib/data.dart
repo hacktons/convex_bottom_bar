@@ -39,9 +39,9 @@ class Data {
 
   static const curves = [
     ChoiceValue<Curve>(
-      title: 'Curves.linear',
-      label: 'The curve linear is used',
-      value: Curves.linear,
+      title: 'Curves.bounceInOut',
+      label: 'The curve bounceInOut is used',
+      value: Curves.bounceInOut,
     ),
     ChoiceValue<Curve>(
       title: 'Curves.decelerate',
@@ -57,11 +57,6 @@ class Data {
       title: 'Curves.fastOutSlowIn',
       value: Curves.fastOutSlowIn,
       label: 'The curve fastOutSlowIn is used',
-    ),
-    ChoiceValue<Curve>(
-      title: 'Curves.slowMiddle',
-      value: Curves.slowMiddle,
-      label: 'The curve slowMiddle is used',
     ),
   ];
 

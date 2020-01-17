@@ -1,3 +1,9 @@
+
+## [1.4.1]
+
+* Add titled style;
+* Remove some redundant widget layers;
+
 ## [1.4.0]
 
 * Add flip style;
