@@ -16,12 +16,14 @@ Here are some supported style:
 |            **fixed**             |            **react**             |
 | :------------------------------: | :------------------------------: |
 |    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
-|         **fixedCircle**          |         **reactCircle**          |
+|         **fixedCircle**          |         **reactCircle**       |
 | ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
-|            **flip**              |            **textIn**            |
-|       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-textIn.gif)    |
-|      **gradient backgound**      |          **tab image**           |
-|   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-image.gif)     |
+|            **flip**              |          **titled**          |
+|       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-titled.gif)    |
+|            **textIn**            |   **tab image**          |
+| ![](doc/appbar-textIn.gif)  |    ![](doc/appbar-image.gif)    |
+|      **gradient backgound**    |      **TODO**         |
+|   ![](doc/appbar-gradient.gif)   |    ...    |
 
 **Install Demo** [app-release-arm64.apk](doc/app-release-arm64.apk)
 
@@ -78,7 +80,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | activeColor     | tab icon/text color **when selected** |
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
-| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle** |
+| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
 
 ![](doc/appbar-demo.gif)
 

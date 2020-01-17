@@ -54,6 +54,7 @@ enum TabStyle {
 
   /// similar to [TabStyle.textIn], text first
   ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-titled.gif)
   titled,
 
   /// tab item is flipped when selected, does not support [flutter web]
