@@ -8,8 +8,8 @@
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
->Example can be found at [http://hacktons.cn/convex_bottom_bar](http://hacktons.cn/convex_bottom_bar)  
-*PS: Based on flutter-web and github-pages*
+Example can be found at [http://hacktons.cn/convex_bottom_bar](http://hacktons.cn/convex_bottom_bar)  
+>Based on flutter-web and github-pages
 
 Here are some supported style:
 
@@ -22,10 +22,8 @@ Here are some supported style:
 |       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-titled.gif)    |
 |            **textIn**            |   **tab image**          |
 | ![](doc/appbar-textIn.gif)  |    ![](doc/appbar-image.gif)    |
-|      **gradient backgound**    |      **TODO**         |
-|   ![](doc/appbar-gradient.gif)   |    ...    |
-
-**Install Demo** [app-release-arm64.apk](doc/app-release-arm64.apk)
+|      **gradient backgound**    |      **badge chip**         |
+|   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
 
 ## How to use
@@ -56,6 +54,16 @@ Scaffold(
 );
 ```
 
+If you need to add badge on the tab, use `ConvexAppBar.chip` to get it done. 
+
+[![badge demo](doc/badge-demo-preview.png)](doc/badge-demo.mp4 "badge demo")
+
+```dart
+ConvexAppBar.chip({3: _badge.text}, appBar);
+```
+
+The `chip` method accept an array of badge text and an instance of `ConvexAppBar` as required arguments; Other configurations such as badgeColor is optional. 
+
 ## Table of contents
 
 - [Theming](#theming)
@@ -81,6 +89,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
 | style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
+| chipBuilder | custom badge builder, use ConvexAppBar.chip for default badge |
 
 ![](doc/appbar-demo.gif)
 

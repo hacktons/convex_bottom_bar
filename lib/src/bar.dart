@@ -162,19 +162,24 @@ class ConvexAppBar extends StatefulWidget {
         super(key: key);
 
   /// update [ConvexAppBar] with chip badge
+  ///
+  /// {@animation 1010 598 https://github.com/hacktons/convex_bottom_bar/raw/master/doc/badge-demo.mp4}
   factory ConvexAppBar.chip(Map<int, String> chips, ConvexAppBar appBar,
-      {Color badgeColor, EdgeInsets padding, double borderRadius}) {
+      {Color color,
+      Color badgeColor,
+      EdgeInsets padding,
+      double borderRadius}) {
     assert(appBar != null, 'appBar should not be null');
     DefaultChipBuilder chipBuilder;
     if (chips != null && chips.isNotEmpty) {
       chipBuilder = DefaultChipBuilder(
         chips,
+        color: color,
         badgeColor: badgeColor,
         padding: padding,
         borderRadius: borderRadius,
       );
     }
-    debugPrint('key => ${appBar.key}');
     return ConvexAppBar.builder(
       key: appBar.key,
       builder: appBar.tabBuilder,

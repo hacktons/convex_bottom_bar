@@ -8,12 +8,14 @@ abstract class ChipBuilder {
 /// Simple badge with num inside
 class DefaultChipBuilder extends ChipBuilder {
   final Map<int, String> chips;
+  final Color color;
   final Color badgeColor;
   final EdgeInsets padding;
   final double borderRadius;
 
   DefaultChipBuilder(
     this.chips, {
+    this.color,
     this.badgeColor,
     this.padding,
     this.borderRadius,
@@ -37,7 +39,8 @@ class DefaultChipBuilder extends ChipBuilder {
             type: MaterialType.card,
             color: badgeColor ?? Colors.redAccent,
             child: Padding(
-              child: Text(chip, style: TextStyle(color: Colors.white, fontSize: 12)),
+              child: Text(chip,
+                  style: TextStyle(color: color ?? Colors.white, fontSize: 12)),
               padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             ),
           ),
