@@ -56,7 +56,7 @@ Scaffold(
 
 If you need to add badge on the tab, use `ConvexAppBar.chip` to get it done. 
 
-[![badge demo](doc/badge-demo-preview.png)](doc/badge-demo.mp4 "badge demo")
+[![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
 ```dart
 ConvexAppBar.chip({3: _badge.text}, appBar);
