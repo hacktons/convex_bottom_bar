@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import 'components/chip_item.dart';
+import 'components/choose_tab_item.dart';
 import 'components/colors_item.dart';
 import 'components/gradient_item.dart';
 import 'components/heading.dart';
 import 'components/radio_item.dart';
 import 'data.dart';
+import 'model/badge.dart';
 import 'model/choice_value.dart';
 
 class DefaultAppBarDemo extends StatefulWidget {
@@ -35,12 +38,12 @@ class _State extends State<DefaultAppBarDemo> {
       title: kIsWeb
           ? 'TabStyle.flip (Flutter Web is not supported)'
           : 'TabStyle.flip',
-      label: 'Appbar use fixed style',
+      label: 'Appbar use flip style',
       value: TabStyle.flip,
     ),
     ChoiceValue<TabStyle>(
       title: 'TabStyle.textIn',
-      label: 'Appbar use pop style',
+      label: 'Appbar use textIn style',
       value: TabStyle.textIn,
     ),
     ChoiceValue<TabStyle>(
@@ -60,51 +63,56 @@ class _State extends State<DefaultAppBarDemo> {
     ),
   ];
 
-  static final kTabItem = [
+  static final kTabTypes = [
     ChoiceValue<List<TabItem>>(
       title: 'Icon Tab',
-      label: 'Appbar use Icon as Tab',
+      label: 'Appbar use icon with Tab',
       value: Data.items(image: false),
     ),
     ChoiceValue<List<TabItem>>(
       title: 'Image Tab',
-      label: 'Appbar use Image as Tab',
+      label: 'Appbar use image with Tab',
       value: Data.items(image: true),
     ),
   ];
-  var _tabItems = kTabItem.first;
+  var _tabItems = kTabTypes.first;
 
   ChoiceValue<TabStyle> _style = kStyles.first;
   ChoiceValue<Curve> _curve = Data.curves.first;
   Color _babColor = Data.namedColors.first.color;
   Gradient _gradient = Data.gradients.first;
+  Badge _badge;
 
   @override
   Widget build(BuildContext context) {
     var options = <Widget>[
       const Heading('Appbar Color'),
-      ColorsItem(Data.namedColors, _babColor, _onBabColorChanged),
-      const Divider(),
+      ColorsItem(Data.namedColors, _babColor, _onBarColorChanged),
       const Heading('Background Gradient'),
       GradientItem(Data.gradients, _gradient, _onGradientChanged),
-      const Divider(),
-      const Heading('Tab Item'),
-      RadioItem<List<TabItem>>(kTabItem[0], _tabItems, handleTabItem),
-      RadioItem<List<TabItem>>(kTabItem[1], _tabItems, handleTabItem),
-      const Divider(),
+      const Heading('Badge Chip'),
+      ChipItem(Data.badges, _badge, _onBadgeChanged),
+      const Heading('Tab Type'),
+      ChooseTabItem(kTabTypes, _tabItems, _onTabItemTypeChanged),
       const Heading('Tab Style'),
     ];
-    options.addAll(kStyles.map((s) => RadioItem<TabStyle>(
-        s, _style, s.value == TabStyle.flip && kIsWeb ? null : handleStyle)));
-    options.add(const Divider());
+    options.addAll(kStyles.map((s) => RadioItem<TabStyle>(s, _style,
+        s.value == TabStyle.flip && kIsWeb ? null : _onStyleChanged)));
     if (_style.value != TabStyle.fixed &&
         _style.value != TabStyle.fixedCircle) {
       options.add(const Heading('Animation Curve'));
       options.addAll(
-          Data.curves.map((c) => RadioItem<Curve>(c, _curve, handleCurve)));
-      options.add(const Divider());
+          Data.curves.map((c) => RadioItem<Curve>(c, _curve, _onCurveChanged)));
     }
 
+    var appBar = ConvexAppBar(
+      items: _tabItems.value,
+      style: _style.value,
+      curve: _curve.value,
+      backgroundColor: _babColor,
+      gradient: _gradient,
+      onTap: (int i) => debugPrint('select index=$i'),
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Default ConvexAppBar'),
@@ -119,36 +127,37 @@ class _State extends State<DefaultAppBarDemo> {
         ],
       ),
       body: ListView(children: options),
-      bottomNavigationBar: ConvexAppBar(
-        items: _tabItems.value,
-        style: _style.value,
-        curve: _curve.value,
-        backgroundColor: _babColor,
-        gradient: _gradient,
-        onTap: (int i) => debugPrint('select index=$i'),
-      ),
+      bottomNavigationBar: _badge == null
+          ? appBar
+          : ConvexAppBar.chip(
+              {3: _badge.text},
+              appBar,
+              padding: _badge.padding,
+              badgeColor: _badge.badgeColor,
+              borderRadius: _badge.borderRadius,
+            ),
     );
   }
 
-  void handleTabItem(ChoiceValue<List<TabItem>> value) {
+  void _onTabItemTypeChanged(ChoiceValue<List<TabItem>> value) {
     setState(() {
       _tabItems = value;
     });
   }
 
-  void handleStyle(ChoiceValue<TabStyle> value) {
+  void _onStyleChanged(ChoiceValue<TabStyle> value) {
     setState(() {
       _style = value;
     });
   }
 
-  void handleCurve(ChoiceValue<Curve> value) {
+  void _onCurveChanged(ChoiceValue<Curve> value) {
     setState(() {
       _curve = value;
     });
   }
 
-  void _onBabColorChanged(Color value) {
+  void _onBarColorChanged(Color value) {
     setState(() {
       _babColor = value;
     });
@@ -157,6 +166,12 @@ class _State extends State<DefaultAppBarDemo> {
   void _onGradientChanged(Gradient value) {
     setState(() {
       _gradient = value;
+    });
+  }
+
+  void _onBadgeChanged(Badge value) {
+    setState(() {
+      _badge = value;
     });
   }
 }

@@ -1,7 +1,8 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
+import 'model/badge.dart';
 import 'model/choice_value.dart';
 import 'model/named_color.dart';
 
@@ -35,6 +36,13 @@ class Data {
     NamedColor(Color(0xFF009688), 'Green'),
     NamedColor(Color(0xFFFFC107), 'Yellow'),
     NamedColor(Color(0xFF607D8B), 'Grey'),
+  ];
+  static const badges = [
+    null,
+    Badge('1'),
+    Badge('hot',
+        badgeColor: Colors.orange, padding: EdgeInsets.only(left: 7, right: 7)),
+    Badge('99+', borderRadius: 2)
   ];
 
   static const curves = [

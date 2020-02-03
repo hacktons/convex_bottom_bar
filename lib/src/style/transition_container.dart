@@ -65,8 +65,9 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       animationController?.dispose();
       _setAnimation();
     } else {
-      animationController?.reset();
-      animationController?.forward();
+//      debugPrint('update transition container ${toString()}');
+//      animationController?.reset();
+//      animationController?.forward();
     }
   }
 
