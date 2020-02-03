@@ -37,7 +37,7 @@ class DefaultChipBuilder extends ChipBuilder {
             type: MaterialType.card,
             color: badgeColor ?? Colors.redAccent,
             child: Padding(
-              child: Text(chip, style: TextStyle(color: Colors.white)),
+              child: Text(chip, style: TextStyle(color: Colors.white, fontSize: 12)),
               padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             ),
           ),

@@ -1,6 +1,6 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 import 'model/badge.dart';
 import 'model/choice_value.dart';
@@ -40,7 +40,7 @@ class Data {
   static const badges = [
     null,
     Badge('1'),
-    Badge('20',
+    Badge('hot',
         badgeColor: Colors.orange, padding: EdgeInsets.only(left: 7, right: 7)),
     Badge('99+', borderRadius: 2)
   ];

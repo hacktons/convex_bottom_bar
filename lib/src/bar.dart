@@ -138,7 +138,8 @@ class ConvexAppBar extends StatefulWidget {
           activeColor: activeColor,
           backgroundColor: backgroundColor,
           curve: curve,
-        );
+        ),
+        super(key: key);
 
   /// define a custom tab style by implement a [DelegateBuilder]
   ConvexAppBar.builder({
@@ -157,7 +158,8 @@ class ConvexAppBar extends StatefulWidget {
     this.chipBuilder,
   })  : assert(top <= 0, 'top should be negative'),
         assert(builder != null, 'provide custom buidler'),
-        tabBuilder = builder;
+        tabBuilder = builder,
+        super(key: key);
 
   /// update [ConvexAppBar] with chip badge
   factory ConvexAppBar.chip(Map<int, String> chips, ConvexAppBar appBar,
@@ -172,6 +174,7 @@ class ConvexAppBar extends StatefulWidget {
         borderRadius: borderRadius,
       );
     }
+    debugPrint('key => ${appBar.key}');
     return ConvexAppBar.builder(
       key: appBar.key,
       builder: appBar.tabBuilder,

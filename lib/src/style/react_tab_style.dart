@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
-import 'transition_container.dart';
 import 'blend_image_icon.dart';
+import 'transition_container.dart';
 
 /// Convex shape is moved after selection
 class ReactTabStyle extends DelegateBuilder {
