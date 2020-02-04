@@ -183,10 +183,13 @@ class ConvexAppBar extends StatefulWidget {
   ///
   /// {@animation 1010 598 https://github.com/hacktons/convex_bottom_bar/raw/master/doc/badge-demo.mp4}
   ///
+  /// [badge] is map with tab items, the value of entry can be either [String],
+  /// [IconData], [Color] or [Widget].
+  ///
   /// {@tool sample}
   ///
   /// ```dart
-  /// ConvexAppBar.chip(
+  /// ConvexAppBar.badge(
   ///   {3: '99+'},
   ///   items: [
   ///     TabItem(title: 'Tab A', icon: Icons.add),
@@ -196,8 +199,8 @@ class ConvexAppBar extends StatefulWidget {
   /// )
   /// ```
   /// {@end-tool}
-  factory ConvexAppBar.chip(
-    Map<int, String> chips, {
+  factory ConvexAppBar.badge(
+    Map<int, dynamic> badge, {
     Key key,
     // config for badge
     Color badgeTextColor,
@@ -219,10 +222,10 @@ class ConvexAppBar extends StatefulWidget {
     Curve curve,
   }) {
     DefaultChipBuilder chipBuilder;
-    if (chips != null && chips.isNotEmpty) {
+    if (badge != null && badge.isNotEmpty) {
       chipBuilder = DefaultChipBuilder(
-        chips,
-        color: badgeTextColor,
+        badge,
+        textColor: badgeTextColor,
         badgeColor: badgeColor,
         padding: badgePadding,
         borderRadius: badgeBorderRadius,

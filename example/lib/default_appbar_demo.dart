@@ -128,8 +128,8 @@ class _State extends State<DefaultAppBarDemo> {
               gradient: _gradient,
               onTap: (int i) => debugPrint('select index=$i'),
             )
-          : ConvexAppBar.chip(
-              {3: _badge.text},
+          : ConvexAppBar.badge(
+              {3: _badge.text, 4: Icons.android, 2: Colors.redAccent},
               badgePadding: _badge.padding,
               badgeColor: _badge.badgeColor,
               badgeBorderRadius: _badge.borderRadius,
