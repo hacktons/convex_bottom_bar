@@ -43,7 +43,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 Scaffold(
   bottomNavigationBar: ConvexAppBar(
-    [
+    items: [
       TabItem(icon: Icons.home, title: 'Home'),
       TabItem(icon: Icons.map, title: 'Discovery'),
       TabItem(icon: Icons.add, title: 'Add'),
@@ -60,17 +60,9 @@ Scaffold(
 );
 ```
 
-If you need to add badge on the tab, use `ConvexAppBar.chip` to get it done. 
-
-[![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
-
-```dart
-ConvexAppBar.chip({3: _badge.text}, appBar);
-```
-
-The `chip` method accept an array of badge text and an instance of `ConvexAppBar` as required arguments; Other configurations such as badgeColor is optional. 
-
 ## Table of contents
+
+- [Badge](#badge)
 
 - [Theming](#theming)
 
@@ -79,6 +71,17 @@ The `chip` method accept an array of badge text and an instance of `ConvexAppBar
 - [Contribution](#contribution)
 
 - [Help](#help)
+
+## Badge
+If you need to add badge on the tab, use `ConvexAppBar.chip` to get it done. 
+
+[![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
+
+```dart
+ConvexAppBar.chip({3: '99+', 4: Icons.assistant_photo, 2: Colors.redAccent});
+```
+
+The `chip` method accept an array of badge; The `badge` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
 
 ## Theming
 The bar will use default style, you may want to theme it. Here are some supported attributes:

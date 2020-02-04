@@ -129,7 +129,7 @@ class _State extends State<DefaultAppBarDemo> {
               onTap: (int i) => debugPrint('select index=$i'),
             )
           : ConvexAppBar.badge(
-              {3: _badge.text, 4: Icons.android, 2: Colors.redAccent},
+              {3: _badge.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
               badgePadding: _badge.padding,
               badgeColor: _badge.badgeColor,
               badgeBorderRadius: _badge.borderRadius,
