@@ -47,10 +47,10 @@ class _State extends State<CustomAppBarDemo> {
       appBar: AppBar(title: const Text('Custom ConvexAppBar')),
       body: paletteBody(),
       bottomNavigationBar: ConvexAppBar.builder(
+        itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
         count: items.length,
         backgroundColor: _tabBackgroundColor,
         style: TabStyle.fixed,
-        builder: _CustomBuilder(items, _tabBackgroundColor),
       ),
     );
   }
@@ -102,22 +102,16 @@ class _CustomBuilder extends DelegateBuilder {
     var _color = active ? Colors.white : Colors.white60;
 
     if (index == items.length ~/ 2) {
-      return Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 60,
-            height: 60,
-            child: Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, color: _color),
-              child: Icon(
-                Icons.add,
-                size: 40,
-                color: _tabBackgroundColor,
-              ),
-            ),
-          )
-        ],
+      return Container(
+        width: 60,
+        height: 60,
+        margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: _color),
+        child: Icon(
+          Icons.add,
+          size: 40,
+          color: _tabBackgroundColor,
+        ),
       );
     }
     var _icon = active

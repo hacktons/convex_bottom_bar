@@ -7,10 +7,14 @@ import 'transition_container_builder.dart';
 class TransitionContainer extends StatefulWidget {
   final TransitionContainerBuilder builder;
   final Duration duration;
+  final bool disableAnimateWhenUpdate;
 
-  TransitionContainer({this.builder, this.duration}) : assert(builder != null);
+  TransitionContainer(
+      {this.builder, this.duration, this.disableAnimateWhenUpdate})
+      : assert(builder != null);
 
-  TransitionContainer.scale({Widget child, Curve curve, this.duration})
+  TransitionContainer.scale(
+      {Widget child, Curve curve, this.duration, this.disableAnimateWhenUpdate})
       : builder = ScaleBuilder(curve: curve, child: child);
 
   TransitionContainer.slide({
@@ -18,6 +22,7 @@ class TransitionContainer extends StatefulWidget {
     Curve curve,
     this.duration,
     bool reverse = false,
+    this.disableAnimateWhenUpdate,
   }) : builder = SlideBuilder(curve: curve, child: child, reverse: reverse);
 
   TransitionContainer.flip({
@@ -26,6 +31,7 @@ class TransitionContainer extends StatefulWidget {
     Curve curve,
     double height,
     this.duration,
+    this.disableAnimateWhenUpdate,
   }) : builder = FlipBuilder(
           height,
           curve: curve,
@@ -65,15 +71,18 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       animationController?.dispose();
       _setAnimation();
     } else {
-//      debugPrint('update transition container ${toString()}');
-//      animationController?.reset();
-//      animationController?.forward();
+      debugPrint('update transition container ${toString()}');
+      if (widget.disableAnimateWhenUpdate == true) {
+        return;
+      }
+      animationController?.reset();
+      animationController?.forward();
     }
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    animationController?.dispose();
     super.dispose();
   }
 

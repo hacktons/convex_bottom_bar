@@ -1,10 +1,10 @@
 import 'dart:math' as math;
 
-import 'package:convex_bottom_bar/src/chip_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'chip_builder.dart';
 import 'item.dart';
 import 'painter.dart';
 import 'style/fixed_circle_tab_style.dart';
@@ -72,7 +72,7 @@ enum TabStyle {
 /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-theming.png)
 class ConvexAppBar extends StatefulWidget {
   /// TAB item builder
-  final DelegateBuilder tabBuilder;
+  final DelegateBuilder itemBuilder;
 
   final ChipBuilder chipBuilder;
 
@@ -108,91 +108,143 @@ class ConvexAppBar extends StatefulWidget {
   /// The curve to use in the forward direction. Only works when tab style is not fixed.
   final Curve curve;
 
+  /// Construct a new appbar with internal style
+  ///
+  /// {@tool sample}
+  ///
+  /// ```dart
+  /// ConvexAppBar(
+  ///   items: [
+  ///     TabItem(title: 'Tab A', icon: Icons.add),
+  ///     TabItem(title: 'Tab B', icon: Icons.near_me),
+  ///     TabItem(title: 'Tab C', icon: Icons.web),
+  ///   ],
+  /// )
+  /// ```
+  /// {@end-tool}
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
-    this.onTap,
-    Color color = Colors.white60,
-    Color activeColor = Colors.white,
-    this.backgroundColor = Colors.blue,
-    this.gradient,
-    this.height,
-    this.curveSize,
-    this.top = CURVE_TOP,
-    this.elevation,
-    this.style = TabStyle.fixed,
-    this.curve = Curves.easeInOut,
-    this.chipBuilder,
-  })  : assert(items != null && items.isNotEmpty, 'items should not be empty'),
-        assert(
-            ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
-                    items.length % 2 == 1) ||
-                (style != TabStyle.fixed && style != TabStyle.fixedCircle),
-            'item count should be an odd number'),
-        assert(top <= 0, 'top should be negative'),
-        count = items.length,
-        tabBuilder = supportedStyle(
-          style,
-          items: items,
-          color: color,
-          activeColor: activeColor,
-          backgroundColor: backgroundColor,
+    GestureTapIndexCallback onTap,
+    Color color,
+    Color activeColor,
+    Color backgroundColor,
+    Gradient gradient,
+    double height,
+    double curveSize,
+    double top,
+    double elevation,
+    TabStyle style = TabStyle.reactCircle,
+    Curve curve = Curves.easeInOut,
+    ChipBuilder chipBuilder,
+  }) : this.builder(
+          key: key,
+          itemBuilder: supportedStyle(
+            style,
+            items: items,
+            color: color ?? Colors.white60,
+            activeColor: activeColor ?? Colors.white,
+            backgroundColor: backgroundColor ?? Colors.blue,
+            curve: curve,
+          ),
+          onTap: onTap,
+          backgroundColor: backgroundColor ?? Colors.blue,
+          count: items.length,
+          gradient: gradient,
+          height: height,
+          curveSize: curveSize,
+          top: top,
+          elevation: elevation,
+          style: style,
           curve: curve,
-        ),
-        super(key: key);
+          chipBuilder: chipBuilder,
+        );
 
   /// define a custom tab style by implement a [DelegateBuilder]
-  ConvexAppBar.builder({
+  const ConvexAppBar.builder({
     Key key,
-    @required DelegateBuilder builder,
+    @required this.itemBuilder,
     @required this.count,
     this.onTap,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor,
     this.gradient,
     this.height,
     this.curveSize,
-    this.top = CURVE_TOP,
+    this.top,
     this.elevation,
-    this.style = TabStyle.custom,
+    this.style = TabStyle.reactCircle,
     this.curve = Curves.easeInOut,
     this.chipBuilder,
-  })  : assert(top <= 0, 'top should be negative'),
-        assert(builder != null, 'provide custom buidler'),
-        tabBuilder = builder,
+  })  : assert(top == null || top <= 0, 'top should be negative'),
+        assert(itemBuilder != null, 'provide custom buidler'),
         super(key: key);
 
-  /// update [ConvexAppBar] with chip badge
+  /// Construct a new appbar with badge
   ///
   /// {@animation 1010 598 https://github.com/hacktons/convex_bottom_bar/raw/master/doc/badge-demo.mp4}
-  factory ConvexAppBar.chip(Map<int, String> chips, ConvexAppBar appBar,
-      {Color color,
-      Color badgeColor,
-      EdgeInsets padding,
-      double borderRadius}) {
-    assert(appBar != null, 'appBar should not be null');
+  ///
+  /// [badge] is map with tab items, the value of entry can be either [String],
+  /// [IconData], [Color] or [Widget].
+  ///
+  /// {@tool sample}
+  ///
+  /// ```dart
+  /// ConvexAppBar.badge(
+  ///   {3: '99+'},
+  ///   items: [
+  ///     TabItem(title: 'Tab A', icon: Icons.add),
+  ///     TabItem(title: 'Tab B', icon: Icons.near_me),
+  ///     TabItem(title: 'Tab C', icon: Icons.web),
+  ///   ],
+  /// )
+  /// ```
+  /// {@end-tool}
+  factory ConvexAppBar.badge(
+    Map<int, dynamic> badge, {
+    Key key,
+    // config for badge
+    Color badgeTextColor,
+    Color badgeColor,
+    EdgeInsets badgePadding,
+    double badgeBorderRadius,
+    // parameter for appbar
+    List<TabItem> items,
+    GestureTapIndexCallback onTap,
+    Color color,
+    Color activeColor,
+    Color backgroundColor,
+    Gradient gradient,
+    double height,
+    double curveSize,
+    double top,
+    double elevation,
+    TabStyle style,
+    Curve curve,
+  }) {
     DefaultChipBuilder chipBuilder;
-    if (chips != null && chips.isNotEmpty) {
+    if (badge != null && badge.isNotEmpty) {
       chipBuilder = DefaultChipBuilder(
-        chips,
-        color: color,
+        badge,
+        textColor: badgeTextColor,
         badgeColor: badgeColor,
-        padding: padding,
-        borderRadius: borderRadius,
+        padding: badgePadding,
+        borderRadius: badgeBorderRadius,
       );
     }
-    return ConvexAppBar.builder(
-      key: appBar.key,
-      builder: appBar.tabBuilder,
-      count: appBar.count,
-      onTap: appBar.onTap,
-      backgroundColor: appBar.backgroundColor,
-      gradient: appBar.gradient,
-      height: appBar.height,
-      curveSize: appBar.curveSize,
-      top: appBar.top,
-      elevation: appBar.elevation,
-      style: appBar.style,
-      curve: appBar.curve,
+    return ConvexAppBar(
+      items: items,
+      key: key,
+      onTap: onTap,
+      color: color,
+      activeColor: activeColor,
+      backgroundColor: backgroundColor,
+      gradient: gradient,
+      height: height,
+      curveSize: curveSize,
+      top: top,
+      elevation: elevation,
+      style: style,
+      curve: curve,
       chipBuilder: chipBuilder,
     );
   }
@@ -270,10 +322,10 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
           width: MediaQuery.of(context).size.width,
           child: CustomPaint(
             painter: ConvexPainter(
-              top: widget.top,
+              top: widget.top ?? CURVE_TOP,
               width: widget.curveSize ?? CONVEX_SIZE,
               height: widget.curveSize ?? CONVEX_SIZE,
-              color: widget.backgroundColor,
+              color: widget.backgroundColor ?? Colors.blue,
               gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: isFixed()
@@ -290,7 +342,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
               widthFactor: 1 / widget.count,
               alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
               child: GestureDetector(
-                child: widget.tabBuilder.build(context, convexIndex, active),
+                child: _newTab(convexIndex, active),
                 onTap: () {
                   _onTabClick(convexIndex);
                   setState(() {
@@ -303,7 +355,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     );
   }
 
-  bool isFixed() => widget.tabBuilder.fixed();
+  bool isFixed() => widget.itemBuilder.fixed();
 
   Widget barContent(double paddingBottom) {
     List<Widget> children = [];
@@ -315,14 +367,10 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
         continue;
       }
       var active = _currentSelectedIndex == i;
-      var child = widget.tabBuilder.build(context, i, active);
-      if (widget.chipBuilder != null) {
-        child = widget.chipBuilder.build(context, child, i, active);
-      }
+      Widget child = _newTab(i, active);
       children.add(Expanded(
           child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-//        child: widget.tabBuilder.build(context, i, _currentSelectedIndex == i),
         child: child,
         onTap: () {
           _onTabClick(i);
@@ -342,6 +390,14 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
         children: children,
       ),
     );
+  }
+
+  Widget _newTab(int i, bool active) {
+    var child = widget.itemBuilder.build(context, i, active);
+    if (widget.chipBuilder != null) {
+      child = widget.chipBuilder.build(context, child, i, active);
+    }
+    return child;
   }
 
   void _onTabClick(int i) {

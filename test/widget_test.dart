@@ -38,12 +38,12 @@ void main() {
   testWidgets('TabStyle.reactCircle, selected tab has no text',
       (WidgetTester tester) async {
     await tester.pumpWidget(material(ConvexAppBar(
-      style: TabStyle.reactCircle,
       items: [
         TabItem(title: 'Tab A', icon: Icons.add),
         TabItem(title: 'Tab B', icon: Icons.near_me),
         TabItem(title: 'Tab C', icon: Icons.web),
       ],
+      style: TabStyle.reactCircle,
     )));
     expect(find.byIcon(Icons.add), findsOneWidget);
     expect(find.text('Tab A'), findsNothing);
@@ -62,12 +62,12 @@ void main() {
     await tester.pumpWidget(
       material(
         ConvexAppBar(
-          style: TabStyle.textIn,
           items: [
             TabItem(title: 'Tab A', icon: Icons.add),
             TabItem(title: 'Tab B', icon: Icons.near_me),
             TabItem(title: 'Tab C', icon: Icons.web),
           ],
+          style: TabStyle.textIn,
         ),
       ),
       Duration(milliseconds: 300),

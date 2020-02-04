@@ -13,6 +13,7 @@ class FixedCircleTabStyle extends DelegateBuilder {
   final Color color;
   final Color backgroundColor;
   final int convexIndex;
+  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   FixedCircleTabStyle(
       {this.items,
@@ -25,27 +26,19 @@ class FixedCircleTabStyle extends DelegateBuilder {
   Widget build(BuildContext context, int index, bool active) {
     if (index == convexIndex) {
       final item = items[index];
-      return Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: ACTION_LAYOUT_SIZE,
-            height: ACTION_LAYOUT_SIZE,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: active ? activeColor : color,
-              ),
-              padding: EdgeInsets.all(
-                  (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 2),
-              child: BlendImageIcon(
-                active ? item.activeIcon ?? item.icon : item.icon,
-                size: ACTION_INNER_BUTTON_SIZE,
-                color: item.blend ? backgroundColor : null,
-              ),
-            ),
-          )
-        ],
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: active ? activeColor : color,
+        ),
+        width: ACTION_LAYOUT_SIZE,
+        height: ACTION_LAYOUT_SIZE,
+        margin: EdgeInsets.all(margin),
+        child: BlendImageIcon(
+          active ? item.activeIcon ?? item.icon : item.icon,
+          size: ACTION_INNER_BUTTON_SIZE,
+          color: item.blend ? backgroundColor : null,
+        ),
       );
     }
     var item = items[index];
