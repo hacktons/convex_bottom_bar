@@ -31,17 +31,21 @@ class DefaultChipBuilder extends ChipBuilder {
       alignment: Alignment.center,
       children: <Widget>[
         child,
-        Padding(
-          padding: EdgeInsets.only(left: 20, bottom: 20),
-          child: Material(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 20)),
-            type: MaterialType.card,
-            color: badgeColor ?? Colors.redAccent,
-            child: Padding(
-              child: Text(chip,
-                  style: TextStyle(color: color ?? Colors.white, fontSize: 12)),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: EdgeInsets.only(top: 10, right: 10),
               padding: padding ?? EdgeInsets.only(left: 4, right: 4),
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: badgeColor ?? Colors.redAccent,
+                borderRadius: BorderRadius.circular(borderRadius ?? 20),
+              ),
+              child: Text(
+                chip,
+                style: TextStyle(color: color ?? Colors.white, fontSize: 12),
+              ),
             ),
           ),
         ),

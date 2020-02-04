@@ -339,7 +339,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
               widthFactor: 1 / widget.count,
               alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
               child: GestureDetector(
-                child: widget.itemBuilder.build(context, convexIndex, active),
+                child: _newTab(convexIndex, active),
                 onTap: () {
                   _onTabClick(convexIndex);
                   setState(() {
@@ -364,10 +364,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
         continue;
       }
       var active = _currentSelectedIndex == i;
-      var child = widget.itemBuilder.build(context, i, active);
-      if (widget.chipBuilder != null) {
-        child = widget.chipBuilder.build(context, child, i, active);
-      }
+      Widget child = _newTab(i, active);
       children.add(Expanded(
           child: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -390,6 +387,14 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
         children: children,
       ),
     );
+  }
+
+  Widget _newTab(int i, bool active) {
+    var child = widget.itemBuilder.build(context, i, active);
+    if (widget.chipBuilder != null) {
+      child = widget.chipBuilder.build(context, child, i, active);
+    }
+    return child;
   }
 
   void _onTabClick(int i) {
