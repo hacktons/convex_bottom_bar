@@ -19,6 +19,6 @@ if [ ! $? = 0 ]; then
   die "build failed"
 fi
 if [ -d "build/web/" ]; then
-  cp -rf build/web/* ../docs/
+  cp -rf build/web ../web
   echo "done"
 fi

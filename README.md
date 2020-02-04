@@ -43,7 +43,13 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 Scaffold(
   bottomNavigationBar: ConvexAppBar(
-    items: TAB_ITEMS,
+    [
+      TabItem(icon: Icons.home, title: 'Home'),
+      TabItem(icon: Icons.map, title: 'Discovery'),
+      TabItem(icon: Icons.add, title: 'Add'),
+      TabItem(icon: Icons.message, title: 'Message'),
+      TabItem(icon: Icons.people, title: 'Profile'),
+    ],
     style: _style.value,
     curve: _curve.value,
     backgroundColor: _babColor,
@@ -103,7 +109,7 @@ Scaffold(
     count: items.length,
     backgroundColor: _tabBackgroundColor,
     style: TabStyle.fixed,
-    builder: _CustomBuilder(items, _tabBackgroundColor),
+    itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
   )
 );
 ```

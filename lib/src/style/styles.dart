@@ -1,4 +1,3 @@
-import 'package:convex_bottom_bar/src/style/titled_tab_style.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../bar.dart';
@@ -6,16 +5,25 @@ import '../item.dart';
 import 'fixed_circle_tab_style.dart';
 import 'fixed_tab_style.dart';
 import 'flip_tab_style.dart';
-import 'textin_tab_style.dart';
 import 'react_circle_tab_style.dart';
 import 'react_tab_style.dart';
+import 'textin_tab_style.dart';
+import 'titled_tab_style.dart';
 
-DelegateBuilder supportedStyle(TabStyle style,
-    {List<TabItem> items,
-    Color color,
-    Color activeColor,
-    Color backgroundColor,
-    Curve curve}) {
+DelegateBuilder supportedStyle(
+  TabStyle style, {
+  @required List<TabItem> items,
+  Color color,
+  Color activeColor,
+  Color backgroundColor,
+  Curve curve,
+}) {
+  assert(items != null && items.isNotEmpty, 'items should not be empty');
+  assert(
+      ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
+              items.length.isOdd) ||
+          (style != TabStyle.fixed && style != TabStyle.fixedCircle),
+      'item count should be an odd number');
   DelegateBuilder builder;
   switch (style) {
     case TabStyle.fixed:
@@ -78,11 +86,12 @@ DelegateBuilder supportedStyle(TabStyle style,
       );
       break;
     default:
-      builder = FixedTabStyle(
+      builder = ReactCircleTabStyle(
         items: items,
         color: color,
         activeColor: activeColor,
-        convexIndex: items.length ~/ 2,
+        backgroundColor: backgroundColor,
+        curve: curve,
       );
       break;
   }

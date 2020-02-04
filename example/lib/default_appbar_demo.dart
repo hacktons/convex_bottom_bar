@@ -105,14 +105,6 @@ class _State extends State<DefaultAppBarDemo> {
           Data.curves.map((c) => RadioItem<Curve>(c, _curve, _onCurveChanged)));
     }
 
-    var appBar = ConvexAppBar(
-      items: _tabItems.value,
-      style: _style.value,
-      curve: _curve.value,
-      backgroundColor: _babColor,
-      gradient: _gradient,
-      onTap: (int i) => debugPrint('select index=$i'),
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Default ConvexAppBar'),
@@ -128,13 +120,25 @@ class _State extends State<DefaultAppBarDemo> {
       ),
       body: ListView(children: options),
       bottomNavigationBar: _badge == null
-          ? appBar
+          ? ConvexAppBar(
+              items: _tabItems.value,
+              style: _style.value,
+              curve: _curve.value,
+              backgroundColor: _babColor,
+              gradient: _gradient,
+              onTap: (int i) => debugPrint('select index=$i'),
+            )
           : ConvexAppBar.chip(
               {3: _badge.text},
-              appBar,
-              padding: _badge.padding,
+              badgePadding: _badge.padding,
               badgeColor: _badge.badgeColor,
-              borderRadius: _badge.borderRadius,
+              badgeBorderRadius: _badge.borderRadius,
+              items: _tabItems.value,
+              style: _style.value,
+              curve: _curve.value,
+              backgroundColor: _babColor,
+              gradient: _gradient,
+              onTap: (int i) => debugPrint('select index=$i'),
             ),
     );
   }

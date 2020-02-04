@@ -47,10 +47,10 @@ class _State extends State<CustomAppBarDemo> {
       appBar: AppBar(title: const Text('Custom ConvexAppBar')),
       body: paletteBody(),
       bottomNavigationBar: ConvexAppBar.builder(
+        itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
         count: items.length,
         backgroundColor: _tabBackgroundColor,
         style: TabStyle.fixed,
-        builder: _CustomBuilder(items, _tabBackgroundColor),
       ),
     );
   }
