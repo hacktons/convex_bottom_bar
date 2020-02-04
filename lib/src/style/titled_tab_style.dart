@@ -13,7 +13,7 @@ class TitledTabStyle extends DelegateBuilder {
   final Curve curve;
   final Color backgroundColor;
   int preActivate = -1;
-  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 2;
+  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   TitledTabStyle({
     this.items,

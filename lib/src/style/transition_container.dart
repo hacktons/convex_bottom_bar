@@ -82,7 +82,7 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    animationController.dispose();
+    animationController?.dispose();
     super.dispose();
   }
 

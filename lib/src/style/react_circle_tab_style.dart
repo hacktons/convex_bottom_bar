@@ -12,7 +12,7 @@ class ReactCircleTabStyle extends DelegateBuilder {
   final Color color;
   final Color backgroundColor;
   final Curve curve;
-  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 2;
+  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   ReactCircleTabStyle({
     this.items,

@@ -102,22 +102,16 @@ class _CustomBuilder extends DelegateBuilder {
     var _color = active ? Colors.white : Colors.white60;
 
     if (index == items.length ~/ 2) {
-      return Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 60,
-            height: 60,
-            child: Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, color: _color),
-              child: Icon(
-                Icons.add,
-                size: 40,
-                color: _tabBackgroundColor,
-              ),
-            ),
-          )
-        ],
+      return Container(
+        width: 60,
+        height: 60,
+        margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: _color),
+        child: Icon(
+          Icons.add,
+          size: 40,
+          color: _tabBackgroundColor,
+        ),
       );
     }
     var _icon = active
