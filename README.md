@@ -31,11 +31,11 @@ Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBa
 
 The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default style to simplify the tab creation.
 
-Add this to your package's pubspec.yaml file, use the [latest version](https://pub.dev/packages/convex_bottom_bar#-installing-tab-):
+Add this to your package's pubspec.yaml file, use the latest version [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar):
 
 ```yaml
 dependencies:
-  convex_bottom_bar: ^1.4.0
+  convex_bottom_bar: ^latest_version
 ```
 
 ```dart
