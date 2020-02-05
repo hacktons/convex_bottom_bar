@@ -23,6 +23,7 @@ void main() {
         TabItem(title: 'Tab B', icon: Icons.near_me),
         TabItem(title: 'Tab C', icon: Icons.web),
       ],
+      style: TabStyle.fixed,
     )));
     final tabAText = find.text('Tab A');
     final tabBText = find.text('Tab B');
@@ -95,6 +96,93 @@ void main() {
     expect(find.byIcon(Icons.web), findsOneWidget);
     expect(find.text('Tab C'), findsNothing);
   });
+
+  testWidgets('All TabStyle', (WidgetTester tester) async {
+    for (var s in [
+      TabStyle.fixed,
+      TabStyle.fixedCircle,
+      TabStyle.react,
+      TabStyle.reactCircle,
+      TabStyle.textIn,
+      TabStyle.titled,
+      TabStyle.flip
+    ]) {
+      await tester.pumpWidget(
+        material(
+          ConvexAppBar(
+            items: [
+              TabItem(title: 'Tab A', icon: Icons.add),
+              TabItem(title: 'Tab B', icon: Icons.near_me),
+              TabItem(title: 'Tab C', icon: Icons.web),
+            ],
+            style: s,
+          ),
+        ),
+        Duration(milliseconds: 300),
+      );
+      await tester.tap(find.byIcon(Icons.near_me).first);
+      await tester.tap(find.byIcon(Icons.near_me).first);
+      await tester.pumpAndSettle(Duration(milliseconds: 300));
+    }
+  });
+
+  testWidgets('Add dadge on AppBar', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      material(
+        ConvexAppBar.badge(
+          {
+            0: '1',
+            1: 'hot',
+            2: Colors.redAccent,
+            3: Icons.add,
+            4: Text('new'),
+            5: 0,
+          },
+          items: [
+            TabItem(title: 'Tab A', icon: Icons.add),
+            TabItem(title: 'Tab B', icon: Icons.near_me),
+            TabItem(title: 'Tab C', icon: Icons.web),
+            TabItem(title: 'Tab D', icon: Icons.new_releases),
+            TabItem(title: 'Tab E', icon: Container(width: 60, height: 60)),
+          ],
+          style: TabStyle.textIn,
+        ),
+      ),
+      Duration(milliseconds: 300),
+    );
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('hot'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.near_me));
+    await tester.pumpAndSettle(Duration(milliseconds: 300));
+  });
+
+  testWidgets('make appbar with builder', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      material(
+        ConvexAppBar.builder(
+          itemBuilder: Builder(),
+          count: 3,
+          top: -20,
+          onTap: (i) {
+            assert(i == 1);
+          },
+        ),
+      ),
+      Duration(milliseconds: 300),
+    );
+    expect(find.text('TAB 0'), findsOneWidget);
+    expect(find.text('TAB 1'), findsOneWidget);
+    await tester.tap(find.text('TAB 1'));
+    await tester.tap(find.text('TAB 1'));
+    await tester.pumpAndSettle(Duration(milliseconds: 300));
+  });
+}
+
+class Builder extends DelegateBuilder {
+  @override
+  Widget build(BuildContext context, int index, bool active) {
+    return Text('TAB $index');
+  }
 }
 
 Widget material(Widget widget) {
