@@ -1,3 +1,8 @@
+## [2.0.0]
+
+* Support badge on tab item;
+* Constructor update, rename the builder;
+* Bug fix;
 
 ## [1.4.1]
 
