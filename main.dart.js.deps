@@ -610,6 +610,8 @@ file:///Users/aven/Android/flutter/packages/flutter/lib/widgets.dart
 file:///Users/aven/work/convex_bottom_bar/example/.dart_tool/flutter_build/c60501128bb0a1f1eb3f9a42f488b299/main.dart
 file:///Users/aven/work/convex_bottom_bar/example/.packages
 file:///Users/aven/work/convex_bottom_bar/example/lib/color_item_view.dart
+file:///Users/aven/work/convex_bottom_bar/example/lib/components/chip_item.dart
+file:///Users/aven/work/convex_bottom_bar/example/lib/components/choose_tab_item.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/components/colors_item.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/components/gradient_item.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/components/heading.dart
@@ -618,10 +620,12 @@ file:///Users/aven/work/convex_bottom_bar/example/lib/custom_appbar_sample.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/data.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/default_appbar_demo.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/main.dart
+file:///Users/aven/work/convex_bottom_bar/example/lib/model/badge.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/model/choice_value.dart
 file:///Users/aven/work/convex_bottom_bar/example/lib/model/named_color.dart
 file:///Users/aven/work/convex_bottom_bar/lib/convex_bottom_bar.dart
 file:///Users/aven/work/convex_bottom_bar/lib/src/bar.dart
+file:///Users/aven/work/convex_bottom_bar/lib/src/chip_builder.dart
 file:///Users/aven/work/convex_bottom_bar/lib/src/convex_shape.dart
 file:///Users/aven/work/convex_bottom_bar/lib/src/item.dart
 file:///Users/aven/work/convex_bottom_bar/lib/src/painter.dart
