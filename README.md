@@ -5,11 +5,11 @@
 [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
 [![github](https://img.shields.io/badge/platform-flutter-ff69b4.svg)](https://github.com/hacktons/convex_bottom_bar)
 [![Codemagic build status](https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg)](https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build)
+[![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
-Example can be found at [http://hacktons.cn/convex_bottom_bar](http://hacktons.cn/convex_bottom_bar)  
->Based on flutter-web and github-pages
+Online example can be found at [https://appbar.codemagic.app](https://appbar.codemagic.app).
 
 Here are some supported style:
 
