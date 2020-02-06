@@ -1,24 +1,66 @@
 #!/usr/bin/env bash
 ##################################################################
 ##
-##  Build and generate the example for github pages
+##  Publish package ti pub.dev
 ##
+##  1. Run test case
+##  2. Run code coverage
+##  3. Analyze package scores
+##  4. Local publish --dry-run
+##  5. Deploy to pub.dev
 ##
 ##  Author: Chaobin Wu
 ##  Email : chaobinwu89@gmail.com
 ##
 #################################################################
+error() {
+  echo -e "\033[1m[Deploy]\033[0m \033[31m$*\033[0m"
+}
+info() {
+  echo -e "\033[1m[Deploy]\033[0m \033[32m$*\033[0m"
+}
+warning() {
+  echo -e "\033[1m[Deploy]\033[0m \033[33m$*\033[0m"
+}
+
 die() {
-  echo "$*"
+  error "$*"
   exit 1
 }
 
-cd example
-flutter pub get && flutter build web
+confirm() {
+  read -p "Enter y to continue, otherwise terminate: " input
+  if [[ $input != 'y' ]] ; then
+    die "Workflow terminated"
+  fi
+}
+
+info "Start process workflow"
+info "Step 1 Run test case with code coverage"
+
+flutter pub get
+flutter test --coverage && genhtml coverage/lcov.info --output=coverage
 if [ ! $? = 0 ]; then
-  die "build failed"
+  die "Test failed"
 fi
-if [ -d "build/web/" ]; then
-  cp -rf build/web ../web
-  echo "done"
+
+info "Step 2 Review code coverage report"
+open coverage/index.html
+
+confirm
+
+info "Step 3 Generate score with pana"
+pana --scores --source path ./
+info "Review the score"
+confirm
+
+info "Step 4 Run publish --dry-run"
+flutter pub publish --dry-run
+confirm
+
+info "Step 5 Publish to pub.dev"
+flutter pub publish
+if [ ! $? = 0 ]; then
+  die "Test failed"
 fi
+info "Done!"
