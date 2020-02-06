@@ -50,12 +50,7 @@ Scaffold(
       TabItem(icon: Icons.message, title: 'Message'),
       TabItem(icon: Icons.people, title: 'Profile'),
     ],
-    style: _style.value,
-    curve: _curve.value,
-    backgroundColor: _babColor,
-    onTap: (int i) => setState(() {
-      _selectedIndex = i;
-    }),
+    onTap: (int i) => print('click index=$i'),
   )
 );
 ```
@@ -73,15 +68,22 @@ Scaffold(
 - [Help](#help)
 
 ## Badge
-If you need to add badge on the tab, use `ConvexAppBar.chip` to get it done. 
+If you need to add badge on the tab, use `ConvexAppBar.badge` to get it done. 
 
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
 ```dart
-ConvexAppBar.chip({3: '99+', 4: Icons.assistant_photo, 2: Colors.redAccent});
+ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
+  items: [
+    TabItem(icon: Icons.home, title: 'Home'),
+    TabItem(icon: Icons.map, title: 'Discovery'),
+    TabItem(icon: Icons.add, title: 'Add'),
+  ],
+  onTap: (int i) => print('click index=$i'),
+);
 ```
 
-The `chip` method accept an array of badge; The `badge` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
+The `badge()` method accept an array of badges; The `badges` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
 
 ## Theming
 The bar will use default style, you may want to theme it. Here are some supported attributes:
@@ -98,7 +100,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
 | style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
-| chipBuilder | custom badge builder, use ConvexAppBar.chip for default badge |
+| chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
 
 ![](doc/appbar-demo.gif)
 
@@ -109,13 +111,24 @@ If the default style does not match with your situation， try with `ConvexAppBa
 ```dart
 Scaffold(
   bottomNavigationBar: ConvexAppBar.builder(
-    count: items.length,
-    backgroundColor: _tabBackgroundColor,
+    count: 5,
+    backgroundColor: Colors.blue,
     style: TabStyle.fixed,
-    itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
+    itemBuilder: Builder(),
   )
 );
+
+/*user defined class*/
+class Builder extends DelegateBuilder {
+  @override
+  Widget build(BuildContext context, int index, bool active) {
+    return Text('TAB $index');
+  }
+}
 ```
+
+Full custom example can be found at [example](example). 
+
 ## FAQ
 
 * [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)

@@ -1,3 +1,9 @@
+## [2.0.1]
+
+* Update usage instructions in README.md；
+* Add new test cases to improve the code coverage;
+* Bug fix;
+
 ## [2.0.0]
 
 * Support badge on tab item;
