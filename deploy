@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ##################################################################
 ##
-##  Publish package ti pub.dev
+##  Publish package to pub.dev
 ##
 ##  1. Run test case
 ##  2. Run code coverage
@@ -13,14 +13,16 @@
 ##  Email : chaobinwu89@gmail.com
 ##
 #################################################################
+
+tag='[Deploy]'
 error() {
-  echo -e "\033[1m[Deploy]\033[0m \033[31m$*\033[0m"
+  echo -e "\033[1m$tag\033[0m \033[31m$*\033[0m"
 }
 info() {
-  echo -e "\033[1m[Deploy]\033[0m \033[32m$*\033[0m"
+  echo -e "\033[1m$tag\033[0m \033[32m$*\033[0m"
 }
 warning() {
-  echo -e "\033[1m[Deploy]\033[0m \033[33m$*\033[0m"
+  echo -e "\033[1m$tag\033[0m \033[33m$*\033[0m"
 }
 
 die() {
@@ -35,6 +37,20 @@ confirm() {
   fi
 }
 
+# $1 = # of seconds
+# $@ = What to print before "in n seconds"
+countdown() {
+  secs=$1
+  shift
+  msg=$@
+  while [ $secs -gt 0 ]
+  do
+    printf "\r\033[K$msg in %.d seconds" $((secs--))
+    sleep 1
+  done
+  echo
+}
+
 info "Start process workflow"
 info "Step 1 Run test case with code coverage"
 
@@ -45,6 +61,7 @@ if [ ! $? = 0 ]; then
 fi
 
 info "Step 2 Review code coverage report"
+countdown 5 "Will open browser"
 open coverage/index.html
 
 confirm
