@@ -122,6 +122,7 @@ class _State extends State<DefaultAppBarDemo> {
       bottomNavigationBar: _badge == null
           ? ConvexAppBar(
               items: _tabItems.value,
+              initialActiveIndex: 2,
               style: _style.value,
               curve: _curve.value,
               backgroundColor: _babColor,

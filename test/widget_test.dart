@@ -23,6 +23,7 @@ void main() {
         TabItem(title: 'Tab B', icon: Icons.near_me),
         TabItem(title: 'Tab C', icon: Icons.web),
       ],
+      initialActiveIndex: 2,
       style: TabStyle.fixed,
     )));
     final tabAText = find.text('Tab A');
@@ -175,6 +176,21 @@ void main() {
     await tester.tap(find.text('TAB 1'));
     await tester.tap(find.text('TAB 1'));
     await tester.pumpAndSettle(Duration(milliseconds: 300));
+  });
+
+  test('test invalid builder', () {
+    try {
+      ConvexAppBar.builder(
+        itemBuilder: null,
+        count: 3,
+        top: -20,
+        onTap: (i) {
+          assert(i == 1);
+        },
+      );
+    } catch (e) {
+      assert(true, e.toString().contains('provide custom buidler'));
+    }
   });
 }
 
