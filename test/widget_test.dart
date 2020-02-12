@@ -1,4 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -190,6 +191,21 @@ void main() {
       );
     } catch (e) {
       assert(true, e.toString().contains('provide custom buidler'));
+    }
+  });
+  test('test invalid initialActiveIndex', () {
+    try {
+      ConvexAppBar.builder(
+        itemBuilder: null,
+        count: 3,
+        initialActiveIndex: 3,
+        top: -20,
+        onTap: (i) {
+          assert(i == 1);
+        },
+      );
+    } catch (e) {
+      assert(true, e.toString().contains('initial index should'));
     }
   });
 }
