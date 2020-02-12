@@ -1,3 +1,7 @@
+## [2.0.2]
+
+* Add new config parameter for initial active index;
+
 ## [2.0.1]
 
 * Update usage instructions in README.md；
