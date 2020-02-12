@@ -87,6 +87,9 @@ class ConvexAppBar extends StatefulWidget {
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
   final Gradient gradient;
 
+  /// The initial active index, default as 0 if not provided;
+  final int initialActiveIndex;
+
   /// Tab count
   final int count;
 
@@ -125,6 +128,7 @@ class ConvexAppBar extends StatefulWidget {
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
+    int initialActiveIndex,
     GestureTapIndexCallback onTap,
     Color color,
     Color activeColor,
@@ -150,6 +154,7 @@ class ConvexAppBar extends StatefulWidget {
           onTap: onTap,
           backgroundColor: backgroundColor ?? Colors.blue,
           count: items.length,
+          initialActiveIndex: initialActiveIndex,
           gradient: gradient,
           height: height,
           curveSize: curveSize,
@@ -165,6 +170,7 @@ class ConvexAppBar extends StatefulWidget {
     Key key,
     @required this.itemBuilder,
     @required this.count,
+    this.initialActiveIndex,
     this.onTap,
     this.backgroundColor,
     this.gradient,
@@ -177,6 +183,8 @@ class ConvexAppBar extends StatefulWidget {
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(itemBuilder != null, 'provide custom buidler'),
+        assert(initialActiveIndex == null || initialActiveIndex < count,
+            'initial index should < $count'),
         super(key: key);
 
   /// Construct a new appbar with badge
@@ -209,6 +217,7 @@ class ConvexAppBar extends StatefulWidget {
     double badgeBorderRadius,
     // parameter for appbar
     List<TabItem> items,
+    int initialActiveIndex,
     GestureTapIndexCallback onTap,
     Color color,
     Color activeColor,
@@ -232,8 +241,9 @@ class ConvexAppBar extends StatefulWidget {
       );
     }
     return ConvexAppBar(
-      items: items,
       key: key,
+      items: items,
+      initialActiveIndex: initialActiveIndex,
       onTap: onTap,
       color: color,
       activeColor: activeColor,
@@ -267,12 +277,13 @@ abstract class DelegateBuilder {
 }
 
 class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
-  int _currentSelectedIndex = 0;
+  int _currentSelectedIndex;
   Animation<double> _animation;
   AnimationController _controller;
 
   @override
   void initState() {
+    _currentSelectedIndex = widget.initialActiveIndex ?? 0;
     if (!isFixed()) {
       _initAnimation();
     }
@@ -283,7 +294,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     if (from != null && (from == to)) {
       return _animation;
     }
-    from ??= 0;
+    from ??= widget.initialActiveIndex ?? 0;
     to ??= from;
     var lower = (2 * from + 1) / (2 * widget.count);
     var upper = (2 * to + 1) / (2 * widget.count);
