@@ -1,3 +1,7 @@
+## [2.0.3]
+
+* Fix hitTest for active tab;
+
 ## [2.0.2]
 
 * Add new config parameter for initial active index;
