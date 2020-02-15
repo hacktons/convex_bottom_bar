@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'chip_builder.dart';
 import 'item.dart';
 import 'painter.dart';
+import 'stack.dart' as extend;
 import 'style/fixed_circle_tab_style.dart';
 import 'style/fixed_tab_style.dart';
 import 'style/react_circle_tab_style.dart';
@@ -324,7 +325,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     var halfSize = widget.count ~/ 2;
     final convexIndex = isFixed() ? halfSize : _currentSelectedIndex;
     final active = isFixed() ? convexIndex == _currentSelectedIndex : true;
-    return Stack(
+    return extend.Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
