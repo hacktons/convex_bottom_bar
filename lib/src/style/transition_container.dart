@@ -71,7 +71,6 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       animationController?.dispose();
       _setAnimation();
     } else {
-      debugPrint('update transition container ${toString()}');
       if (widget.disableAnimateWhenUpdate == true) {
         return;
       }

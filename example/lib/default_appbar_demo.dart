@@ -21,7 +21,8 @@ class DefaultAppBarDemo extends StatefulWidget {
   }
 }
 
-class _State extends State<DefaultAppBarDemo> {
+class _State extends State<DefaultAppBarDemo>
+    with SingleTickerProviderStateMixin {
   static const INDEX_PUBLISH = 2;
   static const kStyles = [
     ChoiceValue<TabStyle>(
@@ -79,15 +80,22 @@ class _State extends State<DefaultAppBarDemo> {
 
   ChoiceValue<TabStyle> _style = kStyles.first;
   ChoiceValue<Curve> _curve = Data.curves.first;
-  Color _babColor = Data.namedColors.first.color;
+  Color _barColor = Data.namedColors.first.color;
   Gradient _gradient = Data.gradients.first;
   Badge _badge;
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: _tabItems.value.length, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     var options = <Widget>[
       const Heading('Appbar Color'),
-      ColorsItem(Data.namedColors, _babColor, _onBarColorChanged),
+      ColorsItem(Data.namedColors, _barColor, _onBarColorChanged),
       const Heading('Background Gradient'),
       GradientItem(Data.gradients, _gradient, _onGradientChanged),
       const Heading('Badge Chip'),
@@ -108,7 +116,7 @@ class _State extends State<DefaultAppBarDemo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Default ConvexAppBar'),
-        backgroundColor: _babColor,
+        backgroundColor: _barColor,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.style),
@@ -118,15 +126,25 @@ class _State extends State<DefaultAppBarDemo> {
           )
         ],
       ),
-      body: ListView(children: options),
+      body: TabBarView(
+          controller: _tabController,
+          children: _tabItems.value
+              .map((i) => i.title == 'Home' || i.title == 'Happy'
+                  ? ListView(children: options)
+                  : Center(
+                      child: Text(
+                      '${i.title}',
+                      style: Theme.of(context).textTheme.display1,
+                    )))
+              .toList(growable: false)),
       bottomNavigationBar: _badge == null
           ? ConvexAppBar(
               items: _tabItems.value,
-              initialActiveIndex: 2,
               style: _style.value,
               curve: _curve.value,
-              backgroundColor: _babColor,
+              backgroundColor: _barColor,
               gradient: _gradient,
+              controller: _tabController,
               onTap: (int i) => debugPrint('select index=$i'),
             )
           : ConvexAppBar.badge(
@@ -137,8 +155,9 @@ class _State extends State<DefaultAppBarDemo> {
               items: _tabItems.value,
               style: _style.value,
               curve: _curve.value,
-              backgroundColor: _babColor,
+              backgroundColor: _barColor,
               gradient: _gradient,
+              controller: _tabController,
               onTap: (int i) => debugPrint('select index=$i'),
             ),
     );
@@ -164,7 +183,7 @@ class _State extends State<DefaultAppBarDemo> {
 
   void _onBarColorChanged(Color value) {
     setState(() {
-      _babColor = value;
+      _barColor = value;
     });
   }
 
