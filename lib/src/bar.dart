@@ -269,8 +269,8 @@ class ConvexAppBar extends StatefulWidget {
   }
 
   @override
-  _State createState() {
-    return _State();
+  ConvexAppBarState createState() {
+    return ConvexAppBarState();
   }
 }
 
@@ -285,7 +285,7 @@ abstract class DelegateBuilder {
   }
 }
 
-class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
+class ConvexAppBarState extends State<ConvexAppBar> with TickerProviderStateMixin {
   int _currentIndex;
   Animation<double> _animation;
   AnimationController _controller;
@@ -304,11 +304,11 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
       return;
     }
     if (_tabController.index != _currentIndex) {
-      _warpToCurrentIndex(_tabController.index);
+      animateTo(_tabController.index);
     }
   }
 
-  Future<void> _warpToCurrentIndex(int index) async {
+  Future<void> animateTo(int index) async {
     _initAnimation(from: _currentIndex, to: index);
     _controller?.forward();
     setState(() {
@@ -461,7 +461,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
   }
 
   void _onTabClick(int i) {
-    _warpToCurrentIndex(i);
+    animateTo(i);
     _tabController?.index = i;
     if (widget.onTap != null) {
       widget.onTap(i);
