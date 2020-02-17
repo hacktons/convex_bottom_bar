@@ -80,6 +80,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Tab Click handler
   final GestureTapIndexCallback onTap;
 
+  /// Tab controller to work with [TabBarView] or [PageView]
+  final TabController tabController;
+
   /// Color of the AppBar
   final Color backgroundColor;
 
@@ -88,7 +91,7 @@ class ConvexAppBar extends StatefulWidget {
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
   final Gradient gradient;
 
-  /// The initial active index, default as 0 if not provided;
+  /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView];
   final int initialActiveIndex;
 
   /// Tab count
@@ -131,6 +134,7 @@ class ConvexAppBar extends StatefulWidget {
     @required List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
+    TabController tabController,
     Color color,
     Color activeColor,
     Color backgroundColor,
@@ -153,6 +157,7 @@ class ConvexAppBar extends StatefulWidget {
             curve: curve ?? Curves.easeInOut,
           ),
           onTap: onTap,
+          tabController: tabController,
           backgroundColor: backgroundColor ?? Colors.blue,
           count: items.length,
           initialActiveIndex: initialActiveIndex,
@@ -173,6 +178,7 @@ class ConvexAppBar extends StatefulWidget {
     @required this.count,
     this.initialActiveIndex,
     this.onTap,
+    this.tabController,
     this.backgroundColor,
     this.gradient,
     this.height,
@@ -220,6 +226,7 @@ class ConvexAppBar extends StatefulWidget {
     List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
+    TabController tabController,
     Color color,
     Color activeColor,
     Color backgroundColor,
@@ -246,6 +253,7 @@ class ConvexAppBar extends StatefulWidget {
       items: items,
       initialActiveIndex: initialActiveIndex,
       onTap: onTap,
+      tabController: tabController,
       color: color,
       activeColor: activeColor,
       backgroundColor: backgroundColor,
@@ -278,17 +286,46 @@ abstract class DelegateBuilder {
 }
 
 class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
-  int _currentSelectedIndex;
+  int _currentIndex;
   Animation<double> _animation;
   AnimationController _controller;
+  TabController _tabController;
 
   @override
   void initState() {
-    _currentSelectedIndex = widget.initialActiveIndex ?? 0;
+    super.initState();
+    _updateTabController();
+    _currentIndex = widget.initialActiveIndex ?? _tabController?.index ?? 0;
+
+    /// When both ConvexAppBar and TabController are configured with initial index, there can be conflict;
+    /// We use ConvexAppBar's value;
+    if (widget.initialActiveIndex != null &&
+        _tabController != null &&
+        widget.initialActiveIndex != _tabController.index) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _tabController.index = _currentIndex;
+      });
+    }
     if (!isFixed()) {
       _initAnimation();
     }
-    super.initState();
+  }
+
+  void _handleTabControllerAnimationTick({bool force = false}) {
+    if (!force && _tabController.indexIsChanging) {
+      return;
+    }
+    if (_tabController.index != _currentIndex) {
+      _warpToCurrentIndex(_tabController.index);
+    }
+  }
+
+  Future<void> _warpToCurrentIndex(int index) async {
+    _initAnimation(from: _currentIndex, to: index);
+    _controller?.forward();
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   Animation<double> _initAnimation({int from, int to}) {
@@ -317,14 +354,36 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  _updateTabController() {
+    final TabController newController =
+        widget.tabController ?? DefaultTabController.of(context);
+    _tabController?.removeListener(_handleTabControllerAnimationTick);
+    _tabController = newController;
+    _tabController?.addListener(_handleTabControllerAnimationTick);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateTabController();
+  }
+
+  @override
+  void didUpdateWidget(ConvexAppBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.tabController != oldWidget.tabController) {
+      _updateTabController();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // take care of iPhoneX' safe area at bottom edge
     final double additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
     var halfSize = widget.count ~/ 2;
-    final convexIndex = isFixed() ? halfSize : _currentSelectedIndex;
-    final active = isFixed() ? convexIndex == _currentSelectedIndex : true;
+    final convexIndex = isFixed() ? halfSize : _currentIndex;
+    final active = isFixed() ? convexIndex == _currentIndex : true;
     return extend.Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
@@ -346,7 +405,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
             ),
           ),
         ),
-        barContent(additionalBottomPadding),
+        _barContent(additionalBottomPadding),
         Positioned.fill(
           top: widget.top,
           bottom: additionalBottomPadding,
@@ -355,12 +414,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
               alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
               child: GestureDetector(
                 child: _newTab(convexIndex, active),
-                onTap: () {
-                  _onTabClick(convexIndex);
-                  setState(() {
-                    _currentSelectedIndex = convexIndex;
-                  });
-                },
+                onTap: () => _onTabClick(convexIndex),
               )),
         ),
       ],
@@ -369,27 +423,22 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
 
   bool isFixed() => widget.itemBuilder.fixed();
 
-  Widget barContent(double paddingBottom) {
+  Widget _barContent(double paddingBottom) {
     List<Widget> children = [];
     // add placeholder Widget
-    var curveTabIndex = isFixed() ? widget.count ~/ 2 : _currentSelectedIndex;
+    var curveTabIndex = isFixed() ? widget.count ~/ 2 : _currentIndex;
     for (var i = 0; i < widget.count; i++) {
       if (i == curveTabIndex) {
         children.add(Expanded(child: Container()));
         continue;
       }
-      var active = _currentSelectedIndex == i;
+      var active = _currentIndex == i;
       Widget child = _newTab(i, active);
       children.add(Expanded(
           child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         child: child,
-        onTap: () {
-          _onTabClick(i);
-          setState(() {
-            _currentSelectedIndex = i;
-          });
-        },
+        onTap: () => _onTabClick(i),
       )));
     }
 
@@ -413,8 +462,8 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
   }
 
   void _onTabClick(int i) {
-    _initAnimation(from: _currentSelectedIndex, to: i);
-    _controller?.forward();
+    _warpToCurrentIndex(i);
+    _tabController?.index = i;
     if (widget.onTap != null) {
       widget.onTap(i);
     }

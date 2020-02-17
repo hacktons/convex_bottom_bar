@@ -10,7 +10,8 @@ class CustomAppBarDemo extends StatefulWidget {
   }
 }
 
-class _State extends State<CustomAppBarDemo> {
+class _State extends State<CustomAppBarDemo>
+    with SingleTickerProviderStateMixin {
   List<TabItem> items = <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
@@ -40,15 +41,36 @@ class _State extends State<CustomAppBarDemo> {
     Color(0xFF607D8B),
   ];
   Color _tabBackgroundColor = paletteColors[5];
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController =
+        TabController(initialIndex: 2, length: items.length, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Custom ConvexAppBar')),
-      body: paletteBody(),
+      body: TabBarView(
+        controller: _tabController,
+        children: items
+            .map((i) => i.title == 'Discovery'
+                ? paletteBody()
+                : Center(
+                    child: Text(
+                    '<\t\t${i.title}\t\t>',
+                    style: Theme.of(context).textTheme.display1,
+                  )))
+            .toList(growable: false),
+      ),
       bottomNavigationBar: ConvexAppBar.builder(
         itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
         count: items.length,
+        tabController: _tabController,
+        initialActiveIndex: 1,
         backgroundColor: _tabBackgroundColor,
         style: TabStyle.fixed,
       ),

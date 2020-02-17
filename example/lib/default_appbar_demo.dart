@@ -21,7 +21,8 @@ class DefaultAppBarDemo extends StatefulWidget {
   }
 }
 
-class _State extends State<DefaultAppBarDemo> {
+class _State extends State<DefaultAppBarDemo>
+    with SingleTickerProviderStateMixin {
   static const INDEX_PUBLISH = 2;
   static const kStyles = [
     ChoiceValue<TabStyle>(
@@ -82,6 +83,13 @@ class _State extends State<DefaultAppBarDemo> {
   Color _babColor = Data.namedColors.first.color;
   Gradient _gradient = Data.gradients.first;
   Badge _badge;
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: _tabItems.value.length, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,15 +126,27 @@ class _State extends State<DefaultAppBarDemo> {
           )
         ],
       ),
-      body: ListView(children: options),
+      body: TabBarView(
+          controller: _tabController,
+          children: _tabItems.value
+              .map((i) => i.title == 'Home'
+                  ? ListView(
+                      children: options,
+                    )
+                  : Center(
+                      child: Text(
+                      '${i.title}',
+                      style: Theme.of(context).textTheme.display1,
+                    )))
+              .toList(growable: false)),
       bottomNavigationBar: _badge == null
           ? ConvexAppBar(
               items: _tabItems.value,
-              initialActiveIndex: 2,
               style: _style.value,
               curve: _curve.value,
               backgroundColor: _babColor,
               gradient: _gradient,
+              tabController: _tabController,
               onTap: (int i) => debugPrint('select index=$i'),
             )
           : ConvexAppBar.badge(
@@ -139,6 +159,7 @@ class _State extends State<DefaultAppBarDemo> {
               curve: _curve.value,
               backgroundColor: _babColor,
               gradient: _gradient,
+              tabController: _tabController,
               onTap: (int i) => debugPrint('select index=$i'),
             ),
     );
