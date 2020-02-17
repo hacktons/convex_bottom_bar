@@ -81,7 +81,7 @@ class ConvexAppBar extends StatefulWidget {
   final GestureTapIndexCallback onTap;
 
   /// Tab controller to work with [TabBarView] or [PageView]
-  final TabController tabController;
+  final TabController controller;
 
   /// Color of the AppBar
   final Color backgroundColor;
@@ -134,7 +134,7 @@ class ConvexAppBar extends StatefulWidget {
     @required List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
-    TabController tabController,
+    TabController controller,
     Color color,
     Color activeColor,
     Color backgroundColor,
@@ -157,7 +157,7 @@ class ConvexAppBar extends StatefulWidget {
             curve: curve ?? Curves.easeInOut,
           ),
           onTap: onTap,
-          tabController: tabController,
+          controller: controller,
           backgroundColor: backgroundColor ?? Colors.blue,
           count: items.length,
           initialActiveIndex: initialActiveIndex,
@@ -178,7 +178,7 @@ class ConvexAppBar extends StatefulWidget {
     @required this.count,
     this.initialActiveIndex,
     this.onTap,
-    this.tabController,
+    this.controller,
     this.backgroundColor,
     this.gradient,
     this.height,
@@ -226,7 +226,7 @@ class ConvexAppBar extends StatefulWidget {
     List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
-    TabController tabController,
+    TabController controller,
     Color color,
     Color activeColor,
     Color backgroundColor,
@@ -253,7 +253,7 @@ class ConvexAppBar extends StatefulWidget {
       items: items,
       initialActiveIndex: initialActiveIndex,
       onTap: onTap,
-      tabController: tabController,
+      controller: controller,
       color: color,
       activeColor: activeColor,
       backgroundColor: backgroundColor,
@@ -344,7 +344,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
 
   _updateTabController() {
     final TabController newController =
-        widget.tabController ?? DefaultTabController.of(context);
+        widget.controller ?? DefaultTabController.of(context);
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
@@ -370,7 +370,7 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(ConvexAppBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.tabController != oldWidget.tabController) {
+    if (widget.controller != oldWidget.controller) {
       _updateTabController();
     }
   }
