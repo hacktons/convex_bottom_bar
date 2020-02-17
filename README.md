@@ -132,6 +132,7 @@ Full custom example can be found at [example](example).
 
 ## FAQ
 
+* [Change active tab index programmaticlly](doc/issue-change-active-tab-index.md)
 * [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
 * [Is there anyway to remove elevation in the bottom bar?](doc/issue-remove-elevation.md) 
 
