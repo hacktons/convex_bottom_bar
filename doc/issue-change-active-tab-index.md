@@ -15,7 +15,7 @@ The TabBarView use PageView internal, both support swipe gesture to change curre
 
 ConvexAppBar can work with `TabController` similar with `TabBar`;
 
-Inorder to change the index of tab item, config the AppBar with instance of `TabController`; To simplify the code, you can use `DefaultTabController`:
+In order to change the index of tab item, config the AppBar with instance of `TabController`; To simplify the code, you can use `DefaultTabController`:
 
 **Example 1**  
 ```dart
@@ -43,6 +43,6 @@ DefaultTabController(
         .map((i) => Center(child: Text('$i')))
         .toList(growable: false),
   ),
-  bottomNavigationBar: ConvexAppBar(tabController: _tabController/* some config*/),
+  bottomNavigationBar: ConvexAppBar(controller: _tabController/* some config*/),
 );
 ``` 
