@@ -129,7 +129,7 @@ class _State extends State<DefaultAppBarDemo>
       body: TabBarView(
           controller: _tabController,
           children: _tabItems.value
-              .map((i) => i.title == 'Home'
+              .map((i) => i.title == 'Home' || i.title == 'Happy'
                   ? ListView(
                       children: options,
                     )

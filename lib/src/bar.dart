@@ -294,18 +294,6 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _updateTabController();
-    _currentIndex = widget.initialActiveIndex ?? _tabController?.index ?? 0;
-
-    /// When both ConvexAppBar and TabController are configured with initial index, there can be conflict;
-    /// We use ConvexAppBar's value;
-    if (widget.initialActiveIndex != null &&
-        _tabController != null &&
-        widget.initialActiveIndex != _tabController.index) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _tabController.index = _currentIndex;
-      });
-    }
     if (!isFixed()) {
       _initAnimation();
     }
@@ -360,12 +348,23 @@ class _State extends State<ConvexAppBar> with TickerProviderStateMixin {
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
+    _currentIndex = widget.initialActiveIndex ?? _tabController?.index ?? 0;
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _updateTabController();
+
+    /// When both ConvexAppBar and TabController are configured with initial index, there can be conflict;
+    /// We use ConvexAppBar's value;
+    if (widget.initialActiveIndex != null &&
+        _tabController != null &&
+        widget.initialActiveIndex != _tabController.index) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _tabController.index = _currentIndex;
+      });
+    }
   }
 
   @override
