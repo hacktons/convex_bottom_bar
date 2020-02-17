@@ -1,3 +1,8 @@
+## [2.1.0-beta]
+
+* Add controller for Appbar to change tab index programmaticlly;
+* Support with framework's DefaultTabController and TabController;
+
 ## [2.0.3]
 
 * Fix hitTest for active tab;
