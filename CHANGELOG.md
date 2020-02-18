@@ -1,7 +1,8 @@
-## [2.1.0-beta]
+## [2.1.0-beta+1]
 
 * Add controller for Appbar to change tab index programmaticlly;
 * Support with framework's DefaultTabController and TabController;
+* Enable access to the ConvexAppBarState;
 
 ## [2.0.3]
 

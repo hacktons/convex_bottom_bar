@@ -46,3 +46,15 @@ DefaultTabController(
   bottomNavigationBar: ConvexAppBar(controller: _tabController/* some config*/),
 );
 ``` 
+## The raw way
+If you don't use TabController at all, then you have to update tab index manually through `ConvexAppBarState`.
+This usually requires a defined `GlobalKey` set with `ConvexAppBar`:
+
+```dart
+// define field instance
+GlobalKey<ConvexAppBarState> _appBarKey = GlobalKey<ConvexAppBarState>();
+// construct with key
+ConvexAppBar(key: _appBarKey, /* ... */);
+// access related State when necessary such as onPageChanged
+_appBarKey.currentState.animateTo(2/* index*/);
+```
