@@ -23,7 +23,7 @@ DelegateBuilder supportedStyle(
       ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
               items.length.isOdd) ||
           (style != TabStyle.fixed && style != TabStyle.fixedCircle),
-      'item count should be an odd number');
+      'item count should be an odd number when using fixed/fixedCircle');
   DelegateBuilder builder;
   switch (style) {
     case TabStyle.fixed:

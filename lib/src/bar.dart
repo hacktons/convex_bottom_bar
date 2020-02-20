@@ -285,7 +285,8 @@ abstract class DelegateBuilder {
   }
 }
 
-class ConvexAppBarState extends State<ConvexAppBar> with TickerProviderStateMixin {
+class ConvexAppBarState extends State<ConvexAppBar>
+    with TickerProviderStateMixin {
   int _currentIndex;
   Animation<double> _animation;
   AnimationController _controller;
@@ -380,16 +381,26 @@ class ConvexAppBarState extends State<ConvexAppBar> with TickerProviderStateMixi
     // take care of iPhoneX' safe area at bottom edge
     final double additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
-    var halfSize = widget.count ~/ 2;
-    final convexIndex = isFixed() ? halfSize : _currentIndex;
+    final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
     final active = isFixed() ? convexIndex == _currentIndex : true;
+
+    final height = widget.height ?? BAR_HEIGHT + additionalBottomPadding;
+    final width = MediaQuery.of(context).size.width;
+    var percent = isFixed()
+        ? const AlwaysStoppedAnimation<double>(0.5)
+        : _animation ?? _initAnimation();
+    var factor = 1 / widget.count;
+    var offset = FractionalOffset(
+      widget.count > 1 ? 1 / (widget.count - 1) * convexIndex : 0.0,
+      0,
+    );
     return extend.Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(
-          height: widget.height ?? BAR_HEIGHT + additionalBottomPadding,
-          width: MediaQuery.of(context).size.width,
+          height: height,
+          width: width,
           child: CustomPaint(
             painter: ConvexPainter(
               top: widget.top ?? CURVE_TOP,
@@ -398,19 +409,17 @@ class ConvexAppBarState extends State<ConvexAppBar> with TickerProviderStateMixi
               color: widget.backgroundColor ?? Colors.blue,
               gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
-              leftPercent: isFixed()
-                  ? const AlwaysStoppedAnimation<double>(0.5)
-                  : _animation ?? _initAnimation(),
+              leftPercent: percent,
             ),
           ),
         ),
-        _barContent(additionalBottomPadding),
+        _barContent(height, additionalBottomPadding, convexIndex),
         Positioned.fill(
           top: widget.top,
           bottom: additionalBottomPadding,
           child: FractionallySizedBox(
-              widthFactor: 1 / widget.count,
-              alignment: Alignment((convexIndex - halfSize) / (halfSize), 0),
+              widthFactor: factor,
+              alignment: offset,
               child: GestureDetector(
                 child: _newTab(convexIndex, active),
                 onTap: () => _onTabClick(convexIndex),
@@ -422,27 +431,25 @@ class ConvexAppBarState extends State<ConvexAppBar> with TickerProviderStateMixi
 
   bool isFixed() => widget.itemBuilder.fixed();
 
-  Widget _barContent(double paddingBottom) {
+  Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
     List<Widget> children = [];
-    // add placeholder Widget
-    var curveTabIndex = isFixed() ? widget.count ~/ 2 : _currentIndex;
     for (var i = 0; i < widget.count; i++) {
       if (i == curveTabIndex) {
         children.add(Expanded(child: Container()));
         continue;
       }
       var active = _currentIndex == i;
-      Widget child = _newTab(i, active);
       children.add(Expanded(
-          child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        child: child,
-        onTap: () => _onTabClick(i),
-      )));
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          child: _newTab(i, active),
+          onTap: () => _onTabClick(i),
+        ),
+      ));
     }
 
     return Container(
-      height: widget.height ?? BAR_HEIGHT + paddingBottom,
+      height: height,
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Row(
         mainAxisSize: MainAxisSize.max,
