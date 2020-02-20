@@ -15,9 +15,11 @@ class _State extends State<CustomAppBarDemo>
   List<TabItem> items = <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
-    TabItem(icon: Icons.add, title: 'Add'),
-    TabItem(icon: Icons.message, title: 'Message'),
-    TabItem(icon: Icons.people, title: 'Profile')
+    TabItem(icon: Icons.plus_one, title: 'Add'),
+//    TabItem(icon: Icons.message, title: 'Message'),
+//    TabItem(icon: Icons.people, title: 'Profile'),
+//    TabItem(icon: Icons.description, title: 'Plus 1'),
+//    TabItem(icon: Icons.new_releases, title: 'Plus 2'),
   ];
 
   static const paletteColors = [
@@ -46,7 +48,7 @@ class _State extends State<CustomAppBarDemo>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: items.length,
-      initialIndex: 2,
+      initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(title: const Text('Custom ConvexAppBar')),
         body: TabBarView(
