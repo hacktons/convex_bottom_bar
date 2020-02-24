@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 import 'transition_container.dart';
 
 /// Convex shape is moved after selection
-class ReactCircleTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+class ReactCircleTabStyle extends InnerBuilder {
+  /// color used as background of appbar and circle icon
   final Color backgroundColor;
+
+  /// curve for tab transition
   final Curve curve;
+
+  /// margin of tab
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   ReactCircleTabStyle({
-    this.items,
-    this.activeColor,
-    this.color,
+    List<TabItem> items,
+    Color activeColor,
+    Color color,
     this.backgroundColor,
     this.curve,
-  });
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 import 'transition_container.dart';
 
-class FlipTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+/// Tab item are flipped when click
+class FlipTabStyle extends InnerBuilder {
+  /// curve for flip transition
   final Curve curve;
 
-  FlipTabStyle({this.items, this.activeColor, this.color, this.curve});
+  FlipTabStyle({
+    List<TabItem> items,
+    Color activeColor,
+    Color color,
+    this.curve,
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

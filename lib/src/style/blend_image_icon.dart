@@ -9,8 +9,13 @@ class BlendImageIcon<T> extends StatelessWidget {
             'image must be IconData or Widget'),
         super(key: key);
 
+  /// color used for Icon and gradient
   final Color color;
+
+  /// child image
   final T image;
+
+  /// size of icon
   final double size;
 
   @override

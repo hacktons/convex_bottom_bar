@@ -23,11 +23,16 @@ const double BAR_HEIGHT = 50;
 /// Default distance that the child's top edge is inset from the top of the stack.
 const double CURVE_TOP = -25;
 
+/// Default size for active tab
 const double ACTION_LAYOUT_SIZE = 60;
+
+/// Default size for active icon in tab
 const double ACTION_INNER_BUTTON_SIZE = 40;
-const int CURVE_INDEX = -1;
+
+/// default elevation of [ConvexAppBar]
 const double ELEVATION = 2;
 
+/// Tab style which supported internal.
 enum TabStyle {
   /// convex shape fixed center, see [FixedTabStyle]
   ///
@@ -75,6 +80,7 @@ class ConvexAppBar extends StatefulWidget {
   /// TAB item builder
   final DelegateBuilder itemBuilder;
 
+  /// Badge chip builder
   final ChipBuilder chipBuilder;
 
   /// Tab Click handler
@@ -285,6 +291,7 @@ abstract class DelegateBuilder {
   }
 }
 
+/// State of [ConvexAppBar]
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int _currentIndex;
@@ -309,6 +316,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
   }
 
+  /// change active tab index; can be used with [PageView]
   Future<void> animateTo(int index) async {
     _initAnimation(from: _currentIndex, to: index);
     _controller?.forward();
@@ -429,6 +437,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     );
   }
 
+  /// whether the tab shape are fixed or not
   bool isFixed() => widget.itemBuilder.fixed();
 
   Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
@@ -476,6 +485,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 }
 
+/// Tab callback, [index] are tab index which is being clicked
 typedef GestureTapIndexCallback = void Function(int index);
+
+/// Tab builder;
+/// * [context] BuildContent instance
+/// * [index] index of tab
+/// * [active] active state for tab index
 typedef CustomTabBuilder = Widget Function(
     BuildContext context, int index, bool active);

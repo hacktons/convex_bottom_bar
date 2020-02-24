@@ -3,25 +3,30 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 import 'transition_container.dart';
 
 /// tab icon, text animated with pop transition
-class TitledTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+class TitledTabStyle extends InnerBuilder {
+  /// curve for tab transition
   final Curve curve;
+
+  /// color used as background of appbar and circle icon
   final Color backgroundColor;
+
+  /// previous active tab index
   int preActivate = -1;
+
+  /// margin of tab
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   TitledTabStyle({
-    this.items,
-    this.activeColor,
-    this.color,
+    List<TabItem> items,
+    Color activeColor,
+    Color color,
     this.curve,
     this.backgroundColor,
-  });
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

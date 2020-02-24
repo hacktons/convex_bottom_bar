@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
+/// Tab item used for [ConvexAppBar]
 class TabItem<T> {
+  /// tab text
   final String title;
 
   /// IconData or Image
