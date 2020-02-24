@@ -4,14 +4,23 @@ import 'package:flutter/material.dart';
 import 'convex_shape.dart';
 import 'reused_gradient.dart';
 
+/// Custom painter to draw the [ConvexNotchedRectangle] into canvas;
 class ConvexPainter extends CustomPainter {
   final _paint = Paint();
   final _shadowPaint = Paint();
   final _shape = ConvexNotchedRectangle();
   final ReusedGradient _gradient = ReusedGradient();
+
+  /// width of the convex shape
   final double width;
+
+  /// height of the convex shape
   final double height;
+
+  /// position in vertical which describe the offset of shape
   final double top;
+
+  /// position in horizontal which describe the offset of shape
   final Animation<double> leftPercent;
 
   ConvexPainter({

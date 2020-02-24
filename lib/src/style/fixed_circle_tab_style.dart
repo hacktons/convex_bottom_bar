@@ -5,22 +5,26 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 
 /// Convex shape is fixed center with circle
-class FixedCircleTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+class FixedCircleTabStyle extends InnerBuilder {
+  /// color used as background of appbar and circle icon
   final Color backgroundColor;
+
+  /// index of the centered convex shape
   final int convexIndex;
+
+  /// margin of tab
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   FixedCircleTabStyle(
-      {this.items,
-      this.activeColor,
-      this.color,
+      {List<TabItem> items,
+      Color activeColor,
+      Color color,
       this.backgroundColor,
-      this.convexIndex});
+      this.convexIndex})
+      : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

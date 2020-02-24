@@ -3,16 +3,23 @@ import 'dart:math';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'transition_container.dart';
+
+/// Interface to provide a transition, work with [TransitionContainer]
 abstract class TransitionContainerBuilder {
+  /// Curve for animation
   final Curve curve;
 
   TransitionContainerBuilder(this.curve);
 
+  /// animation used for widget
   Animation animation(AnimationController controller);
 
+  /// build Animated widget with provided animation
   Widget build(Animation animation);
 }
 
+/// Scale transition builder
 class ScaleBuilder extends TransitionContainerBuilder {
   Widget child;
 
@@ -29,6 +36,7 @@ class ScaleBuilder extends TransitionContainerBuilder {
   ScaleBuilder({Curve curve, this.child}) : super(curve);
 }
 
+/// Slide transition builder
 class SlideBuilder extends TransitionContainerBuilder {
   Widget child;
   final bool reverse;

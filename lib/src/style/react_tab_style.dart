@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 import 'transition_container.dart';
 
 /// Convex shape is moved after selection
-class ReactTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+class ReactTabStyle extends InnerBuilder {
+  /// curve for tab transition
   final Curve curve;
 
-  ReactTabStyle({this.items, this.activeColor, this.color, this.curve});
+  ReactTabStyle({
+    List<TabItem> items,
+    Color activeColor,
+    Color color,
+    this.curve,
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

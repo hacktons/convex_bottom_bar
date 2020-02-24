@@ -5,17 +5,19 @@ import 'package:flutter/material.dart';
 
 import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
+import 'inner_builder.dart';
 
 /// Convex shape is fixed center
-class FixedTabStyle extends DelegateBuilder {
-  final List<TabItem> items;
-  final Color activeColor;
-  final Color color;
+class FixedTabStyle extends InnerBuilder {
+  /// index of the centered convex shape
   final int convexIndex;
-  DelegateBuilder tabBuilder;
-  DelegateBuilder convexBuilder;
 
-  FixedTabStyle({this.items, this.activeColor, this.color, this.convexIndex});
+  FixedTabStyle({
+    List<TabItem> items,
+    Color activeColor,
+    Color color,
+    this.convexIndex,
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {

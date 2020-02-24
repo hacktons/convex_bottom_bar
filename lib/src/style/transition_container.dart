@@ -5,18 +5,25 @@ import 'transition_container_builder.dart';
 
 /// Add controller with provided transition api, such as [SlideTransition], [ScaleTransition]
 class TransitionContainer extends StatefulWidget {
+  /// build transition
   final TransitionContainerBuilder builder;
+
+  /// transition duration
   final Duration duration;
+
+  /// control whether the animation should be skipped when widget change
   final bool disableAnimateWhenUpdate;
 
   TransitionContainer(
       {this.builder, this.duration, this.disableAnimateWhenUpdate})
       : assert(builder != null);
 
+  /// Wrap a widget with scale transition
   TransitionContainer.scale(
       {Widget child, Curve curve, this.duration, this.disableAnimateWhenUpdate})
       : builder = ScaleBuilder(curve: curve, child: child);
 
+  /// Wrap a widget with slide transition
   TransitionContainer.slide({
     Widget child,
     Curve curve,
@@ -25,6 +32,7 @@ class TransitionContainer extends StatefulWidget {
     this.disableAnimateWhenUpdate,
   }) : builder = SlideBuilder(curve: curve, child: child, reverse: reverse);
 
+  /// Wrap a widget with flip transition
   TransitionContainer.flip({
     Widget topChild,
     Widget bottomChild,
