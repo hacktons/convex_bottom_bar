@@ -2,20 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// decorate the provided [Image] or [IconData]
+/// Decorate the provided [Image] or [IconData].
 class BlendImageIcon<T> extends StatelessWidget {
   const BlendImageIcon(this.image, {Key key, this.color, this.size})
       : assert(image is Widget || image is IconData,
             'image must be IconData or Widget'),
         super(key: key);
 
-  /// color used for Icon and gradient
+  /// Color used for Icon and gradient.
   final Color color;
 
-  /// child image
+  /// Child image.
   final T image;
 
-  /// size of icon
+  /// Size of icon.
   final double size;
 
   @override

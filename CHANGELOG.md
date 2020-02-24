@@ -1,3 +1,7 @@
+## [2.1.0+1]
+
+* Document all the public APIs;
+ 
 ## [2.1.0]
 
 * Add controller for Appbar to change tab index programmaticlly;

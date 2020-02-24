@@ -6,18 +6,18 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-/// tab icon, text animated with pop transition
+/// Tab icon, text animated with pop transition.
 class TitledTabStyle extends InnerBuilder {
-  /// curve for tab transition
+  /// Curve for tab transition.
   final Curve curve;
 
-  /// color used as background of appbar and circle icon
+  /// Color used as background of appbar and circle icon.
   final Color backgroundColor;
 
-  /// previous active tab index
+  /// Previous active tab index.
   int preActivate = -1;
 
-  /// margin of tab
+  /// Margin of tab.
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   TitledTabStyle({

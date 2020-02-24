@@ -6,9 +6,9 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-/// tab icon, text animated with pop transition
+/// Tab icon, text animated with pop transition.
 class TextInTabStyle extends InnerBuilder {
-  /// curve for tab transition
+  /// Curve for tab transition.
   final Curve curve;
 
   TextInTabStyle({

@@ -10,7 +10,7 @@ import 'react_tab_style.dart';
 import 'textin_tab_style.dart';
 import 'titled_tab_style.dart';
 
-/// factory method to return the [DelegateBuilder] for each [TabStyle]
+/// Factory method to return the [DelegateBuilder] for each [TabStyle].
 DelegateBuilder supportedStyle(
   TabStyle style, {
   @required List<TabItem> items,

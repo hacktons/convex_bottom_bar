@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-/// Interface to apply any custom badge chip
+/// Interface to apply any custom badge chip.
 abstract class ChipBuilder {
   /// Construct a new widget which represent the tab item with custom badge.
   ///
-  /// * [context] BuildContext instance
-  /// * [child] the tab item Widget
-  /// * [index] index of the tab item
-  /// * [active] active state for the index
+  /// * [context] BuildContext instance;
+  /// * [child] the tab item Widget;
+  /// * [index] index of the tab item;
+  /// * [active] active state for the index;
   Widget build(BuildContext context, Widget child, int index, bool active);
 }
 
-/// Simple badge with num inside
+/// Simple badge with num inside.
 class DefaultChipBuilder extends ChipBuilder {
-  /// key-value map, stands for the badge data
+  /// key-value map, stands for the badge data.
   final Map<int, dynamic> chips;
 
-  /// Color of badge text
+  /// Color of badge text.
   final Color textColor;
 
-  /// Color of the badge chip
+  /// Color of the badge chip.
   final Color badgeColor;
 
-  /// Padding for badge
+  /// Padding for badge.
   final EdgeInsets padding;
 
-  /// Radius corner for badge
+  /// Radius corner for badge.
   final double borderRadius;
 
   DefaultChipBuilder(
@@ -49,7 +49,7 @@ class DefaultChipBuilder extends ChipBuilder {
     );
   }
 
-  /// factory method which convert a chip data into [Widget];
+  /// Convert a chip data into [Widget].
   ///
   /// * [chip] String, return a [Text] badge;
   /// * [chip] IconData, return a [Icon] badge;

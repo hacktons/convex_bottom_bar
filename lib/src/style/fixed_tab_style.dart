@@ -7,9 +7,9 @@ import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 
-/// Convex shape is fixed center
+/// Convex shape is fixed center.
 class FixedTabStyle extends InnerBuilder {
-  /// index of the centered convex shape
+  /// Index of the centered convex shape.
   final int convexIndex;
 
   FixedTabStyle({

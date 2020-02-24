@@ -5,7 +5,7 @@ import 'dart:math' as math;
 /// A convex shape which implemented [NotchedShape].
 ///
 /// It's used to draw a convex shape for [ConvexAppBar], If you are interested about
-/// the math calculation， please refer to [CircularNotchedRectangle]， it's base
+/// the math calculation, please refer to [CircularNotchedRectangle], it's base
 /// on Bezier curve;
 ///
 /// See also:

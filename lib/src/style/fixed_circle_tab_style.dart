@@ -7,15 +7,15 @@ import '../../convex_bottom_bar.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 
-/// Convex shape is fixed center with circle
+/// Convex shape is fixed center with circle.
 class FixedCircleTabStyle extends InnerBuilder {
-  /// color used as background of appbar and circle icon
+  /// Color used as background of appbar and circle icon.
   final Color backgroundColor;
 
-  /// index of the centered convex shape
+  /// Index of the centered convex shape.
   final int convexIndex;
 
-  /// margin of tab
+  /// Margin of tab.
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   FixedCircleTabStyle(

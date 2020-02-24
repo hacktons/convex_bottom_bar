@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart' as widget;
 /// The `Stack` widget has limited hit test when child is overflow with
 /// `Positioned`. This behavior is intentional. For more detail refer to
 /// the bug report: [Document that widgets in the overflow of stack do not
-/// respond to gestures](https://github.com/flutter/flutter/issues/19445)
+/// respond to gestures](https://github.com/flutter/flutter/issues/19445).
 ///
 /// The optional way to enable the hit test is define a new Stack and remove
-/// the size checking when teh Stack instance is overflow enable
+/// the size checking when teh Stack instance is overflow enable.
 ///
 class Stack extends widget.Stack {
   Stack({
@@ -36,7 +36,7 @@ class Stack extends widget.Stack {
   }
 }
 
-// enable overflow hitTest
+/// Enable overflow hitTest
 class _RenderStack extends RenderStack {
   Overflow overflow;
 

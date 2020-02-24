@@ -6,9 +6,9 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-/// Tab item are flipped when click
+/// Tab item are flipped when click.
 class FlipTabStyle extends InnerBuilder {
-  /// curve for flip transition
+  /// Curve for flip transition.
   final Curve curve;
 
   FlipTabStyle({

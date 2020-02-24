@@ -6,9 +6,9 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-/// Convex shape is moved after selection
+/// Convex shape is moved after selection.
 class ReactTabStyle extends InnerBuilder {
-  /// curve for tab transition
+  /// Curve for tab transition.
   final Curve curve;
 
   ReactTabStyle({

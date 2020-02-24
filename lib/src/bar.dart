@@ -14,114 +14,114 @@ import 'style/react_circle_tab_style.dart';
 import 'style/react_tab_style.dart';
 import 'style/styles.dart';
 
-/// Default size of the curve line
+/// Default size of the curve line.
 const double CONVEX_SIZE = 80;
 
-/// Default height of the AppBar
+/// Default height of the AppBar.
 const double BAR_HEIGHT = 50;
 
 /// Default distance that the child's top edge is inset from the top of the stack.
 const double CURVE_TOP = -25;
 
-/// Default size for active tab
+/// Default size for active tab.
 const double ACTION_LAYOUT_SIZE = 60;
 
-/// Default size for active icon in tab
+/// Default size for active icon in tab.
 const double ACTION_INNER_BUTTON_SIZE = 40;
 
-/// default elevation of [ConvexAppBar]
+/// default elevation of [ConvexAppBar].
 const double ELEVATION = 2;
 
 /// Tab style which supported internal.
 enum TabStyle {
-  /// convex shape fixed center, see [FixedTabStyle]
+  /// Convex shape fixed center, see [FixedTabStyle].
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-fixed.gif)
   fixed,
 
-  /// convex shape is fixed center with circle, see [FixedCircleTabStyle]
+  /// Convex shape is fixed center with circle, see [FixedCircleTabStyle].
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-fixed-circle.gif)
   fixedCircle,
 
-  /// convex shape is moved after selection, see [ReactTabStyle]
+  /// Convex shape is moved after selection, see [ReactTabStyle].
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-react.gif)
   react,
 
-  /// convex shape is moved with circle after selection, see [ReactCircleTabStyle]
+  /// Convex shape is moved with circle after selection, see [ReactCircleTabStyle].
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-react-circle.gif)
   reactCircle,
 
-  /// tab icon, text animated with pop transition
+  /// Tab icon, text animated with pop transition.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-textIn.gif)
   textIn,
 
-  /// similar to [TabStyle.textIn], text first
+  /// Similar to [TabStyle.textIn], text first.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-titled.gif)
   titled,
 
-  /// tab item is flipped when selected, does not support [flutter web]
+  /// Tab item is flipped when selected, does not support [flutter web].
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-flip.gif)
   flip,
 
-  /// user defined style
+  /// User defined style
   custom,
 }
 
-/// Online example can be found at http://hacktons.cn/convex_bottom_bar
+/// Online example can be found at http://hacktons.cn/convex_bottom_bar.
 ///
 /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-theming.png)
 class ConvexAppBar extends StatefulWidget {
-  /// TAB item builder
+  /// TAB item builder.
   final DelegateBuilder itemBuilder;
 
-  /// Badge chip builder
+  /// Badge chip builder.
   final ChipBuilder chipBuilder;
 
-  /// Tab Click handler
+  /// Tab Click handler.
   final GestureTapIndexCallback onTap;
 
-  /// Tab controller to work with [TabBarView] or [PageView]
+  /// Tab controller to work with [TabBarView] or [PageView].
   final TabController controller;
 
-  /// Color of the AppBar
+  /// Color of the AppBar.
   final Color backgroundColor;
 
-  /// If provided, backgroundColor for tab app will be ignored
+  /// If provided, backgroundColor for tab app will be ignored.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
   final Gradient gradient;
 
-  /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView];
+  /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView].
   final int initialActiveIndex;
 
-  /// Tab count
+  /// Tab count.
   final int count;
 
-  /// Height of the AppBar
+  /// Height of the AppBar.
   final double height;
 
-  /// Size of the curve line
+  /// Size of the curve line.
   final double curveSize;
 
   /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
   final double top;
 
-  /// Elevation for the bar top edge
+  /// Elevation for the bar top edge.
   final double elevation;
 
-  /// Style to describe the convex shape
+  /// Style to describe the convex shape.
   final TabStyle style;
 
   /// The curve to use in the forward direction. Only works when tab style is not fixed.
   final Curve curve;
 
-  /// Construct a new appbar with internal style
+  /// Construct a new appbar with internal style.
   ///
   /// {@tool sample}
   ///
@@ -177,7 +177,7 @@ class ConvexAppBar extends StatefulWidget {
           chipBuilder: chipBuilder,
         );
 
-  /// define a custom tab style by implement a [DelegateBuilder]
+  /// Define a custom tab style by implement a [DelegateBuilder].
   const ConvexAppBar.builder({
     Key key,
     @required this.itemBuilder,
@@ -200,7 +200,7 @@ class ConvexAppBar extends StatefulWidget {
             'initial index should < $count'),
         super(key: key);
 
-  /// Construct a new appbar with badge
+  /// Construct a new appbar with badge.
   ///
   /// {@animation 1010 598 https://github.com/hacktons/convex_bottom_bar/raw/master/doc/badge-demo.mp4}
   ///
@@ -280,18 +280,21 @@ class ConvexAppBar extends StatefulWidget {
   }
 }
 
-/// Item builder
+/// Item builder.
 abstract class DelegateBuilder {
-  /// called when the tab item is build
+  /// Called when the tab item is build.
+  /// * [context] BuildContext instance;
+  /// * [index] tab index;
+  /// * [active] tab state;
   Widget build(BuildContext context, int index, bool active);
 
-  /// whether the convex shape is fixed center or positioned according to selection
+  /// Whether the convex shape is fixed center or positioned according to selection.
   bool fixed() {
     return false;
   }
 }
 
-/// State of [ConvexAppBar]
+/// State of [ConvexAppBar].
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int _currentIndex;
@@ -316,7 +319,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
   }
 
-  /// change active tab index; can be used with [PageView]
+  /// change active tab index; can be used with [PageView].
   Future<void> animateTo(int index) async {
     _initAnimation(from: _currentIndex, to: index);
     _controller?.forward();
@@ -437,7 +440,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     );
   }
 
-  /// whether the tab shape are fixed or not
+  /// Whether the tab shape are fixed or not.
   bool isFixed() => widget.itemBuilder.fixed();
 
   Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
@@ -485,10 +488,10 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 }
 
-/// Tab callback, [index] are tab index which is being clicked
+/// Tab callback, [index] are tab index which is being clicked.
 typedef GestureTapIndexCallback = void Function(int index);
 
-/// Tab builder;
+/// Tab builder.
 /// * [context] BuildContent instance
 /// * [index] index of tab
 /// * [active] active state for tab index

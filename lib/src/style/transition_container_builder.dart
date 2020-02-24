@@ -5,21 +5,21 @@ import 'package:flutter/cupertino.dart';
 
 import 'transition_container.dart';
 
-/// Interface to provide a transition, work with [TransitionContainer]
+/// Interface to provide a transition, work with [TransitionContainer].
 abstract class TransitionContainerBuilder {
-  /// Curve for animation
+  /// Curve for animation.
   final Curve curve;
 
   TransitionContainerBuilder(this.curve);
 
-  /// animation used for widget
+  /// Animation used for widget.
   Animation animation(AnimationController controller);
 
-  /// build Animated widget with provided animation
+  /// Return animated widget with provided animation.
   Widget build(Animation animation);
 }
 
-/// Scale transition builder
+/// Scale transition builder.
 class ScaleBuilder extends TransitionContainerBuilder {
   Widget child;
 
@@ -36,7 +36,7 @@ class ScaleBuilder extends TransitionContainerBuilder {
   ScaleBuilder({Curve curve, this.child}) : super(curve);
 }
 
-/// Slide transition builder
+/// Slide transition builder.
 class SlideBuilder extends TransitionContainerBuilder {
   Widget child;
   final bool reverse;
@@ -58,7 +58,7 @@ class SlideBuilder extends TransitionContainerBuilder {
 }
 
 /// This flip animation is origin from [https://github.com/deven98/flip_box_bar/blob/master/lib/src/flip_box.dart]
-/// UX => ![](https://cdn.dribbble.com/users/1094383/screenshots/4811135/800_5.gif)
+/// UX => ![](https://cdn.dribbble.com/users/1094383/screenshots/4811135/800_5.gif).
 class FlipBuilder extends TransitionContainerBuilder {
   final Widget topChild;
   final Widget bottomChild;

@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 
-/// Tab item used for [ConvexAppBar]
+/// Tab item used for [ConvexAppBar].
 class TabItem<T> {
-  /// tab text
+  /// Tab text.
   final String title;
 
-  /// IconData or Image
+  /// IconData or Image.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-image.gif)
   final T icon;
 
-  /// Optional if not provided ,[icon] is used
+  /// Optional if not provided ,[icon] is used.
   final T activeIcon;
 
-  /// Whether icon should blend with color
+  /// Whether icon should blend with color.
   final bool blend;
 
   const TabItem({

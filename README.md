@@ -107,7 +107,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 
 ## Custom Example
 
-If the default style does not match with your situation， try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
+If the default style does not match with your situation, try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
 
 ```dart
 Scaffold(

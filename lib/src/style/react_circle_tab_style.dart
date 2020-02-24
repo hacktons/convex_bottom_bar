@@ -6,15 +6,15 @@ import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
 
-/// Convex shape is moved after selection
+/// Convex shape is moved after selection.
 class ReactCircleTabStyle extends InnerBuilder {
-  /// color used as background of appbar and circle icon
+  /// Color used as background of appbar and circle icon.
   final Color backgroundColor;
 
-  /// curve for tab transition
+  /// Curve for tab transition.
   final Curve curve;
 
-  /// margin of tab
+  /// Margin of tab.
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   ReactCircleTabStyle({
