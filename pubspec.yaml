@@ -13,6 +13,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pana_html: ^0.1.2-beta
+  pedantic: ^1.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

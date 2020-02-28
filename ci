@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+##################################################################
+##
+##  Test case for CI buiding
+##
+##
+##  Author: Chaobin Wu
+##  Email : chaobinwu89@gmail.com
+##
+#################################################################
+tag='[CI]'
+error() {
+  echo -e "\033[1m$tag\033[0m \033[31m$*\033[0m"
+}
+info() {
+  echo -e "\033[1m$tag\033[0m \033[32m$*\033[0m"
+}
+warning() {
+  echo -e "\033[1m$tag\033[0m \033[33m$*\033[0m"
+}
+
+die() {
+  error "$*"
+  exit 1
+}
+
+info "Step 1 Evaluate with panahtml"
+panahtml --strict --no-web
+
+info "Step 2 Run linter for lib only"
+dartanalyzer lib --options ci-analysis_options.yaml > build/lint-result.txt
+# n lints found. => issue found, No issues found! => success
+count=$(grep -c 'lints found.' < build/lint-result.txt)
+if [ "$count" = "0" ]; then
+  info "Lint check passed."
+else
+  warning "Issues list:\n$(grep 'lint' < build/lint-result.txt)"
+  die "Failed to passs Lint rules, check lint result at build/lint-result.txt"
+fi
+

@@ -31,7 +31,7 @@ die() {
 }
 
 confirm() {
-  read -p "Enter y to continue, otherwise terminate: " input
+  read -p "Looks great! Are you ready to continue (y/n)? " input
   if [[ $input != 'y' ]] ; then
     die "Workflow terminated"
   fi
@@ -61,14 +61,13 @@ if [ ! $? = 0 ]; then
 fi
 
 info "Step 2 Review code coverage report"
-countdown 5 "Will open browser"
+countdown 3 "Will open browser"
 open coverage/index.html
 
 confirm
 
-info "Step 3 Generate score with pana"
-pana --scores --source path ./
-info "Review the score"
+info "Step 3 Evaluate with panahtml"
+panahtml --strict --no-web
 confirm
 
 info "Step 4 Run publish --dry-run"
