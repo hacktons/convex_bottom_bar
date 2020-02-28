@@ -58,7 +58,7 @@ class _State extends State<CustomAppBarDemo>
                   : Center(
                       child: Text(
                       '<\t\t${i.title}\t\t>',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.display1,
                     )))
               .toList(growable: false),
         ),
