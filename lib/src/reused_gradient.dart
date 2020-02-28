@@ -8,6 +8,7 @@ class ReusedGradient {
   Shader _shader;
   Rect _size;
 
+  /// Create gradient
   ReusedGradient();
 
   /// Setter to reset the [Gradient] instance

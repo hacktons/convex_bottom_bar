@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 /// Decorate the provided [Image] or [IconData].
 class BlendImageIcon<T> extends StatelessWidget {
+  /// Create image widget
   const BlendImageIcon(this.image, {Key key, this.color, this.size})
       : assert(image is Widget || image is IconData,
             'image must be IconData or Widget'),

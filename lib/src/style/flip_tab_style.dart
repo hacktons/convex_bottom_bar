@@ -11,6 +11,7 @@ class FlipTabStyle extends InnerBuilder {
   /// Curve for flip transition.
   final Curve curve;
 
+  /// Create style builder.
   FlipTabStyle({
     List<TabItem> items,
     Color activeColor,

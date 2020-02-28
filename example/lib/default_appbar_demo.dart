@@ -23,7 +23,6 @@ class DefaultAppBarDemo extends StatefulWidget {
 
 class _State extends State<DefaultAppBarDemo>
     with SingleTickerProviderStateMixin {
-  static const INDEX_PUBLISH = 2;
   static const kStyles = [
     ChoiceValue<TabStyle>(
       title: 'TabStyle.react',

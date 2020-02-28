@@ -18,6 +18,7 @@ class FixedCircleTabStyle extends InnerBuilder {
   /// Margin of tab.
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
+  /// Create style builder
   FixedCircleTabStyle(
       {List<TabItem> items,
       Color activeColor,

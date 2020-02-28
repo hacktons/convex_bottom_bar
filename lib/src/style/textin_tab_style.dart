@@ -11,6 +11,7 @@ class TextInTabStyle extends InnerBuilder {
   /// Curve for tab transition.
   final Curve curve;
 
+  /// Create style builder.
   TextInTabStyle({
     List<TabItem> items,
     Color activeColor,

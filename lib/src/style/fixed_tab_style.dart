@@ -12,6 +12,7 @@ class FixedTabStyle extends InnerBuilder {
   /// Index of the centered convex shape.
   final int convexIndex;
 
+  /// Create style builder.
   FixedTabStyle({
     List<TabItem> items,
     Color activeColor,

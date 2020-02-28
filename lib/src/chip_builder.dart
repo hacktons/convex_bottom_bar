@@ -29,6 +29,7 @@ class DefaultChipBuilder extends ChipBuilder {
   /// Radius corner for badge.
   final double borderRadius;
 
+  /// Create a chip builder
   DefaultChipBuilder(
     this.chips, {
     this.textColor,

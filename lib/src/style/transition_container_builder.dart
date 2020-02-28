@@ -10,6 +10,7 @@ abstract class TransitionContainerBuilder {
   /// Curve for animation.
   final Curve curve;
 
+  /// Create style builder.
   TransitionContainerBuilder(this.curve);
 
   /// Animation used for widget.
@@ -21,6 +22,7 @@ abstract class TransitionContainerBuilder {
 
 /// Scale transition builder.
 class ScaleBuilder extends TransitionContainerBuilder {
+  /// The target widget to scale with.
   Widget child;
 
   @override
@@ -33,14 +35,19 @@ class ScaleBuilder extends TransitionContainerBuilder {
     return ScaleTransition(scale: animation, child: child);
   }
 
+  /// Create scale builder
   ScaleBuilder({Curve curve, this.child}) : super(curve);
 }
 
 /// Slide transition builder.
 class SlideBuilder extends TransitionContainerBuilder {
+  /// The target widget to slide with.
   Widget child;
+
+  /// slide direction.
   final bool reverse;
 
+  /// Create slide builder.
   SlideBuilder({Curve curve, this.child, this.reverse}) : super(curve);
 
   @override
@@ -60,10 +67,16 @@ class SlideBuilder extends TransitionContainerBuilder {
 /// This flip animation is origin from [https://github.com/deven98/flip_box_bar/blob/master/lib/src/flip_box.dart]
 /// UX => ![](https://cdn.dribbble.com/users/1094383/screenshots/4811135/800_5.gif).
 class FlipBuilder extends TransitionContainerBuilder {
+  /// Top widget.
   final Widget topChild;
+
+  /// Bottom widget.
   final Widget bottomChild;
+
+  /// Size of builder.
   final double height;
 
+  /// Create flip builder
   FlipBuilder(this.height, {Curve curve, this.topChild, this.bottomChild})
       : super(curve);
 

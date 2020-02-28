@@ -98,11 +98,11 @@ class Data {
       ];
     }
     return [
-      const TabItem<IconData>(icon: Icons.home, title: 'Home'),
-      const TabItem<IconData>(icon: Icons.map, title: "Discovery"),
-      const TabItem<IconData>(icon: Icons.publish, title: "Publish"),
-      const TabItem<IconData>(icon: Icons.message, title: 'Message'),
-      const TabItem<IconData>(icon: Icons.people, title: 'Profile'),
+      TabItem<IconData>(icon: Icons.home, title: 'Home'),
+      TabItem<IconData>(icon: Icons.map, title: "Discovery"),
+      TabItem<IconData>(icon: Icons.publish, title: "Publish"),
+      TabItem<IconData>(icon: Icons.message, title: 'Message'),
+      TabItem<IconData>(icon: Icons.people, title: 'Profile'),
     ];
   }
 }

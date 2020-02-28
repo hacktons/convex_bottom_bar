@@ -16,6 +16,7 @@ class TabItem<T> {
   /// Whether icon should blend with color.
   final bool blend;
 
+  /// Create item
   const TabItem({
     this.title,
     @required this.icon,

@@ -12,6 +12,7 @@ import 'dart:math' as math;
 ///
 ///  * [CircularNotchedRectangle], a rectangle with a smooth circular notch.
 class ConvexNotchedRectangle extends NotchedShape {
+  /// Create Shape instance
   const ConvexNotchedRectangle();
 
   @override

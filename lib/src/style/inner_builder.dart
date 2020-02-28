@@ -13,5 +13,6 @@ abstract class InnerBuilder extends DelegateBuilder {
   /// Color used for tab.
   final Color color;
 
+  /// Create style builder.
   InnerBuilder({this.items, this.activeColor, this.color});
 }
