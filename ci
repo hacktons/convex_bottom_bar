@@ -28,13 +28,12 @@ info "Step 1 Evaluate with panahtml"
 panahtml --strict --no-web
 
 info "Step 2 Run linter for lib only"
-dartanalyzer lib --options ci-analysis_options.yaml > build/lint-result.txt
+dartanalyzer lib --options ci-analysis_options.yaml >build/lint-result.txt
 # n lints found. => issue found, No issues found! => success
-count=$(grep -c 'lints found.' < build/lint-result.txt)
+count=$(grep -c 'lints found.' <build/lint-result.txt)
 if [ "$count" = "0" ]; then
   info "Lint check passed."
 else
-  warning "Issues list:\n$(grep 'lint' < build/lint-result.txt)"
+  warning "Issues list:\n$(grep 'lint' <build/lint-result.txt)"
   die "Failed to passs Lint rules, check lint result at build/lint-result.txt"
 fi
-

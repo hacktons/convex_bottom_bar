@@ -11,6 +11,7 @@ class ReactTabStyle extends InnerBuilder {
   /// Curve for tab transition.
   final Curve curve;
 
+  /// Create style builder.
   ReactTabStyle({
     List<TabItem> items,
     Color activeColor,

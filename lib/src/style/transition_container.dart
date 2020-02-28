@@ -14,6 +14,7 @@ class TransitionContainer extends StatefulWidget {
   /// Control whether the animation should be skipped when widget change.
   final bool disableAnimateWhenUpdate;
 
+  /// Create transition with builder.
   TransitionContainer(
       {this.builder, this.duration, this.disableAnimateWhenUpdate})
       : assert(builder != null);

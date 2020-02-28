@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart' as widget;
 /// the size checking when teh Stack instance is overflow enable.
 ///
 class Stack extends widget.Stack {
+  /// Create stack instance
   Stack({
     widget.Key key,
     AlignmentGeometry alignment = AlignmentDirectional.topStart,

@@ -20,6 +20,7 @@ class TitledTabStyle extends InnerBuilder {
   /// Margin of tab.
   final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
+  /// Create style builder.
   TitledTabStyle({
     List<TabItem> items,
     Color activeColor,

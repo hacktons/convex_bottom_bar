@@ -40,7 +40,7 @@ class RadioItem<T> extends StatelessWidget {
                   },
                   child: Text(
                     value.title,
-                    style: theme.textTheme.subhead,
+                    style: theme.textTheme.subtitle1,
                   ),
                 ),
               ),

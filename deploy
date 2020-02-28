@@ -31,8 +31,8 @@ die() {
 }
 
 confirm() {
-  read -p "Looks great! Are you ready to continue (y/n)? " input
-  if [[ $input != 'y' ]] ; then
+  read -r -p "Looks great! Are you ready to continue (y/n)? " input
+  if [[ $input != 'y' ]]; then
     die "Workflow terminated"
   fi
 }
@@ -42,9 +42,9 @@ confirm() {
 countdown() {
   secs=$1
   shift
-  msg=$@
-  while [ $secs -gt 0 ]
-  do
+  msg=$*
+  # shellcheck disable=SC2086
+  while [ $secs -gt 0 ]; do
     printf "\r\033[K$msg in %.d seconds" $((secs--))
     sleep 1
   done
@@ -55,15 +55,14 @@ info "Start process workflow"
 info "Step 1 Run test case with code coverage"
 
 flutter pub get
-flutter test --coverage && genhtml coverage/lcov.info --output=coverage
-if [ ! $? = 0 ]; then
+if ! flutter test --coverage; then
   die "Test failed"
 fi
+genhtml coverage/lcov.info --output=coverage
 
 info "Step 2 Review code coverage report"
 countdown 3 "Will open browser"
 open coverage/index.html
-
 confirm
 
 info "Step 3 Evaluate with panahtml"
@@ -76,7 +75,3 @@ confirm
 
 info "Step 5 Publish to pub.dev"
 flutter pub publish
-if [ ! $? = 0 ]; then
-  die "Test failed"
-fi
-info "Done!"

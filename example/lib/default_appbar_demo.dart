@@ -23,7 +23,6 @@ class DefaultAppBarDemo extends StatefulWidget {
 
 class _State extends State<DefaultAppBarDemo>
     with SingleTickerProviderStateMixin {
-  static const INDEX_PUBLISH = 2;
   static const kStyles = [
     ChoiceValue<TabStyle>(
       title: 'TabStyle.react',
@@ -134,7 +133,7 @@ class _State extends State<DefaultAppBarDemo>
                   : Center(
                       child: Text(
                       '${i.title}',
-                      style: Theme.of(context).textTheme.display1,
+                      style: Theme.of(context).textTheme.headline4,
                     )))
               .toList(growable: false)),
       bottomNavigationBar: _badge == null

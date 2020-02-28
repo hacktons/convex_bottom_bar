@@ -23,6 +23,7 @@ class ConvexPainter extends CustomPainter {
   /// Position in horizontal which describe the offset of shape.
   final Animation<double> leftPercent;
 
+  /// Create painter
   ConvexPainter({
     this.top,
     this.width,
