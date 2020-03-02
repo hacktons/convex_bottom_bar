@@ -23,11 +23,7 @@ die() {
   error "$*"
   exit 1
 }
-
-info "Step 1 Evaluate with panahtml"
-panahtml --strict --no-web
-
-info "Step 2 Run linter for lib only"
+info "Step 1 Run custom lint rules"
 dartanalyzer lib --options ci-analysis_options.yaml >build/lint-result.txt
 # n lints found. => issue found, No issues found! => success
 count=$(grep -c 'lints found.' <build/lint-result.txt)
