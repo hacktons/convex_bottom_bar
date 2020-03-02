@@ -51,6 +51,15 @@ countdown() {
   echo
 }
 
+checkHost() {
+  host=$1
+  info "$host/#home"
+  output=$(curl -IX HEAD "$host/#home")
+  c=$(grep -c "OK" <"$output")
+  if [ ! "$c" = "0" ]; then
+    print "$host"
+  fi
+}
 info "Start process workflow"
 info "Step 1 Run test case with code coverage"
 
@@ -65,9 +74,32 @@ countdown 3 "Will open browser"
 open coverage/index.html
 confirm
 
-info "Step 3 Evaluate with panahtml"
-panahtml
-confirm
+info "Step 3 Evaluate with panahtml(Skipped)"
+#panahtml &
+#pid=$!
+#info "run in background #$pid"
+#sleep 3
+#
+#secs=1
+#shift
+## shellcheck disable=SC2086
+#while [ $secs -gt 0 ]; do
+#  printf "\r\033[KWait until panahtml completes: %.d" $((secs++))
+#  count=$(lsof -nP -iTCP -sTCP:LISTEN | grep dart | grep -c 'LISTEN')
+#  if [ "$count" = "0" ]; then
+#    sleep 1
+#  else
+#    secs=0
+#  fi
+#done
+#echo
+#
+#read -r -p "Are you ready to continue (y/n)? " input
+#kill -0 $pid
+#
+#if [[ $input != 'y' ]]; then
+#  die "Workflow terminated"
+#fi
 
 info "Step 4 Run publish --dry-run"
 flutter pub publish --dry-run
