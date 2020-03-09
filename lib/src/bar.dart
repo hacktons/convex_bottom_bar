@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'chip_builder.dart';
+import 'interface.dart';
 import 'item.dart';
 import 'painter.dart';
 import 'stack.dart' as extend;
@@ -123,8 +124,6 @@ class ConvexAppBar extends StatefulWidget {
 
   /// Construct a new appbar with internal style.
   ///
-  /// {@tool sample}
-  ///
   /// ```dart
   /// ConvexAppBar(
   ///   items: [
@@ -134,7 +133,36 @@ class ConvexAppBar extends StatefulWidget {
   ///   ],
   /// )
   /// ```
-  /// {@end-tool}
+  ///
+  /// You can also define a custom chipBuilder class.
+  /// ```dart
+  /// class _ChipBuilder extends ChipBuilder {
+  ///  @override
+  ///  Widget build(BuildContext context, Widget child, int index, bool active) {
+  ///    return Stack(
+  ///      alignment: Alignment.center,
+  ///      children: <Widget>[
+  ///        child,
+  ///        Positioned.fill(
+  ///          child: Align(
+  ///            alignment: Alignment.topRight,
+  ///            child: Container(
+  ///              margin: EdgeInsets.only(top: 10, right: 10),
+  ///              padding: EdgeInsets.only(left: 4, right: 4),
+  ///              child: Icon(Icons.access_alarm, color: Colors.redAccent),
+  ///            ),
+  ///          ),
+  ///        )
+  ///      ],
+  ///    );
+  ///    ;
+  ///  }
+  /// }
+  ///```
+  /// See also:
+  ///
+  ///  * [ConvexAppBar.builder], define a custom tab style by implement a [DelegateBuilder].
+  ///  * [ConvexAppBar.badge], construct a new appbar with styled badge.
   ConvexAppBar({
     Key key,
     @required List<TabItem> items,
@@ -178,6 +206,20 @@ class ConvexAppBar extends StatefulWidget {
         );
 
   /// Define a custom tab style by implement a [DelegateBuilder].
+  ///
+  /// ```dart
+  /// ConvexAppBar(
+  ///   count: 5,
+  ///   itemBuilder: Builder(),
+  /// )
+  ///
+  /// class Builder extends DelegateBuilder {
+  ///   @override
+  ///   Widget build(BuildContext context, int index, bool active) {
+  ///     return Text('TAB $index');
+  ///   }
+  /// }
+  /// ```
   const ConvexAppBar.builder({
     Key key,
     @required this.itemBuilder,
@@ -207,8 +249,6 @@ class ConvexAppBar extends StatefulWidget {
   /// [badge] is map with tab items, the value of entry can be either [String],
   /// [IconData], [Color] or [Widget].
   ///
-  /// {@tool sample}
-  ///
   /// ```dart
   /// ConvexAppBar.badge(
   ///   {3: '99+'},
@@ -219,7 +259,6 @@ class ConvexAppBar extends StatefulWidget {
   ///   ],
   /// )
   /// ```
-  /// {@end-tool}
   factory ConvexAppBar.badge(
     Map<int, dynamic> badge, {
     Key key,
@@ -277,20 +316,6 @@ class ConvexAppBar extends StatefulWidget {
   @override
   ConvexAppBarState createState() {
     return ConvexAppBarState();
-  }
-}
-
-/// Item builder.
-abstract class DelegateBuilder {
-  /// Called when the tab item is build.
-  /// * [context] BuildContext instance;
-  /// * [index] tab index;
-  /// * [active] tab state;
-  Widget build(BuildContext context, int index, bool active);
-
-  /// Whether the convex shape is fixed center or positioned according to selection.
-  bool fixed() {
-    return false;
   }
 }
 
@@ -487,13 +512,3 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
   }
 }
-
-/// Tab callback, [index] are tab index which is being clicked.
-typedef GestureTapIndexCallback = void Function(int index);
-
-/// Tab builder.
-/// * [context] BuildContent instance
-/// * [index] index of tab
-/// * [active] active state for tab index
-typedef CustomTabBuilder = Widget Function(
-    BuildContext context, int index, bool active);

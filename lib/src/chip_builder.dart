@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-/// Interface to apply any custom badge chip.
-abstract class ChipBuilder {
-  /// Construct a new widget which represent the tab item with custom badge.
-  ///
-  /// * [context] BuildContext instance;
-  /// * [child] the tab item Widget;
-  /// * [index] index of the tab item;
-  /// * [active] active state for the index;
-  Widget build(BuildContext context, Widget child, int index, bool active);
-}
+import 'interface.dart';
 
 /// Simple badge with num inside.
 class DefaultChipBuilder extends ChipBuilder {
