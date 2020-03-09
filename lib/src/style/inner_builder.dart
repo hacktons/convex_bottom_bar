@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import '../../convex_bottom_bar.dart';
+import '../interface.dart';
+import '../item.dart';
 
 /// Simple builder which extend [DelegateBuilder] to provide some necessary config.
 abstract class InnerBuilder extends DelegateBuilder {
