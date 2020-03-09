@@ -1,3 +1,8 @@
+## [2.1.1]
+
+* Fix ChipBuilder missing issue;
+* Polish ci test;
+
 ## [2.1.0+1]
 
 * Document all the public APIs;
