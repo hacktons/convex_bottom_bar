@@ -1,9 +1,7 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 
@@ -14,9 +12,6 @@ class FixedCircleTabStyle extends InnerBuilder {
 
   /// Index of the centered convex shape.
   final int convexIndex;
-
-  /// Margin of tab.
-  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   /// Create style builder
   FixedCircleTabStyle(
@@ -29,37 +24,39 @@ class FixedCircleTabStyle extends InnerBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
+    var c = active ? activeColor : color;
+    var item = items[index];
+    var style = ofStyle(context);
+    var textStyle = style.textStyle(c);
+    var margin = style.activeIconMargin;
+
     if (index == convexIndex) {
       final item = items[index];
       return Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: active ? activeColor : color,
+          color: c,
         ),
-        width: ACTION_LAYOUT_SIZE,
-        height: ACTION_LAYOUT_SIZE,
         margin: EdgeInsets.all(margin),
         child: BlendImageIcon(
           active ? item.activeIcon ?? item.icon : item.icon,
-          size: ACTION_INNER_BUTTON_SIZE,
+          size: style.activeIconSize,
           color: item.blend ? backgroundColor : null,
         ),
       );
     }
-    var item = items[index];
+
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           BlendImageIcon(
             active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? (active ? activeColor : color) : null,
+            color: item.blend ? (c) : null,
+            size: style.iconSize,
           ),
-          Text(
-            item.title,
-            style: TextStyle(color: active ? activeColor : color),
-          )
+          Text(item.title, style: textStyle)
         ],
       ),
     );

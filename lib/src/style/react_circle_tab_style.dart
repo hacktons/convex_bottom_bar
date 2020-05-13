@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
@@ -13,9 +12,6 @@ class ReactCircleTabStyle extends InnerBuilder {
 
   /// Curve for tab transition.
   final Curve curve;
-
-  /// Margin of tab.
-  final margin = (ACTION_LAYOUT_SIZE - ACTION_INNER_BUTTON_SIZE) / 4;
 
   /// Create style builder.
   ReactCircleTabStyle({
@@ -29,12 +25,13 @@ class ReactCircleTabStyle extends InnerBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
+    var style = ofStyle(context);
+    var margin = style.activeIconMargin;
+
     if (active) {
       final item = items[index];
       return TransitionContainer.scale(
         child: Container(
-          width: ACTION_LAYOUT_SIZE,
-          height: ACTION_LAYOUT_SIZE,
           margin: EdgeInsets.all(margin),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
@@ -42,23 +39,24 @@ class ReactCircleTabStyle extends InnerBuilder {
           ),
           child: BlendImageIcon(
             active ? item.activeIcon ?? item.icon : item.icon,
-            size: ACTION_INNER_BUTTON_SIZE,
+            size: style.activeIconSize,
             color: item.blend ? backgroundColor : null,
           ),
         ),
         curve: curve,
       );
     }
+    var textStyle = style.textStyle(color);
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           BlendImageIcon(
             active ? item.activeIcon ?? item.icon : item.icon,
             color: item.blend ? color : null,
           ),
-          Text(item.title, style: TextStyle(color: color))
+          Text(item.title, style: textStyle)
         ],
       ),
     );

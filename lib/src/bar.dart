@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -30,10 +29,10 @@ const double ACTION_LAYOUT_SIZE = 60;
 /// Default size for active icon in tab.
 const double ACTION_INNER_BUTTON_SIZE = 40;
 
-/// default elevation of [ConvexAppBar].
+/// Default elevation of [ConvexAppBar].
 const double ELEVATION = 2;
 
-/// Tab style which supported internal.
+/// Tab styles.
 enum TabStyle {
   /// Convex shape fixed center, see [FixedTabStyle].
   ///
@@ -78,7 +77,7 @@ enum TabStyle {
 ///
 /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-theming.png)
 class ConvexAppBar extends StatefulWidget {
-  /// TAB item builder.
+  /// Tab item builder.
   final DelegateBuilder itemBuilder;
 
   /// Badge chip builder.
@@ -115,9 +114,6 @@ class ConvexAppBar extends StatefulWidget {
 
   /// Elevation for the bar top edge.
   final double elevation;
-
-  /// Style to describe the convex shape.
-  final TabStyle style;
 
   /// The curve to use in the forward direction. Only works when tab style is not fixed.
   final Curve curve;
@@ -200,7 +196,6 @@ class ConvexAppBar extends StatefulWidget {
           curveSize: curveSize,
           top: top,
           elevation: elevation,
-          style: style,
           curve: curve ?? Curves.easeInOut,
           chipBuilder: chipBuilder,
         );
@@ -233,7 +228,6 @@ class ConvexAppBar extends StatefulWidget {
     this.curveSize,
     this.top,
     this.elevation,
-    this.style = TabStyle.reactCircle,
     this.curve = Curves.easeInOut,
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
@@ -451,7 +445,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
         ),
         _barContent(height, additionalBottomPadding, convexIndex),
         Positioned.fill(
-          top: widget.top,
+          top: widget.top ?? CURVE_TOP,
           bottom: additionalBottomPadding,
           child: FractionallySizedBox(
               widthFactor: factor,
@@ -510,5 +504,38 @@ class ConvexAppBarState extends State<ConvexAppBar>
     if (widget.onTap != null) {
       widget.onTap(i);
     }
+  }
+}
+
+/// Hook for internal tab style. Unlike the [ConvexAppBar.builder], you may want to
+/// update the tab style without define a new tab style.
+///
+/// Warning:
+/// This hook is limited, and can lead to `overflow broken` if the size you provide
+/// does no match with internal style.
+class StyleProvider extends InheritedWidget {
+  /// Style configuration
+  final StyleHook style;
+
+  /// Provide style to provider, [ConvexAppBar] will bind to the provided style.
+  /// See also:
+  ///
+  ///  * [ConvexAppBar]
+  ///  * [StyleHook]
+  StyleProvider({Key key, @required this.style, @required Widget child})
+      : assert(style != null),
+        assert(child != null),
+        super(key: key, child: child);
+
+  /// Get instance of style provider
+  static StyleProvider of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<StyleProvider>();
+  }
+
+  @override
+  bool updateShouldNotify(StyleProvider oldWidget) {
+    return style.activeIconMargin != oldWidget.style.activeIconMargin ||
+        style.activeIconSize != oldWidget.style.activeIconSize ||
+        style.iconSize != oldWidget.style.iconSize;
   }
 }

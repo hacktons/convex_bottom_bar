@@ -62,13 +62,31 @@ class _State extends State<CustomAppBarDemo>
                     )))
               .toList(growable: false),
         ),
-        bottomNavigationBar: ConvexAppBar.builder(
-          itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
-          count: items.length,
-          backgroundColor: _tabBackgroundColor,
-          style: TabStyle.fixed,
+        bottomNavigationBar: StyleProvider(
+          style: Style(),
+          child: ConvexAppBar(
+            initialActiveIndex: 1,
+            height: 90,
+            top: -30,
+            curveSize: 100,
+            style: TabStyle.reactCircle,
+            items: [
+              TabItem(title: "Hello", icon: Icons.link),
+              TabItem(title: "Flutter", icon: Icons.import_contacts),
+              TabItem(title: "2020", icon: Icons.work),
+            ],
+            backgroundColor: _tabBackgroundColor,
+          ),
         ),
       ),
+    );
+  }
+
+  Widget builder() {
+    return ConvexAppBar.builder(
+      itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
+      count: items.length,
+      backgroundColor: _tabBackgroundColor,
     );
   }
 
@@ -150,5 +168,21 @@ class _CustomBuilder extends DelegateBuilder {
   @override
   bool fixed() {
     return true;
+  }
+}
+
+class Style extends StyleHook {
+  @override
+  double get activeIconSize => 40;
+
+  @override
+  double get activeIconMargin => 10;
+
+  @override
+  double get iconSize => 40;
+
+  @override
+  TextStyle textStyle(Color color) {
+    return TextStyle(fontSize: 20, color: color);
   }
 }

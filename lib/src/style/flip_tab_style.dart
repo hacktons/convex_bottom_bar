@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
@@ -22,10 +21,13 @@ class FlipTabStyle extends InnerBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
+    var style = ofStyle(context);
+    var textStyle = style.textStyle(activeColor);
+
     if (active) {
       return TransitionContainer.flip(
         duration: Duration(milliseconds: 500),
-        height: ACTION_LAYOUT_SIZE,
+        height: style.activeIconMargin,
         bottomChild: Container(
           padding: EdgeInsets.only(bottom: 2),
           child: Column(
@@ -34,23 +36,30 @@ class FlipTabStyle extends InnerBuilder {
               BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: item.blend ? activeColor : null,
-                size: ACTION_INNER_BUTTON_SIZE,
+                size: style.activeIconSize,
               ),
-              Text(item.title, style: TextStyle(color: activeColor))
+              Text(item.title, style: textStyle)
             ],
           ),
         ),
         topChild: Container(
-          height: BAR_HEIGHT,
           child: Center(
-            child: BlendImageIcon(item.icon, color: item.blend ? color : null),
+            child: BlendImageIcon(
+              item.icon,
+              color: item.blend ? color : null,
+              size: style.iconSize,
+            ),
           ),
         ),
         curve: curve,
       );
     }
     return Center(
-      child: BlendImageIcon(item.icon, color: item.blend ? color : null),
+      child: BlendImageIcon(
+        item.icon,
+        color: item.blend ? color : null,
+        size: style.iconSize,
+      ),
     );
   }
 }

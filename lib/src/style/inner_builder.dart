@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
+
 import '../interface.dart';
 import '../item.dart';
 
@@ -14,6 +17,13 @@ abstract class InnerBuilder extends DelegateBuilder {
   /// Color used for tab.
   final Color color;
 
+  /// Style hook to override the internal tab style
+  StyleHook _style;
+
   /// Create style builder.
   InnerBuilder({this.items, this.activeColor, this.color});
+
+  StyleHook ofStyle(BuildContext context) {
+    return StyleProvider.of(context)?.style ?? (_style ??= provideStyle());
+  }
 }

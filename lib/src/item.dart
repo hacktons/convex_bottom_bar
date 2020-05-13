@@ -14,6 +14,7 @@ class TabItem<T> {
   final T activeIcon;
 
   /// Whether icon should blend with color.
+  /// If [icon] is instance of [IconData] then blend is default to true, otherwise false
   final bool blend;
 
   /// Create item
