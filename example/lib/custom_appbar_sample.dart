@@ -58,7 +58,7 @@ class _State extends State<CustomAppBarDemo>
                   : Center(
                       child: Text(
                       '<\t\t${i.title}\t\t>',
-                      style: Theme.of(context).textTheme.display1,
+                      style: TextStyle(fontSize: 30),
                     )))
               .toList(growable: false),
         ),
@@ -66,10 +66,10 @@ class _State extends State<CustomAppBarDemo>
           style: Style(),
           child: ConvexAppBar(
             initialActiveIndex: 1,
-            height: 90,
+            height: 50,
             top: -30,
             curveSize: 100,
-            style: TabStyle.reactCircle,
+            style: TabStyle.fixedCircle,
             items: [
               TabItem(title: "Hello", icon: Icons.link),
               TabItem(title: "Flutter", icon: Icons.import_contacts),
@@ -179,7 +179,7 @@ class Style extends StyleHook {
   double get activeIconMargin => 10;
 
   @override
-  double get iconSize => 40;
+  double get iconSize => 20;
 
   @override
   TextStyle textStyle(Color color) {

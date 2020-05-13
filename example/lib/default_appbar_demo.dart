@@ -133,7 +133,7 @@ class _State extends State<DefaultAppBarDemo>
                   : Center(
                       child: Text(
                       '${i.title}',
-                      style: Theme.of(context).textTheme.display1,
+                      style: TextStyle(fontSize: 30),
                     )))
               .toList(growable: false)),
       bottomNavigationBar: _badge == null

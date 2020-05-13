@@ -15,7 +15,7 @@ class Heading extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       child: Text(
         text,
-        style: theme.textTheme.body1.copyWith(
+        style: TextStyle(
           color: theme.primaryColor,
         ),
       ),
