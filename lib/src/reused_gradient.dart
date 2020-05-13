@@ -29,4 +29,9 @@ class ReusedGradient {
     paint.shader = _shader;
     _size = size;
   }
+
+  /// check if the gradient is valid or not
+  bool get valid {
+    return _size != null && _gradient != null;
+  }
 }
