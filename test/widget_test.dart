@@ -1,4 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -133,6 +134,11 @@ void main() {
       await tester.startGesture(Offset(0, 100)).then((g) {
         return g.moveTo(Offset(100, 100));
       });
+      if (s != TabStyle.titled) {
+        await tester.tap(find.byIcon(Icons.web).first);
+        await tester.pumpAndSettle(Duration(milliseconds: 300));
+        await tester.tap(find.byIcon(Icons.near_me).first);
+      }
     }
   });
   testWidgets('Test tab controller', (WidgetTester tester) async {
@@ -186,17 +192,16 @@ void main() {
     controller.index = 1;
   });
 
-  testWidgets('Add dadge on AppBar', (WidgetTester tester) async {
+  testWidgets('Add badge on AppBar', (WidgetTester tester) async {
     await tester.pumpWidget(
       material(
         ConvexAppBar.badge(
           {
             0: '1',
-            1: 'hot',
+            1: Duration(seconds: 0), // invalid type
             2: Colors.redAccent,
             3: Icons.add,
             4: Text('new'),
-            5: 0,
           },
           items: [
             TabItem(title: 'Tab A', icon: Icons.add),
@@ -211,7 +216,6 @@ void main() {
       Duration(milliseconds: 300),
     );
     expect(find.text('1'), findsOneWidget);
-    expect(find.text('hot'), findsOneWidget);
     await tester.tap(find.byIcon(Icons.near_me));
     await tester.pumpAndSettle(Duration(milliseconds: 300));
   });
@@ -275,6 +279,12 @@ void main() {
       }
     },
   );
+
+  testWidgets('Test Blend Image', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      BlendImageIcon(Container(width: 20, height: 20), color: Colors.red),
+    );
+  });
 }
 
 class Builder extends DelegateBuilder {

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 import 'transition_container.dart';
@@ -22,23 +21,24 @@ class TextInTabStyle extends InnerBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
+    var style = ofStyle(context);
     if (active) {
+      var textStyle = style.textStyle(activeColor);
       return Container(
-        height: ACTION_LAYOUT_SIZE,
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TransitionContainer.scale(
               child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: item.blend ? activeColor : null,
-                size: ACTION_INNER_BUTTON_SIZE,
+                size: style.activeIconSize,
               ),
               curve: curve,
             ),
             TransitionContainer.slide(
-              child: Text(item.title, style: TextStyle(color: activeColor)),
+              child: Text(item.title, style: textStyle),
               curve: curve,
             ),
           ],
@@ -47,7 +47,8 @@ class TextInTabStyle extends InnerBuilder {
     }
 
     return Center(
-      child: BlendImageIcon(item.icon, color: item.blend ? color : null),
+      child: BlendImageIcon(item.icon,
+          size: style.iconSize, color: item.blend ? color : null),
     );
   }
 }

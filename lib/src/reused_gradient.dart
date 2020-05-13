@@ -18,7 +18,7 @@ class ReusedGradient {
   }
 
   /// Update the paint with provided size
-  updateWith(Paint paint, {Rect size}) {
+  void updateWith(Paint paint, {Rect size}) {
     if (size == _size) {
       return;
     }
@@ -28,5 +28,10 @@ class ReusedGradient {
     _shader ??= _gradient.createShader(size);
     paint.shader = _shader;
     _size = size;
+  }
+
+  /// check if the gradient is valid or not
+  bool get valid {
+    return _size != null && _gradient != null;
   }
 }

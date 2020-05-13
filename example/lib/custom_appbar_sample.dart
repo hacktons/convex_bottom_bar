@@ -58,17 +58,35 @@ class _State extends State<CustomAppBarDemo>
                   : Center(
                       child: Text(
                       '<\t\t${i.title}\t\t>',
-                      style: Theme.of(context).textTheme.display1,
+                      style: TextStyle(fontSize: 30),
                     )))
               .toList(growable: false),
         ),
-        bottomNavigationBar: ConvexAppBar.builder(
-          itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
-          count: items.length,
-          backgroundColor: _tabBackgroundColor,
-          style: TabStyle.fixed,
+        bottomNavigationBar: StyleProvider(
+          style: Style(),
+          child: ConvexAppBar(
+            initialActiveIndex: 1,
+            height: 50,
+            top: -30,
+            curveSize: 100,
+            style: TabStyle.fixedCircle,
+            items: [
+              TabItem(title: "Hello", icon: Icons.link),
+              TabItem(title: "Flutter", icon: Icons.import_contacts),
+              TabItem(title: "2020", icon: Icons.work),
+            ],
+            backgroundColor: _tabBackgroundColor,
+          ),
         ),
       ),
+    );
+  }
+
+  Widget builder() {
+    return ConvexAppBar.builder(
+      itemBuilder: _CustomBuilder(items, _tabBackgroundColor),
+      count: items.length,
+      backgroundColor: _tabBackgroundColor,
     );
   }
 
@@ -150,5 +168,21 @@ class _CustomBuilder extends DelegateBuilder {
   @override
   bool fixed() {
     return true;
+  }
+}
+
+class Style extends StyleHook {
+  @override
+  double get activeIconSize => 40;
+
+  @override
+  double get activeIconMargin => 10;
+
+  @override
+  double get iconSize => 20;
+
+  @override
+  TextStyle textStyle(Color color) {
+    return TextStyle(fontSize: 20, color: color);
   }
 }

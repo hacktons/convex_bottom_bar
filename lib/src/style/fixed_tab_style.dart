@@ -1,9 +1,8 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../convex_bottom_bar.dart';
+import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 
@@ -22,28 +21,28 @@ class FixedTabStyle extends InnerBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
+    var c = active ? activeColor : color;
+    var style = ofStyle(context);
+    var textStyle = style.textStyle(c);
+    var item = items[index];
+
     if (index == convexIndex) {
       var item = items[convexIndex];
       return Container(
-        height: ACTION_LAYOUT_SIZE,
         padding: EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
-              color: item.blend ? (active ? activeColor : color) : null,
-              size: ACTION_INNER_BUTTON_SIZE,
+              color: item.blend ? (c) : null,
+              size: style.activeIconSize,
             ),
-            Text(
-              item.title,
-              style: TextStyle(color: active ? activeColor : color),
-            )
+            Text(item.title, style: textStyle)
           ],
         ),
       );
     }
-    var item = items[index];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
@@ -51,12 +50,10 @@ class FixedTabStyle extends InnerBuilder {
         children: <Widget>[
           BlendImageIcon(
             active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? (active ? activeColor : color) : null,
+            size: style.iconSize,
+            color: item.blend ? (c) : null,
           ),
-          Text(
-            item.title,
-            style: TextStyle(color: active ? activeColor : color),
-          )
+          Text(item.title, style: textStyle)
         ],
       ),
     );

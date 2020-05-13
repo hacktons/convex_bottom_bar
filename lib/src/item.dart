@@ -14,6 +14,7 @@ class TabItem<T> {
   final T activeIcon;
 
   /// Whether icon should blend with color.
+  /// If [icon] is instance of [IconData] then blend is default to true, otherwise false
   final bool blend;
 
   /// Create item
@@ -23,6 +24,6 @@ class TabItem<T> {
     this.activeIcon,
     bool isIconBlend,
   })  : assert(icon is IconData || icon is Widget,
-            "TabItem only support IconData and Widget"),
+            'TabItem only support IconData and Widget'),
         blend = isIconBlend ?? (icon is IconData);
 }

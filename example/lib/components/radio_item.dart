@@ -13,7 +13,6 @@ class RadioItem<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Container(
       height: 56.0,
       padding: const EdgeInsetsDirectional.only(start: 16.0),
@@ -38,10 +37,7 @@ class RadioItem<T> extends StatelessWidget {
                       onChanged(value);
                     }
                   },
-                  child: Text(
-                    value.title,
-                    style: theme.textTheme.subhead,
-                  ),
+                  child: Text(value.title),
                 ),
               ),
             ),
