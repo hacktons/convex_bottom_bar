@@ -63,4 +63,5 @@ abstract class StyleHook {
   /// Override the text size can lead to `layout overflow` warning, you may need
   /// to update the height of bar too.
   TextStyle textStyle(Color color);
+
 }

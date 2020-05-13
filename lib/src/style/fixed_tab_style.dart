@@ -29,7 +29,6 @@ class FixedTabStyle extends InnerBuilder {
     if (index == convexIndex) {
       var item = items[convexIndex];
       return Container(
-        height: style.activeIconMargin,
         padding: EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

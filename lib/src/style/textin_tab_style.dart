@@ -25,7 +25,6 @@ class TextInTabStyle extends InnerBuilder {
     if (active) {
       var textStyle = style.textStyle(activeColor);
       return Container(
-        height: style.activeIconMargin,
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

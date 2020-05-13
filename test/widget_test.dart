@@ -186,7 +186,7 @@ void main() {
     controller.index = 1;
   });
 
-  testWidgets('Add dadge on AppBar', (WidgetTester tester) async {
+  testWidgets('Add badge on AppBar', (WidgetTester tester) async {
     await tester.pumpWidget(
       material(
         ConvexAppBar.badge(

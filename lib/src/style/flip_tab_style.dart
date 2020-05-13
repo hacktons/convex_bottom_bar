@@ -27,7 +27,7 @@ class FlipTabStyle extends InnerBuilder {
     if (active) {
       return TransitionContainer.flip(
         duration: Duration(milliseconds: 500),
-        height: style.activeIconMargin,
+        height: style.activeIconMargin + style.activeIconSize,
         bottomChild: Container(
           padding: EdgeInsets.only(bottom: 2),
           child: Column(
