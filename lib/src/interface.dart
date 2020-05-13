@@ -1,5 +1,6 @@
-import 'package:convex_bottom_bar/src/style/internal_style_config.dart';
 import 'package:flutter/widgets.dart';
+
+import 'style/internal_style_config.dart';
 
 /// Tab callback, [index] are tab index which is being clicked.
 typedef GestureTapIndexCallback = void Function(int index);

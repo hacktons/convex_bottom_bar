@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../bar.dart';
 import '../interface.dart';
 import '../item.dart';
 
