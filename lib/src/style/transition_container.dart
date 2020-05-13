@@ -16,7 +16,7 @@ class TransitionContainer extends StatefulWidget {
 
   /// Create transition with builder.
   TransitionContainer(
-      {this.builder, this.duration, this.disableAnimateWhenUpdate})
+      {@required this.builder, this.duration, this.disableAnimateWhenUpdate})
       : assert(builder != null);
 
   /// Wrap a widget with scale transition.

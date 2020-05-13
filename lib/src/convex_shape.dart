@@ -21,27 +21,27 @@ class ConvexNotchedRectangle extends NotchedShape {
 
     // The guest's shape is a circle bounded by the guest rectangle.
     // So the guest's radius is half the guest width.
-    final double notchRadius = guest.width / 2.0;
+    final notchRadius = guest.width / 2.0;
 
-    const double s1 = 15.0;
-    const double s2 = 1.0;
+    const s1 = 15.0;
+    const s2 = 1.0;
 
-    final double r = notchRadius;
-    final double a = -1.0 * r - s2;
-    final double b = host.top - guest.center.dy;
+    final r = notchRadius;
+    final a = -1.0 * r - s2;
+    final b = host.top - guest.center.dy;
 
-    final double n2 = math.sqrt(b * b * r * r * (a * a + b * b - r * r));
-    final double p2xA = ((a * r * r) - n2) / (a * a + b * b);
-    final double p2xB = ((a * r * r) + n2) / (a * a + b * b);
-    final double p2yA = -math.sqrt(r * r - p2xA * p2xA);
-    final double p2yB = -math.sqrt(r * r - p2xB * p2xB);
+    final n2 = math.sqrt(b * b * r * r * (a * a + b * b - r * r));
+    final p2xA = ((a * r * r) - n2) / (a * a + b * b);
+    final p2xB = ((a * r * r) + n2) / (a * a + b * b);
+    final p2yA = -math.sqrt(r * r - p2xA * p2xA);
+    final p2yB = -math.sqrt(r * r - p2xB * p2xB);
 
-    final List<Offset> p = List<Offset>(6);
+    final p = List<Offset>(6);
 
     // p0, p1, and p2 are the control points for segment A.
     p[0] = Offset(a - s1, b);
     p[1] = Offset(a, b);
-    final double cmp = b < 0 ? -1.0 : 1.0;
+    final cmp = b < 0 ? -1.0 : 1.0;
     p[2] = cmp * p2yA > cmp * p2yB ? Offset(p2xA, p2yA) : Offset(p2xB, p2yB);
 
     // p3, p4, and p5 are the control points for segment B, which is a mirror
@@ -51,7 +51,7 @@ class ConvexNotchedRectangle extends NotchedShape {
     p[5] = Offset(-1.0 * p[0].dx, p[0].dy);
 
     // translate all points back to the absolute coordinate system.
-    for (int i = 0; i < p.length; i += 1) {
+    for (var i = 0; i < p.length; i += 1) {
       p[i] += guest.center;
       //p[i] += padding;
     }

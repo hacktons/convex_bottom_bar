@@ -43,11 +43,11 @@ class ConvexPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Rect host = Rect.fromLTWH(0, 0, size.width, size.height);
-    Rect guest = Rect.fromLTWH(
+    var host = Rect.fromLTWH(0, 0, size.width, size.height);
+    var guest = Rect.fromLTWH(
         size.width * leftPercent.value - width / 2, top, width, height);
     _gradient.updateWith(_paint, size: host);
-    Path path = _shape.getOuterPath(host, guest);
+    var path = _shape.getOuterPath(host, guest);
     canvas.drawPath(path, _shadowPaint);
     canvas.drawPath(path, _paint);
   }

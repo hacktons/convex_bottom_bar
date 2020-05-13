@@ -373,9 +373,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
     super.dispose();
   }
 
-  _updateTabController() {
-    final TabController newController =
-        widget.controller ?? DefaultTabController.of(context);
+  void _updateTabController() {
+    final newController = widget.controller ?? DefaultTabController.of(context);
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
@@ -409,7 +408,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   @override
   Widget build(BuildContext context) {
     // take care of iPhoneX' safe area at bottom edge
-    final double additionalBottomPadding =
+    final additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
     final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
     final active = isFixed() ? convexIndex == _currentIndex : true;
@@ -463,7 +462,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   bool isFixed() => widget.itemBuilder.fixed();
 
   Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
-    List<Widget> children = [];
+    var children = <Widget>[];
     for (var i = 0; i < widget.count; i++) {
       if (i == curveTabIndex) {
         children.add(Expanded(child: Container()));

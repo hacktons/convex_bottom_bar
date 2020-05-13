@@ -39,14 +39,12 @@ class Stack extends widget.Stack {
 
 /// Enable overflow hitTest
 class _RenderStack extends RenderStack {
-  Overflow overflow;
-
   _RenderStack({
     List<RenderBox> children,
     AlignmentGeometry alignment = AlignmentDirectional.topStart,
     TextDirection textDirection,
     StackFit fit = StackFit.loose,
-    this.overflow = Overflow.clip,
+    Overflow overflow = Overflow.clip,
   }) : super(
             children: children,
             alignment: alignment,

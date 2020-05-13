@@ -23,6 +23,7 @@ abstract class InnerBuilder extends DelegateBuilder {
   /// Create style builder.
   InnerBuilder({this.items, this.activeColor, this.color});
 
+  /// Get style config
   StyleHook ofStyle(BuildContext context) {
     return StyleProvider.of(context)?.style ?? (_style ??= provideStyle());
   }
