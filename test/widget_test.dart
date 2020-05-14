@@ -6,14 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('TabItem support IconData and Widget', () {
     var item = TabItem(title: 'Tab A', icon: Icons.add);
-    expect(item != null, true);
+    expect(item.title, 'Tab A');
     var item2 = TabItem(title: 'Tab A', icon: Container(child: Text('A')));
-    expect(item2 != null, true);
-    var item3;
-    try {
-      item3 = TabItem(title: 'Tab A', icon: 'A');
-    } catch (_) {}
-    expect(item3 != null, false);
+    expect(item2.icon is Container, true);
+    expect(() async {
+      TabItem(title: 'Tab A', icon: 'A');
+    }, throwsAssertionError);
   });
 
   testWidgets('TabStyle.fixed, all tab has icon and text',
@@ -124,7 +122,6 @@ void main() {
         Duration(milliseconds: 300),
       );
       await tester.tap(find.byIcon(Icons.near_me).first);
-      await tester.tap(find.byIcon(Icons.near_me).first);
       await tester.pumpAndSettle(Duration(milliseconds: 300));
       await tester.drag(find.byType(ConvexAppBar), Offset(200, 0));
       await tester.pumpAndSettle(Duration(milliseconds: 300));
@@ -140,7 +137,22 @@ void main() {
         await tester.tap(find.byIcon(Icons.near_me).first);
       }
     }
+    await tester.pumpWidget(
+      material(DefaultTabController(
+        length: 3,
+        child: ConvexAppBar(
+          items: [
+            TabItem(title: 'Tab A', icon: Icons.add),
+            TabItem(title: 'Tab B', icon: Icons.near_me),
+            TabItem(title: 'Tab C', icon: Icons.web),
+          ],
+          style: TabStyle.textIn,
+        ),
+      )),
+    );
+    await tester.tap(find.byIcon(Icons.near_me).first);
   });
+
   testWidgets('Test tab controller', (WidgetTester tester) async {
     TabController controller = TabController(length: 3, vsync: TestVSync());
     GlobalKey key = GlobalKey(debugLabel: 'appbar');
