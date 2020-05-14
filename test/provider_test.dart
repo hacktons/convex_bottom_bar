@@ -18,8 +18,28 @@ void main() {
       ),
     )));
   });
+  testWidgets('Test Provider assertion, style should not be null', (WidgetTester tester) async {
+    expect(() async {
+      await tester.pumpWidget(StyleProvider(
+        style: null,
+        child: null,
+      ));
+    }, throwsAssertionError);
+  });
+  testWidgets('Test Provider assertion, child should not be null', (WidgetTester tester) async {
+    expect(() async {
+      await tester.pumpWidget(StyleProvider(
+        style: Style(),
+        child: null,
+      ));
+    }, throwsAssertionError);
+  });
 }
 
+/// testWidgets('MyWidget asserts invalid bounds', (WidgetTester tester) async {
+///   await tester.pumpWidget(MyWidget(-1));
+///   expect(tester.takeException(), isAssertionError); // or isNull, as appropriate.
+/// });
 class Style extends StyleHook {
   @override
   double get iconSize {
