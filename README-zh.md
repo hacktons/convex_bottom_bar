@@ -86,7 +86,7 @@ Scaffold(
 - [贡献](#贡献)
 
 ## 角标
-如果需要在标签上添加徽章，请使用`ConvexAppBar.badge`来构建。
+如果需要在TAB上添加徽章/角标，请使用`ConvexAppBar.badge`来构建。
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
 ```dart
@@ -123,7 +123,7 @@ AppBar默认使用内置样式，您可能需要为其设置主题。 以下是�
 
 ## 自定义样例
 
-如果默认样式与您的情况不符，请尝试使用`ConvexAppBar.builder()`，它可以让您自定义几乎所有选项卡功能。
+如果默认样式与您的情况不符，请尝试使用`ConvexAppBar.builder()`，它可以让您自定义几乎所有TAB样式。
 ```dart
 Scaffold(
   bottomNavigationBar: ConvexAppBar.builder(
