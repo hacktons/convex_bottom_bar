@@ -1,3 +1,8 @@
+## [TODO]
+
+* Add new API to hook internal styles. Checkout `StyleProvider` for details;
+* Provide configuration to hide Text widget when label is empty;
+
 ## [2.1.1]
 
 * Fix ChipBuilder missing issue;
