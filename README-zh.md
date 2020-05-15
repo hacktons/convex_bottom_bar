@@ -1,6 +1,6 @@
 ![preview](doc/preview.png)
 
-Languages: [English](README.md)|[简体中文](README-zh.md)
+语言: [English](README.md)|[简体中文](README-zh.md)
 # convex_bottom_bar
 
 [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
@@ -12,14 +12,13 @@ Languages: [English](README.md)|[简体中文](README-zh.md)
 <img height="128" src="doc/flutter-favorite.png">
 </a>
 
-**convex_bottom_bar is now a [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) package!**
+**convex_bottom_bar 现在是一个 [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) 插件库!**
 
-The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
+官方的BottomAppBar只能显示带有凹形FAB的导航栏，有时我们需要凸形FAB。 ConvexAppBar的开发受BottomAppBar和NotchShape的实现启发。
 
-Online example can be found at [https://appbar.codemagic.app](https://appbar.codemagic.app).
+可以在[https://appbar.codemagic.app](https://appbar.codemagic.app)上找到在线示例。
 
-Here are some supported style:
-
+以下是一些支持的预定义样式：
 |            **fixed**             |            **react**             |
 | :------------------------------: | :------------------------------: |
 |    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
@@ -33,12 +32,13 @@ Here are some supported style:
 |   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
 
-## How to use
-Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
+## 快速上手
 
-The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default style to simplify the tab creation.
+通常ConvexAppBar可以通过设置bottomNavigationBar与Scaffold一起使用。
 
-Add this to your package's pubspec.yaml file, use the latest version [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar):
+ConvexAppBar具有两个构造函数，ConvexAppBar()将使用默认样式来简化选项卡的创建。
+
+将此添加到您程序包的pubspec.yaml文件中，注意使用最新版本[![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar):
 
 ```yaml
 dependencies:
@@ -62,31 +62,31 @@ Scaffold(
   )
 );
 ```
-## Features
-* Provide multiple internal styles
-* Ability to change the theme of AppBar
-* Provide builder API to customize new style
-* Add badge on tab menu
-* Elegant transition animation
-* Provide hook API to override some of internal styles
+## 功能
+
+* 提供多种内部样式
+* 能够更改AppBar的主题
+* 提供Builder API以自定义新样式
+* 在AppBar上添加徽章
+* 支持优雅的过渡动画
+* 提供Hook API来重载一些内部样式
  
 ## Table of contents
 
-- [Badge](#badge)
+- [角标](#角标)
 
-- [Theming](#theming)
+- [主题](#主题)
 
-- [Custom Example](#custom-example)
+- [自定义样例](#自定义样例)
 
-- [Style Hook](#style-hook)
+- [样式重载](#样式重载)
 
-- [FAQ](#faq)
+- [常见问题](#常见问题)
 
-- [Contribution](#contribution)
+- [贡献](#贡献)
 
-## Badge
-If you need to add badge on the tab, use `ConvexAppBar.badge` to get it done. 
-
+## 角标
+如果需要在TAB上添加徽章/角标，请使用`ConvexAppBar.badge`来构建。
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
 ```dart
@@ -100,31 +100,30 @@ ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
 );
 ```
 
-The `badge()` method accept an array of badges; The `badges` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
+`badge()`方法接受一个角标数组； 角标是带有选项卡项的映射，每个条目的值可以是String，IconData，Color或Widget。
 
-## Theming
-The bar will use default style, you may want to theme it. Here are some supported attributes:
+## 主题
+AppBar默认使用内置样式，您可能需要为其设置主题。 以下是一些支持的属性：
 
 ![](doc/appbar-theming.png)
 
 | Attributes      | Description                           |
 | --------------- | ------------------------------------- |
-| backgroundColor | AppBar background                     |
-| gradient        | gradient will override backgroundColor|
-| height          | AppBar height                         |
-| color           | tab icon/text color                   |
-| activeColor     | tab icon/text color **when selected** |
-| curveSize       | size of the convex shape              |
-| top   | top edge of the convex shape relative to AppBar |
-| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
-| chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
+| backgroundColor | AppBar 背景                     |
+| gradient        | 渐变属性，可以覆盖backgroundColor|
+| height          | AppBar 高度                         |
+| color           | icon/text 的颜色值                   |
+| activeColor     | icon/text 的**选中态**颜色值 |
+| curveSize       | 凸形大小             |
+| top   | 凸形到AppBar上边缘的距离 |
+| style | 支持的样式: **fixed, fixedCircle, react, reactCircle**, ... |
+| chipBuilder | 角标构造器builder,  **ConvexAppBar.badge**会使用默认样式 |
 
 ![](doc/appbar-demo.gif)
 
-## Custom Example
+## 自定义样例
 
-If the default style does not match with your situation, try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
-
+如果默认样式与您的情况不符，请尝试使用`ConvexAppBar.builder()`，它可以让您自定义几乎所有TAB样式。
 ```dart
 Scaffold(
   bottomNavigationBar: ConvexAppBar.builder(
@@ -144,13 +143,12 @@ class Builder extends DelegateBuilder {
 }
 ```
 
-Full custom example can be found at [example](example). 
+完整的自定义示例可以在[example](example)中找到。
 
-## Style Hook
-Hook for internal tab style. Unlike the `ConvexAppBar.builder`, you may want to update the tab style without define a new tab style.
-
-**Warning:**  
-This hook is limited, and can lead to `overflow broken` if the size you provide does no match with internal style.
+## 样式重载
+重载Tab内置样式。 该API与`ConvexAppBar.builder`不同，为了满足您可能需要更新选项卡样式而不定义新的选项卡样式。
+**温馨提示:**  
+则此Hook能力是有限的，如果您提供的尺寸与内部样式不匹配，并且可能导致`overflow broken`。
 
 ```dart
 StyleProvider(
@@ -185,11 +183,11 @@ class Style extends StyleHook {
   }
 }
 ```
-## FAQ
+## 常见问题
 
-* [Change active tab index programmaticlly](doc/issue-change-active-tab-index.md)
-* [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
-* [Is there anyway to remove elevation in the bottom bar?](doc/issue-remove-elevation.md) 
+* [动态修改选中的TAB](doc/issue-change-active-tab-index.md)
+* [如何给TAB添加图片而不是ICON](doc/issue-image-for-actionitem.md)
+* [如何移除AppBar的边缘阴影](doc/issue-remove-elevation.md) 
 
-## Contribution
-Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
+## 贡献
+如您在使用过程中有新功能建议或者遇到问题，请移步至[issue tracker](https://github.com/hacktons/convex_bottom_bar/issues)提交。
