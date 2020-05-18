@@ -1,4 +1,4 @@
-## [TODO]
+## [2.2.0]
 
 * Add new API to hook internal styles. Checkout `StyleProvider` for details;
 * Provide configuration to hide Text widget when label is empty;
