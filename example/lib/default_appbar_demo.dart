@@ -99,6 +99,7 @@ class _State extends State<DefaultAppBarDemo>
   Gradient _gradient = Data.gradients.first;
   Badge _badge;
   TabController _tabController;
+  TextDirection _textDirection = TextDirection.ltr;
 
   @override
   void initState() {
@@ -128,53 +129,72 @@ class _State extends State<DefaultAppBarDemo>
           Data.curves.map((c) => RadioItem<Curve>(c, _curve, _onCurveChanged)));
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Default ConvexAppBar'),
-        backgroundColor: _barColor,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.style),
-            color: Colors.white,
-            tooltip: "Custom style example",
-            onPressed: () => Navigator.of(context).pushNamed('/custom'),
-          )
-        ],
-      ),
-      body: TabBarView(
-          controller: _tabController,
-          children: _tabItems.value
-              .map((i) => i.title == 'Home' || i.title == 'Happy'
-                  ? ListView(children: options)
-                  : Center(
-                      child: Text(
-                      '${i.title}',
-                      style: TextStyle(fontSize: 30),
-                    )))
-              .toList(growable: false)),
-      bottomNavigationBar: _badge == null
-          ? ConvexAppBar(
-              items: _tabItems.value,
-              style: _style.value,
-              curve: _curve.value,
-              backgroundColor: _barColor,
-              gradient: _gradient,
-              controller: _tabController,
-              onTap: (int i) => debugPrint('select index=$i'),
-            )
-          : ConvexAppBar.badge(
-              {3: _badge.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
-              badgePadding: _badge.padding,
-              badgeColor: _badge.badgeColor,
-              badgeBorderRadius: _badge.borderRadius,
-              items: _tabItems.value,
-              style: _style.value,
-              curve: _curve.value,
-              backgroundColor: _barColor,
-              gradient: _gradient,
-              controller: _tabController,
-              onTap: (int i) => debugPrint('select index=$i'),
+    return Directionality(
+      textDirection: _textDirection,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Default ConvexAppBar'),
+          backgroundColor: _barColor,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(_textDirection == TextDirection.rtl
+                  ? Icons.format_textdirection_r_to_l
+                  : Icons.format_textdirection_l_to_r),
+              color: Colors.white,
+              tooltip: _textDirection == TextDirection.rtl
+                  ? "Change to LTR"
+                  : "Change to RTL",
+              onPressed: () {
+                setState(() {
+                  _textDirection = _textDirection == TextDirection.ltr
+                      ? TextDirection.rtl
+                      : TextDirection.ltr;
+                });
+              },
             ),
+            IconButton(
+              icon: Icon(Icons.style),
+              color: Colors.white,
+              tooltip: "Custom style example",
+              onPressed: () => Navigator.of(context).pushNamed('/custom'),
+            )
+          ],
+        ),
+        body: TabBarView(
+            controller: _tabController,
+            children: _tabItems.value
+                .map((i) => i.title == 'Home' || i.title == 'Happy'
+                    ? ListView(children: options)
+                    : Center(
+                        child: Text(
+                        '${i.title} World',
+                        style: TextStyle(fontSize: 30),
+                      )))
+                .toList(growable: false)),
+        bottomNavigationBar: _badge == null
+            ? ConvexAppBar(
+                items: _tabItems.value,
+                style: _style.value,
+                curve: _curve.value,
+                backgroundColor: _barColor,
+                gradient: _gradient,
+                controller: _tabController,
+                onTap: (int i) => debugPrint('select index=$i'),
+              )
+            : ConvexAppBar.badge(
+                {3: _badge.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
+                badgePadding: _badge.padding,
+                badgeColor: _badge.badgeColor,
+                badgeBorderRadius: _badge.borderRadius,
+                items: _tabItems.value,
+                style: _style.value,
+                curve: _curve.value,
+                backgroundColor: _barColor,
+                gradient: _gradient,
+                controller: _tabController,
+                onTap: (int i) => debugPrint('select index=$i'),
+              ),
+      ),
     );
   }
 
