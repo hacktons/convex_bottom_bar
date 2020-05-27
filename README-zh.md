@@ -70,6 +70,7 @@ Scaffold(
 * 在AppBar上添加徽章
 * 支持优雅的过渡动画
 * 提供Hook API来重载一些内部样式
+* RTL布局支持
  
 ## Table of contents
 
@@ -80,6 +81,8 @@ Scaffold(
 - [自定义样例](#自定义样例)
 
 - [样式重载](#样式重载)
+
+- [RTL支持](#RTL支持)
 
 - [常见问题](#常见问题)
 
@@ -182,6 +185,15 @@ class Style extends StyleHook {
     return TextStyle(fontSize: 20, color: color);
   }
 }
+```
+
+## RTL支持
+RTL的内部适配，如果你配置了Directionality，将自动支持ltf和rtl两种布局风格。
+```dart
+Directionality(
+  textDirection: TextDirection.rtl,
+  child: Scaffold(body:ConvexAppBar(/*TODO ...*/)),
+)
 ```
 ## 常见问题
 

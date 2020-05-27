@@ -69,6 +69,7 @@ Scaffold(
 * Add badge on tab menu
 * Elegant transition animation
 * Provide hook API to override some of internal styles
+* RTL support
  
 ## Table of contents
 
@@ -79,6 +80,8 @@ Scaffold(
 - [Custom Example](#custom-example)
 
 - [Style Hook](#style-hook)
+
+- [RTL Support](#rtl-support)
 
 - [FAQ](#faq)
 
@@ -185,6 +188,17 @@ class Style extends StyleHook {
   }
 }
 ```
+
+## RTL Support
+RTL is supported internally, if you define the TextDirection inside app, the AppBar should work fine.
+Both RTL and LTR can be configured through `Directionality`:
+```dart
+Directionality(
+  textDirection: TextDirection.rtl,
+  child: Scaffold(body:ConvexAppBar(/*TODO ...*/)),
+)
+```
+
 ## FAQ
 
 * [Change active tab index programmaticlly](doc/issue-change-active-tab-index.md)
