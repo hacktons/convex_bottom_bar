@@ -1,3 +1,6 @@
+## [2.2.1]
+* Support RTL;
+
 ## [2.2.0]
 
 * Add new API to hook internal styles. Checkout `StyleProvider` for details;
