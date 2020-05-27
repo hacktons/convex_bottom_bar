@@ -25,14 +25,16 @@ void main() {
   testWidgets('Test StyleProvider', (WidgetTester tester) async {
     await tester.pumpWidget(material(StyleProvider(
       style: Style(),
-      child: ConvexAppBar(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child:ConvexAppBar(
         items: [
           TabItem(icon: Icons.gradient, title: ''),
           TabItem(icon: Icons.help_outline, title: ''),
           TabItem(icon: Icons.work, title: ''),
         ],
       ),
-    )));
+    ))));
   });
   testWidgets('Test Provider assertion, style should not be null', (WidgetTester tester) async {
     expect(() async {
