@@ -1,12 +1,12 @@
 /*
- *  Copyright 2020 chaobinwu89@gmail.com
- *
+ *  Copyright 2020 Chaobin Wu <chaobinwu89@gmail.com>
+ *  
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ *  
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -358,9 +358,11 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Future<void> animateTo(int index) async {
     _initAnimation(from: _currentIndex, to: index);
     _controller?.forward();
-    setState(() {
-      _currentIndex = index;
-    });
+    if (mounted) {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
   }
 
   Animation<double> _initAnimation({int from, int to}) {
@@ -435,10 +437,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
         ? const AlwaysStoppedAnimation<double>(0.5)
         : _animation ?? _initAnimation();
     var factor = 1 / widget.count;
-    var offset = FractionalOffset(
-      widget.count > 1 ? 1 / (widget.count - 1) * convexIndex : 0.0,
-      0,
-    );
+    var textDirection = Directionality.of(context);
+    var dx = convexIndex / (widget.count - 1);
+    if (textDirection == TextDirection.rtl) {
+      dx = 1 - dx;
+    }
+    var offset = FractionalOffset(widget.count > 1 ? dx : 0.0, 0);
     return extend.Stack(
       overflow: Overflow.visible,
       alignment: Alignment.bottomCenter,
@@ -455,6 +459,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
               gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: percent,
+              textDirection: textDirection,
             ),
           ),
         ),
