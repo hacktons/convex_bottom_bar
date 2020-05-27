@@ -1,12 +1,12 @@
 /*
- *  Copyright 2020 chaobinwu89@gmail.com
- *
+ *  Copyright 2020 Chaobin Wu <chaobinwu89@gmail.com>
+ *  
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ *  
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,6 +38,7 @@ class ConvexPainter extends CustomPainter {
 
   /// Position in horizontal which describe the offset of shape.
   final Animation<double> leftPercent;
+  final TextDirection textDirection;
 
   /// Create painter
   ConvexPainter({
@@ -45,6 +46,7 @@ class ConvexPainter extends CustomPainter {
     this.width,
     this.height,
     this.leftPercent = const AlwaysStoppedAnimation<double>(0.5),
+    this.textDirection,
     Color color = Colors.white,
     Color shadowColor = Colors.black38,
     double sigma = 2,
@@ -60,8 +62,11 @@ class ConvexPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var host = Rect.fromLTWH(0, 0, size.width, size.height);
-    var guest = Rect.fromLTWH(
-        size.width * leftPercent.value - width / 2, top, width, height);
+    var percent = textDirection == TextDirection.rtl
+        ? (1 - leftPercent.value)
+        : leftPercent.value;
+    var guest =
+        Rect.fromLTWH(size.width * percent - width / 2, top, width, height);
     _gradient.updateWith(_paint, size: host);
     var path = _shape.getOuterPath(host, guest);
     canvas.drawPath(path, _shadowPaint);
