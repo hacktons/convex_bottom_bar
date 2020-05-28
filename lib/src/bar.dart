@@ -247,7 +247,7 @@ class ConvexAppBar extends StatefulWidget {
     this.curve = Curves.easeInOut,
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
-        assert(itemBuilder != null, 'provide custom buidler'),
+        assert(itemBuilder != null, 'provide custom builder'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
             'initial index should < $count'),
         super(key: key);
