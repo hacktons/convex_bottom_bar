@@ -32,7 +32,6 @@ Here are some supported style:
 |      **gradient backgound**    |      **badge chip**         |
 |   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
-
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
 
@@ -44,6 +43,10 @@ Add this to your package's pubspec.yaml file, use the latest version [![Pub](htt
 dependencies:
   convex_bottom_bar: ^latest_version
 ```
+
+You like the package ? buy me a kofi :)
+
+<a href='https://ko-fi.com/hacktons' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ```dart
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
