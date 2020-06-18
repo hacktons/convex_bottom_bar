@@ -20,17 +20,14 @@ Online example can be found at [https://appbar.codemagic.app](https://appbar.cod
 
 Here are some supported style:
 
-|            **fixed**             |            **react**             |
-| :------------------------------: | :------------------------------: |
-|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
-|         **fixedCircle**          |         **reactCircle**       |
-| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
-|            **flip**              |          **titled**          |
-|       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-titled.gif)    |
-|            **textIn**            |   **tab image**          |
-| ![](doc/appbar-textIn.gif)  |    ![](doc/appbar-image.gif)    |
-|      **gradient backgound**    |      **badge chip**         |
-|   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
+|            **fixed**             |            **react**             | **badge chip** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
+|         **fixedCircle**          |         **reactCircle**       | **flip** |
+| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif) |
+|            **textIn**            |          **titled**          | **tab image** |
+| ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
+
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -43,7 +40,6 @@ Add this to your package's pubspec.yaml file, use the latest version [![Pub](htt
 dependencies:
   convex_bottom_bar: ^latest_version
 ```
-
 You like the package ? buy me a kofi :)
 
 <a href='https://ko-fi.com/hacktons' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
@@ -73,7 +69,7 @@ Scaffold(
 * Elegant transition animation
 * Provide hook API to override some of internal styles
 * RTL support
- 
+
 ## Table of contents
 
 - [Badge](#badge)
