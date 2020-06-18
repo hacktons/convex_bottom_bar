@@ -1,3 +1,7 @@
+## [2.2.2]
+* Fix activate index when appbar is not working with controller;
+* Dispose AnimationController when is dirty;
+
 ## [2.2.1]
 * Support RTL;
 
