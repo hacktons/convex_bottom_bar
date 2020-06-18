@@ -373,6 +373,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
     to ??= from;
     var lower = (2 * from + 1) / (2 * widget.count);
     var upper = (2 * to + 1) / (2 * widget.count);
+    if (_controller != null) {
+      _controller.dispose();
+    }
     _controller = AnimationController(
       duration: Duration(milliseconds: 150),
       vsync: this,
@@ -396,7 +399,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
-    _currentIndex = widget.initialActiveIndex ?? _tabController?.index ?? 0;
+    // take care of priority
+    // initialActiveIndex > index > _currentIndex
+    _currentIndex = widget.initialActiveIndex ??
+        _tabController?.index ??
+        _currentIndex ??
+        0;
   }
 
   @override
@@ -431,7 +439,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
     final active = isFixed() ? convexIndex == _currentIndex : true;
 
-    final height = widget.height ?? BAR_HEIGHT + additionalBottomPadding;
+    final height = (widget.height ?? BAR_HEIGHT) + additionalBottomPadding;
     final width = MediaQuery.of(context).size.width;
     var percent = isFixed()
         ? const AlwaysStoppedAnimation<double>(0.5)
