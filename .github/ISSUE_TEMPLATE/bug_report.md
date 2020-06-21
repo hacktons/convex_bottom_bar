@@ -8,9 +8,24 @@ assignees: ''
 ---
 
 **Describe the bug**
+
 A clear and concise description of what the bug is.
 
+**Environment details**
+
+Paste the flutter environment detail.
+```
+flutter doctor
+flutter --version
+```
+Paste the package version.
+```
+dependencies:
+  convex_bottom_bar: x.y.z
+```
+
 **To Reproduce**
+
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
@@ -18,10 +33,13 @@ Steps to reproduce the behavior:
 4. See error
 
 **Expected behavior**
+
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
+
 If applicable, add screenshots to help explain your problem.
 
 **Additional context**
+
 Add any other context about the problem here.
