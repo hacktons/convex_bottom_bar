@@ -337,19 +337,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
   AnimationController _controller;
   TabController _tabController;
 
-  @override
-  void initState() {
-    super.initState();
-    if (!isFixed()) {
-      _initAnimation();
-    }
-  }
-
-  void _handleTabControllerAnimationTick({bool force = false}) {
-    if (!force && _tabController.indexIsChanging) {
+  void _handleTabControllerAnimationTick() {
+    if (_tabController.indexIsChanging) {
       return;
     }
     if (_tabController.index != _currentIndex) {
+      // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
       var _diff = (_tabController.index - _currentIndex).abs();
       if (_diff == 1) {
         animateTo(_tabController.index);
@@ -372,7 +365,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     if (from != null && (from == to)) {
       return _animation;
     }
-    from ??= widget.initialActiveIndex ?? 0;
+    from ??= widget.initialActiveIndex ?? _tabController?.index ?? 0;
     to ??= from;
     var lower = (2 * from + 1) / (2 * widget.count);
     var upper = (2 * to + 1) / (2 * widget.count);
@@ -408,6 +401,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
         _tabController?.index ??
         _currentIndex ??
         0;
+    if (!isFixed()) {
+      _initAnimation();
+    }
   }
 
   @override

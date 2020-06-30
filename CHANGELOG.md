@@ -1,3 +1,8 @@
+## [2.2.3]
+
+* Bug fix [#59](https://github.com/hacktons/convex_bottom_bar/issues/59)
+* Bug fix: default index not match with DefaultTabController.
+
 ## [2.2.2]
 * Fix activate index when appbar is not working with controller;
 * Dispose AnimationController when is dirty;
