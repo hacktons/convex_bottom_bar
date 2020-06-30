@@ -350,7 +350,10 @@ class ConvexAppBarState extends State<ConvexAppBar>
       return;
     }
     if (_tabController.index != _currentIndex) {
-      animateTo(_tabController.index);
+      var _diff = (_tabController.index - _currentIndex).abs();
+      if (_diff == 1) {
+        animateTo(_tabController.index);
+      }
     }
   }
 
