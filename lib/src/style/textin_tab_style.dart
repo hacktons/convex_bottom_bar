@@ -46,6 +46,7 @@ class TextInTabStyle extends InnerBuilder {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TransitionContainer.scale(
+              data: index,
               child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: item.blend ? activeColor : null,
