@@ -43,10 +43,10 @@ class ReactCircleTabStyle extends InnerBuilder {
     var item = items[index];
     var style = ofStyle(context);
     var margin = style.activeIconMargin;
-
     if (active) {
       final item = items[index];
       return TransitionContainer.scale(
+        data: index,
         child: Container(
           margin: EdgeInsets.all(margin),
           decoration: BoxDecoration(

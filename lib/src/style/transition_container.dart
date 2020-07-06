@@ -14,7 +14,6 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'transition_container_builder.dart';
@@ -28,16 +27,15 @@ class TransitionContainer extends StatefulWidget {
   final Duration duration;
 
   /// Control whether the animation should be skipped when widget change.
-  final bool disableAnimateWhenUpdate;
+  final int data;
 
   /// Create transition with builder.
-  TransitionContainer(
-      {@required this.builder, this.duration, this.disableAnimateWhenUpdate})
+  TransitionContainer({@required this.builder, this.duration, this.data})
       : assert(builder != null);
 
   /// Wrap a widget with scale transition.
   TransitionContainer.scale(
-      {Widget child, Curve curve, this.duration, this.disableAnimateWhenUpdate})
+      {Widget child, Curve curve, this.duration, this.data})
       : builder = ScaleBuilder(curve: curve, child: child);
 
   /// Wrap a widget with slide transition.
@@ -46,7 +44,7 @@ class TransitionContainer extends StatefulWidget {
     Curve curve,
     this.duration,
     bool reverse = false,
-    this.disableAnimateWhenUpdate,
+    this.data,
   }) : builder = SlideBuilder(curve: curve, child: child, reverse: reverse);
 
   /// Wrap a widget with flip transition.
@@ -56,7 +54,7 @@ class TransitionContainer extends StatefulWidget {
     Curve curve,
     double height,
     this.duration,
-    this.disableAnimateWhenUpdate,
+    this.data,
   }) : builder = FlipBuilder(
           height,
           curve: curve,
@@ -96,7 +94,7 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       animationController?.dispose();
       _setAnimation();
     } else {
-      if (widget.disableAnimateWhenUpdate == true) {
+      if (widget.data == oldWidget.data) {
         return;
       }
       animationController?.reset();

@@ -53,6 +53,7 @@ class TitledTabStyle extends InnerBuilder {
 
     if (active) {
       return TransitionContainer.slide(
+        data: index,
         duration: Duration(milliseconds: 200),
         child: Container(
           margin: EdgeInsets.all(margin),
