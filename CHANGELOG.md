@@ -1,3 +1,7 @@
+## [2.2.4-flutter-1.20]
+* support the flutter v1.20
+* fix: overflow property of stack deprecated [#60](https://github.com/hacktons/convex_bottom_bar/pull/60)
+
 ## [2.2.4]
 * Polish internal style, avoid reanimate when AppBar rebuild.
 
