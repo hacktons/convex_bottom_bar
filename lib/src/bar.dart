@@ -451,7 +451,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
     var offset = FractionalOffset(widget.count > 1 ? dx : 0.0, 0);
     return extend.Stack(
-      overflow: Overflow.visible,
+      clipBehavior: Clip.none,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         Container(

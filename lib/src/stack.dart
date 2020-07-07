@@ -32,15 +32,16 @@ class Stack extends widget.Stack {
     AlignmentGeometry alignment = AlignmentDirectional.topStart,
     TextDirection textDirection,
     StackFit fit = StackFit.loose,
-    Overflow overflow = Overflow.clip,
+    Clip clipBehavior = Clip.hardEdge,
     List<widget.Widget> children = const <widget.Widget>[],
   }) : super(
-            key: key,
-            alignment: alignment,
-            textDirection: textDirection,
-            fit: fit,
-            overflow: overflow,
-            children: children);
+          key: key,
+          alignment: alignment,
+          textDirection: textDirection,
+          fit: fit,
+          clipBehavior: clipBehavior,
+          children: children,
+        );
 
   @override
   RenderStack createRenderObject(widget.BuildContext context) {
@@ -48,7 +49,7 @@ class Stack extends widget.Stack {
       alignment: alignment,
       textDirection: textDirection ?? widget.Directionality.of(context),
       fit: fit,
-      overflow: overflow,
+      clipBehavior: clipBehavior,
     );
   }
 }
@@ -60,19 +61,19 @@ class _RenderStack extends RenderStack {
     AlignmentGeometry alignment = AlignmentDirectional.topStart,
     TextDirection textDirection,
     StackFit fit = StackFit.loose,
-    Overflow overflow = Overflow.clip,
+    Clip clipBehavior = Clip.hardEdge,
   }) : super(
-            children: children,
-            alignment: alignment,
-            textDirection: textDirection,
-            fit: fit,
-            overflow: overflow);
+          children: children,
+          alignment: alignment,
+          textDirection: textDirection,
+          clipBehavior: clipBehavior,
+          fit: fit,
+        );
 
   @override
   bool hitTest(BoxHitTestResult result, {Offset position}) {
-    if (overflow == Overflow.visible || size.contains(position)) {
-      if (hitTestChildren(result, position: position) ||
-          hitTestSelf(position)) {
+    if (clipBehavior == Clip.none || size.contains(position)) {
+      if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
         result.add(BoxHitTestEntry(this, position));
         return true;
       }
