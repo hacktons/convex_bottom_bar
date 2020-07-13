@@ -1,3 +1,7 @@
+## [2.2.5]
+
+* Bug fix [#67](https://github.com/hacktons/convex_bottom_bar/issues/67)
+
 ## [2.2.4]
 * Polish internal style, avoid reanimate when AppBar rebuild.
 
