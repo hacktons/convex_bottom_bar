@@ -392,6 +392,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   void _updateTabController() {
     final newController = widget.controller ?? DefaultTabController.of(context);
+    if(newController == _tabController && _tabController!= null) return;
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
@@ -401,7 +402,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
         _tabController?.index ??
         _currentIndex ??
         0;
-    if (!isFixed()) {
+    if (!isFixed() && _tabController != null) {
+      // when controller is not defined, the default index can rollback to 0
+      // https://github.com/hacktons/convex_bottom_bar/issues/67
       _initAnimation();
     }
   }
