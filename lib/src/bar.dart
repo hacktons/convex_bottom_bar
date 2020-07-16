@@ -371,6 +371,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     var upper = (2 * to + 1) / (2 * widget.count);
     if (_controller != null) {
       _controller.dispose();
+      _controller = null;
     }
     _controller = AnimationController(
       duration: Duration(milliseconds: 150),
@@ -392,7 +393,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   void _updateTabController() {
     final newController = widget.controller ?? DefaultTabController.of(context);
-    if(newController == _tabController && _tabController!= null) return;
+    if (newController == _tabController && _tabController != null) return;
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);

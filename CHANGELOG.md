@@ -1,3 +1,11 @@
+## [2.2.5+1]
+
+* fix format issue.
+```
+lib/src/bar.dart is not formatted according to dartfmt
+To format your files run: dartfmt -w .
+```
+
 ## [2.2.5]
 
 * Bug fix [#67](https://github.com/hacktons/convex_bottom_bar/issues/67)
