@@ -157,6 +157,12 @@ class _State extends State<DefaultAppBarDemo>
               color: Colors.white,
               tooltip: "Custom style example",
               onPressed: () => Navigator.of(context).pushNamed('/custom'),
+            ),
+            IconButton(
+              icon: Icon(Icons.radio_button_checked),
+              color: Colors.white,
+              tooltip: "convex button example",
+              onPressed: () => Navigator.of(context).pushNamed('/fab'),
             )
           ],
         ),

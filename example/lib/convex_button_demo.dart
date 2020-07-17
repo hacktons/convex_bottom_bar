@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 chaobinwu89@gmail.com
+ *  Copyright 2020 Chaobin Wu <chaobinwu89@gmail.com>
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,29 +14,28 @@
  *  limitations under the License.
  */
 
-import 'package:convex_app_bar_example/custom_appbar_sample.dart';
-import 'package:convex_app_bar_example/convex_button_demo.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'default_appbar_demo.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
+class ConvexButtonDemo extends StatefulWidget {
   @override
-  State createState() => _State();
+  State<StatefulWidget> createState() {
+    return _State();
+  }
 }
 
-class _State extends State<MyApp> {
+class _State extends State<ConvexButtonDemo> {
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: "/",
-      routes: {
-        "/": (BuildContext context) => DefaultAppBarDemo(),
-        "/custom": (BuildContext context) => CustomAppBarDemo(),
-        "/fab": (BuildContext context) => ConvexButtonDemo(),
-      },
+    return Scaffold(
+      appBar: AppBar(title: const Text('ConvexButton Example')),
+      body: Center(child: Text('count $count')),
+      bottomNavigationBar: ConvexButton.fab(
+        onTap: () => setState(() => count++),
+      ),
     );
   }
 }
