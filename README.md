@@ -61,6 +61,21 @@ Scaffold(
   )
 );
 ```
+
+If you only need a single button, checkout the `ConvexButton`.
+
+![button]( doc/appbar-single-shape.png)
+
+```dart
+Scaffold(
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
+);
+```
+
 ## Features
 * Provide multiple internal styles
 * Ability to change the theme of AppBar

@@ -62,6 +62,21 @@ Scaffold(
   )
 );
 ```
+
+如果你只需要一个单独的按钮，不妨试试 `ConvexButton`.
+
+![button]( doc/appbar-single-shape.png)
+
+```dart
+Scaffold(
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
+);
+```
+
 ## 功能
 
 * 提供多种内部样式
