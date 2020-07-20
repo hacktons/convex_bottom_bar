@@ -1,3 +1,6 @@
+## [2.3.0]
+* Add convex button widget.
+
 ## [2.2.5+1]
 
 * fix format issue.
