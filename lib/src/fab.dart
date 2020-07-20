@@ -24,16 +24,16 @@ class ConvexButton extends StatelessWidget {
   static const _DEFAULT_SIGMA = 2.0;
   static const _DEFAULT_THICKNESS = 4.0;
 
-  /// size of convex shape, should be lager than [top]
+  /// Size of convex shape, should be lager than [top]
   final double size;
 
   /// The distance to edge from the bottom of child widget.
   final double top;
 
-  /// height of bottom border
+  /// Height of bottom border
   final double thickness;
 
-  /// sigma for border
+  /// Sigma for border
   final double sigma;
 
   /// Optional child widget, default to be a widget of Icons.keyboard_voice
@@ -76,7 +76,6 @@ class ConvexButton extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: color, width: border),
       ),
-      padding: EdgeInsets.all(thickness),
       child: Icon(icon, color: color, size: iconSize),
     );
     return ConvexButton(
