@@ -313,6 +313,12 @@ void main() {
       BlendImageIcon(Container(width: 20, height: 20), color: Colors.red),
     );
   });
+
+  testWidgets('Test Convex Button', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      material(ConvexButton.fab()),
+    );
+  });
 }
 
 class Builder extends DelegateBuilder {
