@@ -19,7 +19,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../convex_bottom_bar.dart';
 import 'chip_builder.dart';
 import 'interface.dart';
 import 'item.dart';
