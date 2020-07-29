@@ -61,6 +61,10 @@ Scaffold(
   )
 );
 ```
+
+**Attention**  
+If you are using flutter dev/beta channel, such as flutter v1.20, there can be compile error. Please use [v2.2.4-flutter-1.20](https://pub.dev/packages/convex_bottom_bar/versions/2.2.4-flutter-1.20)
+
 ## Features
 * Provide multiple internal styles
 * Ability to change the theme of AppBar

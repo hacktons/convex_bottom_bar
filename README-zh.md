@@ -62,6 +62,9 @@ Scaffold(
   )
 );
 ```
+**注意**  
+如果你在使用flutter dev/beta channel, 比如flutter v1.20, 会有编译错误。请使用适配版本 [v2.2.4-flutter-1.20](https://pub.dev/packages/convex_bottom_bar/versions/2.2.4-flutter-1.20)
+
 ## 功能
 
 * 提供多种内部样式
@@ -71,7 +74,7 @@ Scaffold(
 * 支持优雅的过渡动画
 * 提供Hook API来重载一些内部样式
 * RTL布局支持
- 
+
 ## Table of contents
 
 - [角标](#角标)
