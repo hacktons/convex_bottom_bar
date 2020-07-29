@@ -9,7 +9,7 @@ Languages: [English](README.md)|[简体中文](README-zh.md)
 [![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="doc/flutter-favorite.png">
+<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
 </a>
 
 **convex_bottom_bar is now a [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) package!**
@@ -64,7 +64,7 @@ Scaffold(
 
 If you only need a single button, checkout the `ConvexButton`.
 
-![button]( doc/appbar-single-shape.png)
+![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
 
 ```dart
 Scaffold(
