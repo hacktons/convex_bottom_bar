@@ -75,7 +75,7 @@ class ConvexNotchedRectangle extends NotchedShape {
       //p[i] += padding;
     }
 
-    return radius ?? 0 > 0
+    return (radius ?? 0) > 0
         ? (Path()
           ..moveTo(host.left, host.top + radius)
           ..arcToPoint(Offset(host.left + radius, host.top),

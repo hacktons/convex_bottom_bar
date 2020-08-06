@@ -73,7 +73,8 @@ class _RenderStack extends RenderStack {
   @override
   bool hitTest(BoxHitTestResult result, {Offset position}) {
     if (clipBehavior == Clip.none || size.contains(position)) {
-      if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
+      if (hitTestChildren(result, position: position) ||
+          hitTestSelf(position)) {
         result.add(BoxHitTestEntry(this, position));
         return true;
       }

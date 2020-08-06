@@ -38,6 +38,8 @@ class ConvexPainter extends CustomPainter {
 
   /// Position in horizontal which describe the offset of shape.
   final Animation<double> leftPercent;
+
+  /// RLT support
   final TextDirection textDirection;
 
   /// Create painter

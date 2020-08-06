@@ -87,6 +87,7 @@ class _State extends State<CustomAppBarDemo>
               TabItem(title: "2020", icon: Icons.work),
             ],
             backgroundColor: _tabBackgroundColor,
+            cornerRadius: 25,
           ),
         ),
       ),

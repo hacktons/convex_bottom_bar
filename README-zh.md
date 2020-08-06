@@ -31,6 +31,14 @@
 |      **gradient backgound**    |      **badge chip**         |
 |   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
+**Flutter Version Support**
+由于flutter迭代非常快。SDK本身有可能出现不兼容的API变更，我们将继续支持flutter稳定版本，非稳定的beta、dev channel
+将通过单独版本号进行兼容。
+
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | 从 v1.20开始, Stack组件的API发送不兼容变更 |
+|    <1.20     |    <2.4.0     | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
 
 ## 快速上手
 

@@ -197,29 +197,29 @@ class ConvexAppBar extends StatefulWidget {
     Curve curve = Curves.easeInOut,
     ChipBuilder chipBuilder,
   }) : this.builder(
-    key: key,
-    itemBuilder: supportedStyle(
-      style,
-      items: items,
-      color: color ?? Colors.white60,
-      activeColor: activeColor ?? Colors.white,
-      backgroundColor: backgroundColor ?? Colors.blue,
-      curve: curve ?? Curves.easeInOut,
-    ),
-    onTap: onTap,
-    controller: controller,
-    backgroundColor: backgroundColor ?? Colors.blue,
-    count: items.length,
-    initialActiveIndex: initialActiveIndex,
-    gradient: gradient,
-    height: height,
-    curveSize: curveSize,
-    top: top,
-    elevation: elevation,
-    cornerRadius: cornerRadius,
-    curve: curve ?? Curves.easeInOut,
-    chipBuilder: chipBuilder,
-  );
+          key: key,
+          itemBuilder: supportedStyle(
+            style,
+            items: items,
+            color: color ?? Colors.white60,
+            activeColor: activeColor ?? Colors.white,
+            backgroundColor: backgroundColor ?? Colors.blue,
+            curve: curve ?? Curves.easeInOut,
+          ),
+          onTap: onTap,
+          controller: controller,
+          backgroundColor: backgroundColor ?? Colors.blue,
+          count: items.length,
+          initialActiveIndex: initialActiveIndex,
+          gradient: gradient,
+          height: height,
+          curveSize: curveSize,
+          top: top,
+          elevation: elevation,
+          cornerRadius: cornerRadius,
+          curve: curve ?? Curves.easeInOut,
+          chipBuilder: chipBuilder,
+        );
 
   /// Define a custom tab style by implement a [DelegateBuilder].
   ///
@@ -252,13 +252,12 @@ class ConvexAppBar extends StatefulWidget {
     this.cornerRadius,
     this.curve = Curves.easeInOut,
     this.chipBuilder,
-  })
-      : assert(top == null || top <= 0, 'top should be negative'),
+  })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(itemBuilder != null, 'provide custom builder'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
-        'initial index should < $count'),
-        assert(cornerRadius == null ||
-            cornerRadius < 0, 'cornerRadius must >= 0'),
+            'initial index should < $count'),
+        assert(cornerRadius == null || cornerRadius >= 0,
+            'cornerRadius must >= 0'),
         super(key: key);
 
   /// Construct a new appbar with badge.
@@ -278,7 +277,8 @@ class ConvexAppBar extends StatefulWidget {
   ///   ],
   /// )
   /// ```
-  factory ConvexAppBar.badge(Map<int, dynamic> badge, {
+  factory ConvexAppBar.badge(
+    Map<int, dynamic> badge, {
     Key key,
     // config for badge
     Color badgeTextColor,
@@ -298,6 +298,7 @@ class ConvexAppBar extends StatefulWidget {
     double curveSize,
     double top,
     double elevation,
+    double cornerRadius,
     TabStyle style,
     Curve curve,
   }) {
@@ -325,6 +326,7 @@ class ConvexAppBar extends StatefulWidget {
       curveSize: curveSize,
       top: top,
       elevation: elevation,
+      cornerRadius: cornerRadius,
       style: style,
       curve: curve,
       chipBuilder: chipBuilder,
@@ -344,6 +346,22 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Animation<double> _animation;
   AnimationController _controller;
   TabController _tabController;
+
+  @override
+  void initState() {
+    if (widget.cornerRadius != null && widget.cornerRadius > 0 && !isFixed()) {
+      throw FlutterError.fromParts(<DiagnosticsNode>[
+        ErrorSummary('ConvexAppBar is configured with cornerRadius'),
+        ErrorDescription(
+            'Currently the corner only work for fixed style, if you are using '
+            'other styles, the convex shape can be broken on the first and last tab item '),
+        ErrorHint(
+            'You should use TabStyle.fixed or TabStyle.fixedCircle to make the'
+            ' background display with topLeft/topRight corner'),
+      ]);
+    }
+    super.initState();
+  }
 
   void _handleTabControllerAnimationTick() {
     if (_tabController.indexIsChanging) {
@@ -446,18 +464,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Widget build(BuildContext context) {
     // take care of iPhoneX' safe area at bottom edge
     final additionalBottomPadding =
-    math.max(MediaQuery
-        .of(context)
-        .padding
-        .bottom, 0.0);
+        math.max(MediaQuery.of(context).padding.bottom, 0.0);
     final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
     final active = isFixed() ? convexIndex == _currentIndex : true;
 
     final height = (widget.height ?? BAR_HEIGHT) + additionalBottomPadding;
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     var percent = isFixed()
         ? const AlwaysStoppedAnimation<double>(0.5)
         : _animation ?? _initAnimation();
@@ -478,16 +490,15 @@ class ConvexAppBarState extends State<ConvexAppBar>
           width: width,
           child: CustomPaint(
             painter: ConvexPainter(
-                top: widget.top ?? CURVE_TOP,
-                width: widget.curveSize ?? CONVEX_SIZE,
-                height: widget.curveSize ?? CONVEX_SIZE,
-                color: widget.backgroundColor ?? Colors.blue,
-                gradient: widget.gradient,
-                sigma: widget.elevation ?? ELEVATION,
-                leftPercent: percent,
-                textDirection: textDirection,
-                cornerRadius
-                :
+              top: widget.top ?? CURVE_TOP,
+              width: widget.curveSize ?? CONVEX_SIZE,
+              height: widget.curveSize ?? CONVEX_SIZE,
+              color: widget.backgroundColor ?? Colors.blue,
+              gradient: widget.gradient,
+              sigma: widget.elevation ?? ELEVATION,
+              leftPercent: percent,
+              textDirection: textDirection,
+              cornerRadius: widget.cornerRadius,
             ),
           ),
         ),

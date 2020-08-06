@@ -28,6 +28,14 @@ Here are some supported style:
 |            **textIn**            |          **titled**          | **tab image** |
 | ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
 
+**Flutter Version Support**
+As the flutter is developing fast. There can be some breaking changes, we will trying to support the
+stale version and beta version through different package version.
+
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | Since v1.20, the stable version changed the Stack API |
+|    <1.20     |    <=2.3.0      | Support for stable version such as v1.17, v1.12 is not going be updated |
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -133,6 +141,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | activeColor     | tab icon/text color **when selected** |
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
+| cornerRadius    | Draw the background with topLeft and topRight corner; Only work work with fixed style |
 | style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
 | chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
 
