@@ -40,6 +40,7 @@ void main() {
       ],
       initialActiveIndex: 2,
       style: TabStyle.fixed,
+      cornerRadius: 25,
     )));
     final tabAText = find.text('Tab A');
     final tabBText = find.text('Tab B');
@@ -121,7 +122,8 @@ void main() {
       TabStyle.reactCircle,
       TabStyle.textIn,
       TabStyle.titled,
-      TabStyle.flip
+      TabStyle.flip,
+      null,
     ]) {
       await tester.pumpWidget(
         material(DefaultTabController(
@@ -151,6 +153,10 @@ void main() {
         await tester.tap(find.byIcon(Icons.web).first);
         await tester.pumpAndSettle(Duration(milliseconds: 300));
         await tester.tap(find.byIcon(Icons.near_me).first);
+      } else {
+        await tester.tap(find.text('Tab A').first);
+        await tester.pumpAndSettle(Duration(milliseconds: 300));
+        await tester.tap(find.byIcon(Icons.add).first);
       }
     }
     await tester.pumpWidget(
@@ -287,30 +293,52 @@ void main() {
     'test invalid initialActiveIndex',
     (WidgetTester tester) async {
       try {
-        await tester.pumpWidget(
-          ConvexAppBar(
-            items: [
-              TabItem(title: 'A', icon: Icons.add),
-              TabItem(title: 'B', icon: Icons.add),
-              TabItem(title: 'C', icon: Icons.add)
-            ],
-            initialActiveIndex: 3,
-            top: -20,
-            onTap: (i) {
-              assert(i == 1);
-            },
-          ),
-          Duration(milliseconds: 300),
-        );
+        await tester.pumpWidget(ConvexAppBar(
+          items: [
+            TabItem(title: 'A', icon: Icons.add),
+            TabItem(title: 'B', icon: Icons.add),
+            TabItem(title: 'C', icon: Icons.add)
+          ],
+          initialActiveIndex: 3,
+          top: -20,
+          onTap: (i) {
+            assert(i == 1);
+          },
+        ));
       } catch (e) {
+        // takeException is not working here
         expect(e, isAssertionError);
       }
+    },
+  );
+
+  testWidgets(
+    'test invalid cornerRadius configuration',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        ConvexAppBar(
+          items: [
+            TabItem(title: 'A', icon: Icons.add),
+            TabItem(title: 'B', icon: Icons.add),
+            TabItem(title: 'C', icon: Icons.add)
+          ],
+          cornerRadius: 25,
+        ),
+        Duration(milliseconds: 300),
+      );
+      expect(tester.takeException(), isAssertionError);
     },
   );
 
   testWidgets('Test Blend Image', (WidgetTester tester) async {
     await tester.pumpWidget(
       BlendImageIcon(Container(width: 20, height: 20), color: Colors.red),
+    );
+  });
+
+  testWidgets('Test Convex Button', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      material(ConvexButton.fab()),
     );
   });
 }

@@ -60,7 +60,7 @@ class _State extends State<CustomAppBarDemo>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: items.length,
-      initialIndex: 1,// always reset to index 1 when page is being rebuild
+      initialIndex: 1, // always reset to index 1 when page is being rebuild
       child: Scaffold(
         appBar: AppBar(title: const Text('Custom ConvexAppBar')),
         body: TabBarView(
@@ -82,11 +82,12 @@ class _State extends State<CustomAppBarDemo>
             curveSize: 100,
             style: TabStyle.fixedCircle,
             items: [
-              TabItem( icon: Icons.link),
-              TabItem( icon: Icons.import_contacts),
+              TabItem(title:'2019', icon: Icons.link),
+              TabItem(icon: Icons.import_contacts),
               TabItem(title: "2020", icon: Icons.work),
             ],
             backgroundColor: _tabBackgroundColor,
+            cornerRadius: 25,
           ),
         ),
       ),

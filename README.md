@@ -9,7 +9,7 @@ Languages: [English](README.md)|[简体中文](README-zh.md)
 [![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="doc/flutter-favorite.png">
+<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
 </a>
 
 **convex_bottom_bar is now a [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) package!**
@@ -28,6 +28,14 @@ Here are some supported style:
 |            **textIn**            |          **titled**          | **tab image** |
 | ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
 
+**Flutter Version Support**
+As the flutter is developing fast. There can be some breaking changes, we will trying to support the
+stale version and beta version through different package version.
+
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | Since v1.20, the stable version changed the Stack API |
+|    <1.20     |    <=2.3.0      | Support for stable version such as v1.17, v1.12 is not going be updated |
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -62,8 +70,19 @@ Scaffold(
 );
 ```
 
-**Attention**  
-If you are using flutter dev/beta channel, such as flutter v1.20, there can be compile error. Please use [v2.2.4-flutter-1.20](https://pub.dev/packages/convex_bottom_bar/versions/2.2.4-flutter-1.20)
+If you only need a single button, checkout the `ConvexButton`.
+
+![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+
+```dart
+Scaffold(
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
+);
+```
 
 ## Features
 * Provide multiple internal styles
@@ -122,6 +141,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 | activeColor     | tab icon/text color **when selected** |
 | curveSize       | size of the convex shape              |
 | top   | top edge of the convex shape relative to AppBar |
+| cornerRadius    | Draw the background with topLeft and topRight corner; Only work work with fixed style |
 | style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
 | chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
 

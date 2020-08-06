@@ -9,7 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="doc/flutter-favorite.png">
+<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
 </a>
 
 **convex_bottom_bar 现在是一个 [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) 插件库!**
@@ -31,6 +31,14 @@
 |      **gradient backgound**    |      **badge chip**         |
 |   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
+**Flutter Version Support**
+由于flutter迭代非常快。SDK本身有可能出现不兼容的API变更，我们将继续支持flutter稳定版本，非稳定的beta、dev channel
+将通过单独版本号进行兼容。
+
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | 从 v1.20开始, Stack组件的API发送不兼容变更 |
+|    <1.20     |    <2.4.0     | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
 
 ## 快速上手
 
@@ -62,8 +70,20 @@ Scaffold(
   )
 );
 ```
-**注意**  
-如果你在使用flutter dev/beta channel, 比如flutter v1.20, 会有编译错误。请使用适配版本 [v2.2.4-flutter-1.20](https://pub.dev/packages/convex_bottom_bar/versions/2.2.4-flutter-1.20)
+
+如果你只需要一个单独的按钮，不妨试试 `ConvexButton`.
+
+![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+
+```dart
+Scaffold(
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
+);
+```
 
 ## 功能
 

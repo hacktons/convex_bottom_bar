@@ -14,8 +14,8 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'convex_shape.dart';
 import 'reused_gradient.dart';
@@ -24,7 +24,7 @@ import 'reused_gradient.dart';
 class ConvexPainter extends CustomPainter {
   final _paint = Paint();
   final _shadowPaint = Paint();
-  final _shape = ConvexNotchedRectangle();
+  ConvexNotchedRectangle _shape;
   final ReusedGradient _gradient = ReusedGradient();
 
   /// Width of the convex shape.
@@ -38,6 +38,8 @@ class ConvexPainter extends CustomPainter {
 
   /// Position in horizontal which describe the offset of shape.
   final Animation<double> leftPercent;
+
+  /// RLT support
   final TextDirection textDirection;
 
   /// Create painter
@@ -51,12 +53,14 @@ class ConvexPainter extends CustomPainter {
     Color shadowColor = Colors.black38,
     double sigma = 2,
     Gradient gradient,
+    double cornerRadius,
   }) : super(repaint: leftPercent) {
     _paint..color = color;
     _shadowPaint
       ..color = shadowColor
       ..maskFilter = MaskFilter.blur(BlurStyle.outer, sigma);
     _gradient.gradient = gradient;
+    _shape = ConvexNotchedRectangle(radius: cornerRadius);
   }
 
   @override

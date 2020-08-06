@@ -1,3 +1,22 @@
+## [2.4.0]
+* Support flutter v1.20, the v2.2.4-flutter-1.20 is now sync with v2.4.0.
+* Add new feature. We can now add corner on AppBars's background.
+
+## [2.3.0]
+* Add convex button widget.
+
+## [2.2.5+1]
+
+* fix format issue.
+```
+lib/src/bar.dart is not formatted according to dartfmt
+To format your files run: dartfmt -w .
+```
+
+## [2.2.5]
+
+* Bug fix [#67](https://github.com/hacktons/convex_bottom_bar/issues/67)
+
 ## [2.2.4-flutter-1.20]
 * support the flutter v1.20
 * fix: overflow property of stack deprecated [#60](https://github.com/hacktons/convex_bottom_bar/pull/60)

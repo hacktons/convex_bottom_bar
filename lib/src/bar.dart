@@ -108,6 +108,11 @@ class ConvexAppBar extends StatefulWidget {
   /// Color of the AppBar.
   final Color backgroundColor;
 
+  /// Draw the background with topLeft and topRight corner; Only work work with fixed style
+  ///
+  /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
+  final double cornerRadius;
+
   /// If provided, backgroundColor for tab app will be ignored.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
@@ -189,6 +194,7 @@ class ConvexAppBar extends StatefulWidget {
     double curveSize,
     double top,
     double elevation,
+    double cornerRadius,
     TabStyle style = TabStyle.reactCircle,
     Curve curve = Curves.easeInOut,
     ChipBuilder chipBuilder,
@@ -212,6 +218,7 @@ class ConvexAppBar extends StatefulWidget {
           curveSize: curveSize,
           top: top,
           elevation: elevation,
+          cornerRadius: cornerRadius,
           curve: curve ?? Curves.easeInOut,
           chipBuilder: chipBuilder,
         );
@@ -244,12 +251,15 @@ class ConvexAppBar extends StatefulWidget {
     this.curveSize,
     this.top,
     this.elevation,
+    this.cornerRadius,
     this.curve = Curves.easeInOut,
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(itemBuilder != null, 'provide custom builder'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
             'initial index should < $count'),
+        assert(cornerRadius == null || cornerRadius >= 0,
+            'cornerRadius must >= 0'),
         super(key: key);
 
   /// Construct a new appbar with badge.
@@ -290,6 +300,7 @@ class ConvexAppBar extends StatefulWidget {
     double curveSize,
     double top,
     double elevation,
+    double cornerRadius,
     TabStyle style,
     Curve curve,
   }) {
@@ -317,6 +328,7 @@ class ConvexAppBar extends StatefulWidget {
       curveSize: curveSize,
       top: top,
       elevation: elevation,
+      cornerRadius: cornerRadius,
       style: style,
       curve: curve,
       chipBuilder: chipBuilder,
@@ -336,6 +348,22 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Animation<double> _animation;
   AnimationController _controller;
   TabController _tabController;
+
+  @override
+  void initState() {
+    if (widget.cornerRadius != null && widget.cornerRadius > 0 && !isFixed()) {
+      throw FlutterError.fromParts(<DiagnosticsNode>[
+        ErrorSummary('ConvexAppBar is configured with cornerRadius'),
+        ErrorDescription(
+            'Currently the corner only work for fixed style, if you are using '
+            'other styles, the convex shape can be broken on the first and last tab item '),
+        ErrorHint(
+            'You should use TabStyle.fixed or TabStyle.fixedCircle to make the'
+            ' background display with topLeft/topRight corner'),
+      ]);
+    }
+    super.initState();
+  }
 
   void _handleTabControllerAnimationTick() {
     if (_tabController.indexIsChanging) {
@@ -371,6 +399,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     var upper = (2 * to + 1) / (2 * widget.count);
     if (_controller != null) {
       _controller.dispose();
+      _controller = null;
     }
     _controller = AnimationController(
       duration: Duration(milliseconds: 150),
@@ -392,6 +421,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   void _updateTabController() {
     final newController = widget.controller ?? DefaultTabController.of(context);
+    if (newController == _tabController && _tabController != null) return;
     _tabController?.removeListener(_handleTabControllerAnimationTick);
     _tabController = newController;
     _tabController?.addListener(_handleTabControllerAnimationTick);
@@ -401,7 +431,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
         _tabController?.index ??
         _currentIndex ??
         0;
-    if (!isFixed()) {
+    if (!isFixed() && _tabController != null) {
+      // when controller is not defined, the default index can rollback to 0
+      // https://github.com/hacktons/convex_bottom_bar/issues/67
       _initAnimation();
     }
   }
@@ -449,6 +481,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     if (textDirection == TextDirection.rtl) {
       dx = 1 - dx;
     }
+
     var offset = FractionalOffset(widget.count > 1 ? dx : 0.0, 0);
     return extend.Stack(
       clipBehavior: Clip.none,
@@ -467,6 +500,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: percent,
               textDirection: textDirection,
+              cornerRadius: widget.cornerRadius,
             ),
           ),
         ),
