@@ -109,6 +109,8 @@ class ConvexAppBar extends StatefulWidget {
   final Color backgroundColor;
 
   /// Draw the background with topLeft and topRight corner; Only work work with fixed style
+  ///
+  /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
   final double cornerRadius;
 
   /// If provided, backgroundColor for tab app will be ignored.
