@@ -85,4 +85,9 @@ abstract class StyleHook {
   bool get hideEmptyLabel {
     return true;
   }
+
+  /// layout size are relative to icon size and margin
+  double get layoutSize {
+    return activeIconMargin * 4 + activeIconSize;
+  }
 }

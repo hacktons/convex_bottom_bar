@@ -237,6 +237,7 @@ void main() {
             3: Icons.add,
             4: Text('new'),
           },
+          badgeMargin: EdgeInsets.only(left: 20, top: 20),
           items: [
             TabItem(title: 'Tab A', icon: Icons.add),
             TabItem(title: 'Tab B', icon: Icons.near_me),

@@ -19,26 +19,16 @@
 可以在[https://appbar.codemagic.app](https://appbar.codemagic.app)上找到在线示例。
 
 以下是一些支持的预定义样式：
-|            **fixed**             |            **react**             |
-| :------------------------------: | :------------------------------: |
-|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     |
-|         **fixedCircle**          |         **reactCircle**       |
-| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) |
-|            **flip**              |          **titled**          |
-|       ![](doc/appbar-flip.gif)   |    ![](doc/appbar-titled.gif)    |
-|            **textIn**            |   **tab image**          |
-| ![](doc/appbar-textIn.gif)  |    ![](doc/appbar-image.gif)    |
-|      **gradient backgound**    |      **badge chip**         |
-|   ![](doc/appbar-gradient.gif)   |    ![](doc/appbar-badge.gif)    |
 
-**Flutter Version Support**
-由于flutter迭代非常快。SDK本身有可能出现不兼容的API变更，我们将继续支持flutter稳定版本，非稳定的beta、dev channel
-将通过单独版本号进行兼容。
-
-|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+|            **fixed**             |            **react**             | **badge chip** |
 | :------------------------------: | :------------------------------: | :------------------------------: |
-|    >=1.20    |    >=2.4.0      | 从 v1.20开始, Stack组件的API发送不兼容变更 |
-|    <1.20     |    <2.4.0     | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
+|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
+|         **fixedCircle**          |         **reactCircle**       | **flip** |
+| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif) |
+|            **textIn**            |          **titled**          | **tab image** |
+| ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
+|            **button**            |          **fixed corner**          |  |
+| ![](doc/appbar-single-button.png)   |    ![](doc/appbar-corner-fixed.png)    |  |
 
 ## 快速上手
 
@@ -71,19 +61,16 @@ Scaffold(
 );
 ```
 
+**Flutter Version Support**
+由于Flutter迭代非常快。SDK本身有可能出现不兼容的API变更，我们将继续支持flutter稳定版本，非稳定的beta、dev channel
+通过单独版本号进行兼容。
+
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | 从 v1.20开始, Stack组件的API发送不兼容变更 |
+|    <1.20     |    <2.4.0     | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
+
 如果你只需要一个单独的按钮，不妨试试 `ConvexButton`.
-
-![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
-
-```dart
-Scaffold(
-  appBar: AppBar(title: const Text('ConvexButton Example')),
-  body: Center(child: Text('count $count')),
-  bottomNavigationBar: ConvexButton.fab(
-    onTap: () => setState(() => count++),
-  ),
-);
-```
 
 ## 功能
 
@@ -97,18 +84,13 @@ Scaffold(
 
 ## Table of contents
 
-- [角标](#角标)
-
 - [主题](#主题)
-
-- [自定义样例](#自定义样例)
-
+- [角标](#角标)
+- [单独按钮](#单独按钮)
 - [样式重载](#样式重载)
-
 - [RTL支持](#RTL支持)
-
+- [自定义样例](#自定义样例)
 - [常见问题](#常见问题)
-
 - [贡献](#贡献)
 
 ## 角标
@@ -128,6 +110,19 @@ ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
 
 `badge()`方法接受一个角标数组； 角标是带有选项卡项的映射，每个条目的值可以是String，IconData，Color或Widget。
 
+## 单独按钮
+![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+
+```dart
+Scaffold(
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
+);
+```
+
 ## 主题
 AppBar默认使用内置样式，您可能需要为其设置主题。 以下是一些支持的属性：
 
@@ -146,30 +141,6 @@ AppBar默认使用内置样式，您可能需要为其设置主题。 以下是�
 | chipBuilder | 角标构造器builder,  **ConvexAppBar.badge**会使用默认样式 |
 
 ![](doc/appbar-demo.gif)
-
-## 自定义样例
-
-如果默认样式与您的情况不符，请尝试使用`ConvexAppBar.builder()`，它可以让您自定义几乎所有TAB样式。
-```dart
-Scaffold(
-  bottomNavigationBar: ConvexAppBar.builder(
-    count: 5,
-    backgroundColor: Colors.blue,
-    style: TabStyle.fixed,
-    itemBuilder: Builder(),
-  )
-);
-
-/*user defined class*/
-class Builder extends DelegateBuilder {
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    return Text('TAB $index');
-  }
-}
-```
-
-完整的自定义示例可以在[example](example)中找到。
 
 ## 样式重载
 重载Tab内置样式。 该API与`ConvexAppBar.builder`不同，为了满足您可能需要更新选项卡样式而不定义新的选项卡样式。
@@ -218,11 +189,39 @@ Directionality(
   child: Scaffold(body:ConvexAppBar(/*TODO ...*/)),
 )
 ```
+
+## 自定义样例
+
+如果默认样式与您的情况不符，请尝试使用`ConvexAppBar.builder()`，它可以让您自定义几乎所有TAB样式。
+```dart
+Scaffold(
+  bottomNavigationBar: ConvexAppBar.builder(
+    count: 5,
+    backgroundColor: Colors.blue,
+    style: TabStyle.fixed,
+    itemBuilder: Builder(),
+  )
+);
+
+/*user defined class*/
+class Builder extends DelegateBuilder {
+  @override
+  Widget build(BuildContext context, int index, bool active) {
+    return Text('TAB $index');
+  }
+}
+```
+
+完整的自定义示例可以在[example](example)中找到。
+
 ## 常见问题
+如您在使用过程中有新功能建议或者遇到问题，请移步至[issue tracker](https://github.com/hacktons/convex_bottom_bar/issues)提交。
 
 * [动态修改选中的TAB](doc/issue-change-active-tab-index.md)
 * [如何给TAB添加图片而不是ICON](doc/issue-image-for-actionitem.md)
 * [如何移除AppBar的边缘阴影](doc/issue-remove-elevation.md) 
 
-## 贡献
-如您在使用过程中有新功能建议或者遇到问题，请移步至[issue tracker](https://github.com/hacktons/convex_bottom_bar/issues)提交。
+## 支持
+如果对你有帮助，微信扫码请作者喝杯咖啡 :)
+
+![donate](doc/donate-wechat.png)

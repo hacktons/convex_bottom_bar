@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../convex_bottom_bar.dart';
 import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
@@ -48,6 +49,9 @@ class ReactCircleTabStyle extends InnerBuilder {
       return TransitionContainer.scale(
         data: index,
         child: Container(
+          // necessary otherwise the badge will not large enough
+          width: style.layoutSize,
+          height: style.layoutSize,
           margin: EdgeInsets.all(margin),
           decoration: BoxDecoration(
             shape: BoxShape.circle,

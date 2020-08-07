@@ -49,6 +49,9 @@ class FixedCircleTabStyle extends InnerBuilder {
     if (index == convexIndex) {
       final item = items[index];
       return Container(
+        // necessary otherwise the badge will not large enough
+        width: style.layoutSize,
+        height: style.layoutSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: c,

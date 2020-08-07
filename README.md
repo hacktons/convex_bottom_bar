@@ -27,15 +27,9 @@ Here are some supported style:
 | ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif) |
 |            **textIn**            |          **titled**          | **tab image** |
 | ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
+|            **button**            |          **fixed corner**          |  |
+| ![](doc/appbar-single-button.png)   |    ![](doc/appbar-corner-fixed.png)    |  |
 
-**Flutter Version Support**
-As the flutter is developing fast. There can be some breaking changes, we will trying to support the
-stale version and beta version through different package version.
-
-|            **Stable Flutter Version**             |            **Package Version**             | **More** |
-| :------------------------------: | :------------------------------: | :------------------------------: |
-|    >=1.20    |    >=2.4.0      | Since v1.20, the stable version changed the Stack API |
-|    <1.20     |    <=2.3.0      | Support for stable version such as v1.17, v1.12 is not going be updated |
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -48,9 +42,6 @@ Add this to your package's pubspec.yaml file, use the latest version [![Pub](htt
 dependencies:
   convex_bottom_bar: ^latest_version
 ```
-You like the package ? buy me a kofi :)
-
-<a href='https://ko-fi.com/hacktons' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ```dart
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -70,19 +61,14 @@ Scaffold(
 );
 ```
 
-If you only need a single button, checkout the `ConvexButton`.
+**Flutter Version Support**  
+As Flutter is developing fast. There can be breaking changes, we will trying to support the
+stable version and beta version through different package version.
 
-![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
-
-```dart
-Scaffold(
-  appBar: AppBar(title: const Text('ConvexButton Example')),
-  body: Center(child: Text('count $count')),
-  bottomNavigationBar: ConvexButton.fab(
-    onTap: () => setState(() => count++),
-  ),
-);
-```
+|            **Stable Flutter Version**             |            **Package Version**             | **More** |
+| :------------------------------: | :------------------------------: | :------------------------------: |
+|    >=1.20    |    >=2.4.0      | Since v1.20, the stable version changed the Stack api |
+|    <1.20     |    <=2.3.0      | Support for stable version such as v1.17, v1.12 is not going to be updated |
 
 ## Features
 * Provide multiple internal styles
@@ -95,21 +81,35 @@ Scaffold(
 
 ## Table of contents
 
-- [Badge](#badge)
-
 - [Theming](#theming)
-
-- [Custom Example](#custom-example)
-
+- [Badge](#badge)
+- [Single Button](#single-button)
 - [Style Hook](#style-hook)
-
 - [RTL Support](#rtl-support)
-
+- [Custom Example](#custom-example)
 - [FAQ](#faq)
-
 - [Contribution](#contribution)
 
+## Theming
+The bar will use default style, you may want to theme it. Here are some supported attributes:
+
+![](doc/appbar-theming.png)
+
+| Attributes      | Description                           |
+| --------------- | ------------------------------------- |
+| backgroundColor | AppBar background                     |
+| gradient        | gradient will override backgroundColor|
+| height          | AppBar height                         |
+| color           | tab icon/text color                   |
+| activeColor     | tab icon/text color **when selected** |
+| curveSize       | size of the convex shape              |
+| top   | top edge of the convex shape relative to AppBar |
+| cornerRadius    | draw the background with topLeft and topRight corner; Only work with fixed tab style |
+| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
+| chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
+
 ## Badge
+
 If you need to add badge on the tab, use `ConvexAppBar.badge` to get it done. 
 
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
@@ -127,50 +127,21 @@ ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
 
 The `badge()` method accept an array of badges; The `badges` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
 
-## Theming
-The bar will use default style, you may want to theme it. Here are some supported attributes:
+## Single Button
 
-![](doc/appbar-theming.png)
+If you only need a single button, checkout the `ConvexButton`.
 
-| Attributes      | Description                           |
-| --------------- | ------------------------------------- |
-| backgroundColor | AppBar background                     |
-| gradient        | gradient will override backgroundColor|
-| height          | AppBar height                         |
-| color           | tab icon/text color                   |
-| activeColor     | tab icon/text color **when selected** |
-| curveSize       | size of the convex shape              |
-| top   | top edge of the convex shape relative to AppBar |
-| cornerRadius    | Draw the background with topLeft and topRight corner; Only work work with fixed style |
-| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
-| chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
-
-![](doc/appbar-demo.gif)
-
-## Custom Example
-
-If the default style does not match with your situation, try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
+![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
 
 ```dart
 Scaffold(
-  bottomNavigationBar: ConvexAppBar.builder(
-    count: 5,
-    backgroundColor: Colors.blue,
-    style: TabStyle.fixed,
-    itemBuilder: Builder(),
-  )
+  appBar: AppBar(title: const Text('ConvexButton Example')),
+  body: Center(child: Text('count $count')),
+  bottomNavigationBar: ConvexButton.fab(
+    onTap: () => setState(() => count++),
+  ),
 );
-
-/*user defined class*/
-class Builder extends DelegateBuilder {
-  @override
-  Widget build(BuildContext context, int index, bool active) {
-    return Text('TAB $index');
-  }
-}
 ```
-
-Full custom example can be found at [example](example). 
 
 ## Style Hook
 Hook for internal tab style. Unlike the `ConvexAppBar.builder`, you may want to update the tab style without define a new tab style.
@@ -222,11 +193,39 @@ Directionality(
 )
 ```
 
-## FAQ
+## Custom Example
 
-* [Change active tab index programmaticlly](doc/issue-change-active-tab-index.md)
+If the default style does not match with your situation, try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
+
+```dart
+Scaffold(
+  bottomNavigationBar: ConvexAppBar.builder(
+    count: 5,
+    backgroundColor: Colors.blue,
+    style: TabStyle.fixed,
+    itemBuilder: Builder(),
+  )
+);
+
+/*user defined class*/
+class Builder extends DelegateBuilder {
+  @override
+  Widget build(BuildContext context, int index, bool active) {
+    return Text('TAB $index');
+  }
+}
+```
+
+Full custom example can be found at [example](example). 
+
+## FAQ
+Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
+
+* [Change active tab index programmatically](doc/issue-change-active-tab-index.md)
 * [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
 * [Is there anyway to remove elevation in the bottom bar?](doc/issue-remove-elevation.md) 
 
-## Contribution
-Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
+## Donate
+You like the package ? Buy me a coffee :)
+
+[![ko-fi](doc/donate-kofi1.png)](https://ko-fi.com/hacktons)
