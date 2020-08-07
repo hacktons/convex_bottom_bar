@@ -192,6 +192,7 @@ class _State extends State<DefaultAppBarDemo>
                 badgePadding: _badge.padding,
                 badgeColor: _badge.badgeColor,
                 badgeBorderRadius: _badge.borderRadius,
+                badgeMargin: EdgeInsets.only(bottom: 20, left: 30),
                 items: _tabItems.value,
                 style: _style.value,
                 curve: _curve.value,

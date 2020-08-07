@@ -33,6 +33,9 @@ class DefaultChipBuilder extends ChipBuilder {
   /// Padding for badge.
   final EdgeInsets padding;
 
+  /// Margin for badge.
+  final EdgeInsets margin;
+
   /// Radius corner for badge.
   final double borderRadius;
 
@@ -42,6 +45,7 @@ class DefaultChipBuilder extends ChipBuilder {
     this.textColor,
     this.badgeColor,
     this.padding,
+    this.margin,
     this.borderRadius,
   });
 
@@ -66,9 +70,9 @@ class DefaultChipBuilder extends ChipBuilder {
     if (chip is String) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           child: Container(
-            margin: EdgeInsets.only(top: 10, right: 10),
+            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
             padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -85,9 +89,9 @@ class DefaultChipBuilder extends ChipBuilder {
     } else if (chip is IconData) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           child: Container(
-            margin: EdgeInsets.only(top: 10, right: 10),
+            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
             padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             child: Icon(chip, color: badgeColor ?? Colors.redAccent, size: 14),
           ),
@@ -96,9 +100,9 @@ class DefaultChipBuilder extends ChipBuilder {
     } else if (chip is Widget) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           child: Container(
-            margin: EdgeInsets.only(top: 10, right: 10),
+            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
             padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             child: chip,
           ),
@@ -107,9 +111,9 @@ class DefaultChipBuilder extends ChipBuilder {
     } else if (chip is Color) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           child: Container(
-            margin: EdgeInsets.only(top: 10, right: 10),
+            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
             padding: padding ?? EdgeInsets.only(left: 4, right: 4),
             child: Container(
               decoration: BoxDecoration(

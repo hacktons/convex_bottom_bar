@@ -286,6 +286,7 @@ class ConvexAppBar extends StatefulWidget {
     Color badgeTextColor,
     Color badgeColor,
     EdgeInsets badgePadding,
+    EdgeInsets badgeMargin,
     double badgeBorderRadius,
     // parameter for appbar
     List<TabItem> items,
@@ -311,6 +312,7 @@ class ConvexAppBar extends StatefulWidget {
         textColor: badgeTextColor,
         badgeColor: badgeColor,
         padding: badgePadding,
+        margin: badgeMargin,
         borderRadius: badgeBorderRadius,
       );
     }
