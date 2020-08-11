@@ -1,3 +1,6 @@
+## [2.4.1]
+* Fix badge alignment issues [#77](https://github.com/hacktons/convex_bottom_bar/issues/77).
+
 ## [2.4.0]
 * Support flutter v1.20, the v2.2.4-flutter-1.20 is now sync with v2.4.0.
 * Add new feature. We can now add corner on AppBars's background.
