@@ -7,8 +7,8 @@
   <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
 </p>
 <p align="center">
-    <a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README.md">English</a>
-    |<a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README-zh.md">简体中文</a>
+    <a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README.md">English</a>
+    |<a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README-zh.md">简体中文</a>
 </p>
 
 ---
@@ -93,7 +93,7 @@ stable version and beta version through different package version.
 - [RTL Support](#rtl-support)
 - [Custom Example](#custom-example)
 - [FAQ](#faq)
-- [Contribution](#contribution)
+- [Donate](#Donate)
 
 ## Theming
 The bar will use default style, you may want to theme it. Here are some supported attributes:
@@ -136,7 +136,7 @@ The `badge()` method accept an array of badges; The `badges` is map with tab ite
 
 If you only need a single button, checkout the `ConvexButton`.
 
-![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+![button](doc/appbar-single-shape.png)
 
 ```dart
 Scaffold(

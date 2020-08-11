@@ -7,8 +7,8 @@
   <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
 </p>
 <p align="center">
-    <a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README.md">English</a>
-    |<a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README-zh.md">简体中文</a>
+    <a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README.md">English</a>
+    |<a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README-zh.md">简体中文</a>
 </p>
 
 ---
