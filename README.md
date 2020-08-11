@@ -1,22 +1,27 @@
-![preview](doc/preview.png)
+<p align="center"><img src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/preview.png" alt="appBar preview"></p>
+<p align="center">
+  <a href="https://pub.dartlang.org/packages/convex_bottom_bar"><img src="https://img.shields.io/pub/v/convex_bottom_bar.svg" alt="pub.dev"></a>
+  <a href="https://github.com/hacktons/convex_bottom_bar"><img src="https://img.shields.io/badge/platform-flutter-ff69b4.svg" alt="github"></a>
+  <a href="https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build"><img src="https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg" alt="build status"></a>
+  <a href="https://coveralls.io/github/hacktons/convex_bottom_bar"><img src="https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg" alt="coverage status"></a>
+  <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README.md">English</a>
+    |<a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README-zh.md">简体中文</a>
+</p>
 
-Languages: [English](README.md)|[简体中文](README-zh.md)
-# convex_bottom_bar
-
-[![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
-[![github](https://img.shields.io/badge/platform-flutter-ff69b4.svg)](https://github.com/hacktons/convex_bottom_bar)
-[![Codemagic build status](https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg)](https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build)
-[![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
-
-<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
-</a>
-
-**convex_bottom_bar is now a [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) package!**
+---
 
 The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
 
 Online example can be found at [https://appbar.codemagic.app](https://appbar.codemagic.app).
+
+**convex_bottom_bar is now a [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) package!**
+
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
+<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
+</a>
 
 Here are some supported style:
 
@@ -88,7 +93,7 @@ stable version and beta version through different package version.
 - [RTL Support](#rtl-support)
 - [Custom Example](#custom-example)
 - [FAQ](#faq)
-- [Contribution](#contribution)
+- [Donate](#Donate)
 
 ## Theming
 The bar will use default style, you may want to theme it. Here are some supported attributes:
@@ -131,7 +136,7 @@ The `badge()` method accept an array of badges; The `badges` is map with tab ite
 
 If you only need a single button, checkout the `ConvexButton`.
 
-![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+![button](doc/appbar-single-shape.png)
 
 ```dart
 Scaffold(
@@ -221,6 +226,7 @@ Full custom example can be found at [example](example).
 ## FAQ
 Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
 
+* [Crash on flutter dev/beta channel](doc/issue-crash-on-flutter-dev-channel.md)
 * [Change active tab index programmatically](doc/issue-change-active-tab-index.md)
 * [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
 * [Is there anyway to remove elevation in the bottom bar?](doc/issue-remove-elevation.md) 
