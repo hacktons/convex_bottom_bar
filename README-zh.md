@@ -1,22 +1,25 @@
-![preview](doc/preview.png)
+<p align="center"><img src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/preview.png" alt="appBar preview"></p>
+<p align="center">
+  <a href="https://pub.dartlang.org/packages/convex_bottom_bar"><img src="https://img.shields.io/pub/v/convex_bottom_bar.svg" alt="pub.dev"></a>
+  <a href="https://github.com/hacktons/convex_bottom_bar"><img src="https://img.shields.io/badge/platform-flutter-ff69b4.svg" alt="github"></a>
+  <a href="https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build"><img src="https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg" alt="build status"></a>
+  <a href="https://coveralls.io/github/hacktons/convex_bottom_bar"><img src="https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg" alt="coverage status"></a>
+  <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README.md">English</a>
+    |<a href="https://github.com/hacktons/convex_bottom_bar/raw/master/README-zh.md">简体中文</a>
+</p>
 
-语言: [English](README.md)|[简体中文](README-zh.md)
-# convex_bottom_bar
+---
 
-[![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar)
-[![github](https://img.shields.io/badge/platform-flutter-ff69b4.svg)](https://github.com/hacktons/convex_bottom_bar)
-[![Codemagic build status](https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg)](https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build)
-[![Coverage Status](https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg)](https://coveralls.io/github/hacktons/convex_bottom_bar)
-
-<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-<img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
-</a>
+ConvexBottomBar是一个底部导航栏组件，用于展现凸起的TAB效果，支持多种内置样式与动画交互。你可以在[https://appbar.codemagic.app](https://appbar.codemagic.app)上找到在线样例。 
 
 **convex_bottom_bar 现在是一个 [Flutter Favorite](https://flutter.dev/docs/development/packages-and-plugins/favorites) 插件库!**
 
-官方的BottomAppBar只能显示带有凹形FAB的导航栏，有时我们需要凸形FAB。 ConvexAppBar的开发受BottomAppBar和NotchShape的实现启发。
-
-可以在[https://appbar.codemagic.app](https://appbar.codemagic.app)上找到在线示例。
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
+ <img height="128" src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/flutter-favorite.png">
+</a>
 
 以下是一些支持的预定义样式：
 
@@ -91,10 +94,11 @@ Scaffold(
 - [RTL支持](#RTL支持)
 - [自定义样例](#自定义样例)
 - [常见问题](#常见问题)
-- [贡献](#贡献)
+- [支持](#支持)
 
 ## 角标
 如果需要在TAB上添加徽章/角标，请使用`ConvexAppBar.badge`来构建。
+
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
 ```dart
@@ -111,7 +115,7 @@ ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
 `badge()`方法接受一个角标数组； 角标是带有选项卡项的映射，每个条目的值可以是String，IconData，Color或Widget。
 
 ## 单独按钮
-![button](https://github.com/hacktons/convex_bottom_bar/raw/stable/doc/appbar-single-shape.png)
+![button](doc/appbar-single-shape.png)
 
 ```dart
 Scaffold(
@@ -139,8 +143,6 @@ AppBar默认使用内置样式，您可能需要为其设置主题。 以下是�
 | top   | 凸形到AppBar上边缘的距离 |
 | style | 支持的样式: **fixed, fixedCircle, react, reactCircle**, ... |
 | chipBuilder | 角标构造器builder,  **ConvexAppBar.badge**会使用默认样式 |
-
-![](doc/appbar-demo.gif)
 
 ## 样式重载
 重载Tab内置样式。 该API与`ConvexAppBar.builder`不同，为了满足您可能需要更新选项卡样式而不定义新的选项卡样式。
@@ -217,6 +219,7 @@ class Builder extends DelegateBuilder {
 ## 常见问题
 如您在使用过程中有新功能建议或者遇到问题，请移步至[issue tracker](https://github.com/hacktons/convex_bottom_bar/issues)提交。
 
+* [Flutter dev/beta channel运行崩溃](doc/issue-crash-on-flutter-dev-channel.md)
 * [动态修改选中的TAB](doc/issue-change-active-tab-index.md)
 * [如何给TAB添加图片而不是ICON](doc/issue-image-for-actionitem.md)
 * [如何移除AppBar的边缘阴影](doc/issue-remove-elevation.md) 
@@ -224,4 +227,4 @@ class Builder extends DelegateBuilder {
 ## 支持
 如果对你有帮助，微信扫码请作者喝杯咖啡 :)
 
-![donate](doc/donate-wechat.png)
+![donate](doc/donate-wechat.jpeg)
