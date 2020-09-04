@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+> Please seach the [issue list](https://github.com/hacktons/convex_bottom_bar/issues) and [FAQ list](https://github.com/hacktons/convex_bottom_bar#faq) before open any issues!!
+
 **Describe the bug**
 
 A clear and concise description of what the bug is.
