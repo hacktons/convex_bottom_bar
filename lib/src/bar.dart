@@ -418,6 +418,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   @override
   void dispose() {
     _controller?.dispose();
+    _controller = null;
     super.dispose();
   }
 
