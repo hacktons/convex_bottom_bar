@@ -1,3 +1,7 @@
+## [2.4.2]
+* Bug fix [#102 dispose is executed more than once](https://github.com/hacktons/convex_bottom_bar/issues/102)
+* Set min version of  flutter to 1.12.0
+
 ## [2.4.1]
 * Fix badge alignment issues [#77](https://github.com/hacktons/convex_bottom_bar/issues/77).
 
