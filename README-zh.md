@@ -220,6 +220,7 @@ class Builder extends DelegateBuilder {
 ## 常见问题
 如您在使用过程中有新功能建议或者遇到问题，请移步至[issue tracker](https://github.com/hacktons/convex_bottom_bar/issues)提交。
 
+* [如何拦截Tab事件](doc/how-to-block-tab-event.md)
 * [Flutter dev/beta channel运行崩溃](doc/issue-crash-on-flutter-dev-channel.md)
 * [动态修改选中的TAB](doc/issue-change-active-tab-index.md)
 * [如何给TAB添加图片而不是ICON](doc/issue-image-for-actionitem.md)

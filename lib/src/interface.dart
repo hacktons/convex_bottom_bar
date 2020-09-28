@@ -21,6 +21,9 @@ import 'style/internal_style_config.dart';
 /// Tab callback, [index] are tab index which is being clicked.
 typedef GestureTapIndexCallback = void Function(int index);
 
+/// Fire before [GestureTapIndexCallback] is handled, you may return false to block the tap event.
+typedef TapNotifier = bool Function(int index);
+
 /// Tab builder.
 /// * [context] BuildContent instance
 /// * [index] index of tab

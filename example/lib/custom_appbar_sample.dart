@@ -59,39 +59,54 @@ class _State extends State<CustomAppBarDemo>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: items.length,
-      initialIndex: 1, // always reset to index 1 when page is being rebuild
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Custom ConvexAppBar')),
-        body: TabBarView(
-          children: items
-              .map((i) => i.title == 'Discovery'
-                  ? paletteBody()
-                  : Center(
-                      child: Text(
-                      '<\t\t${i.title}\t\t>',
-                      style: TextStyle(fontSize: 30),
-                    )))
-              .toList(growable: false),
-        ),
-        bottomNavigationBar: StyleProvider(
-          style: Style(),
-          child: ConvexAppBar(
-            height: 50,
-            top: -30,
-            curveSize: 100,
-            style: TabStyle.fixedCircle,
-            items: [
-              TabItem(title: '2019', icon: Icons.link),
-              TabItem(icon: Icons.import_contacts),
-              TabItem(title: "2020", icon: Icons.work),
-            ],
-            backgroundColor: _tabBackgroundColor,
-            cornerRadius: 25,
+        initialIndex: 0,
+        length: items.length,
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Custom ConvexAppBar')),
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: items
+                .map((i) => i.title == 'Discovery'
+                    ? paletteBody()
+                    : Center(
+                        child: Text(
+                        '<\t\t${i.title}\t\t>',
+                        style: TextStyle(fontSize: 30),
+                      )))
+                .toList(growable: false),
           ),
-        ),
-      ),
-    );
+          bottomNavigationBar: StyleProvider(
+            style: Style(),
+            child: ConvexAppBar(
+              height: 50,
+              top: -30,
+              curveSize: 100,
+              style: TabStyle.fixedCircle,
+              items: [
+                TabItem(title: '2019', icon: Icons.link),
+                TabItem(
+                    icon: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFFF5722),
+                  ),
+                  child: Icon(Icons.add, color: Colors.white, size: 40),
+                )),
+                TabItem(title: "2020", icon: Icons.work),
+              ],
+              backgroundColor: _tabBackgroundColor,
+              cornerRadius: 25,
+              onTabNotify: (i) {
+                var intercept = i == 1;
+                if (intercept) {
+                  Navigator.pushNamed(context, '/fab');
+                }
+                return !intercept;
+              },
+              onTap: (i) => debugPrint('click $i'),
+            ),
+          ),
+        ));
   }
 
   Widget builder() {
