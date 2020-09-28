@@ -102,6 +102,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Tab Click handler.
   final GestureTapIndexCallback onTap;
 
+  /// Tab event notifier, can be used to block tap event.
+  final TapNotifier onTapNotify;
+
   /// Tab controller to work with [TabBarView] or [PageView].
   final TabController controller;
 
@@ -185,6 +188,7 @@ class ConvexAppBar extends StatefulWidget {
     @required List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
+    TapNotifier onTabNotify,
     TabController controller,
     Color color,
     Color activeColor,
@@ -209,6 +213,7 @@ class ConvexAppBar extends StatefulWidget {
             curve: curve ?? Curves.easeInOut,
           ),
           onTap: onTap,
+          onTapNotify: onTabNotify,
           controller: controller,
           backgroundColor: backgroundColor ?? Colors.blue,
           count: items.length,
@@ -244,6 +249,7 @@ class ConvexAppBar extends StatefulWidget {
     @required this.count,
     this.initialActiveIndex,
     this.onTap,
+    this.onTapNotify,
     this.controller,
     this.backgroundColor,
     this.gradient,
@@ -292,6 +298,7 @@ class ConvexAppBar extends StatefulWidget {
     List<TabItem> items,
     int initialActiveIndex,
     GestureTapIndexCallback onTap,
+    TapNotifier onTabNotify,
     TabController controller,
     Color color,
     Color activeColor,
@@ -321,6 +328,7 @@ class ConvexAppBar extends StatefulWidget {
       items: items,
       initialActiveIndex: initialActiveIndex,
       onTap: onTap,
+      onTabNotify: onTabNotify,
       controller: controller,
       color: color,
       activeColor: activeColor,
@@ -375,6 +383,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
       // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
       var _diff = (_tabController.index - _currentIndex).abs();
       if (_diff == 1) {
+        if (_blockEvent(_tabController.index)) return;
         animateTo(_tabController.index);
       }
     }
@@ -562,7 +571,16 @@ class ConvexAppBarState extends State<ConvexAppBar>
     return child;
   }
 
+  bool _blockEvent(int i) {
+    if (widget.onTapNotify != null && !widget.onTapNotify(i)) {
+      debugPrint('tap event block by ${widget.onTapNotify}');
+      return true;
+    }
+    return false;
+  }
+
   void _onTabClick(int i) {
+    if (_blockEvent(i)) return;
     animateTo(i);
     _tabController?.index = i;
     if (widget.onTap != null) {

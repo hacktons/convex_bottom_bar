@@ -227,6 +227,7 @@ Full custom example can be found at [example](example).
 ## FAQ
 Please file feature requests and bugs at the [issue tracker](https://github.com/hacktons/convex_bottom_bar/issues).
 
+* [How to block tab event?](doc/how-to-block-tab-event.md)
 * [Crash on flutter dev/beta channel](doc/issue-crash-on-flutter-dev-channel.md)
 * [Change active tab index programmatically](doc/issue-change-active-tab-index.md)
 * [Using an image instead of an icon for actionItem](doc/issue-image-for-actionitem.md)
