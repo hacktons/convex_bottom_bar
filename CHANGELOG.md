@@ -1,3 +1,6 @@
+## [2.5.0]
+* Support hook api for tab event. [how-to-block-tab-event?](https://github.com/hacktons/convex_bottom_bar/blob/master/doc/how-to-block-tab-event.md)
+
 ## [2.4.2]
 * Bug fix [#102 dispose is executed more than once](https://github.com/hacktons/convex_bottom_bar/issues/102)
 * Set min version of  flutter to 1.12.0
