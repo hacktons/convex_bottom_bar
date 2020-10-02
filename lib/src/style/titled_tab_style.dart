@@ -74,7 +74,7 @@ class TitledTabStyle extends InnerBuilder {
     var textStyle = style.textStyle(activeColor);
     if (pre == index) {
       return Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         children: <Widget>[
           Text(item.title, style: textStyle),
