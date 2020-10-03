@@ -7,6 +7,14 @@ assignees: ''
 
 ---
 
+## Notice for Stack compile error
+```
+* Replace all Stack.overflow to Stack.clipBehavior. 
+* The removal of [Stack.overflow][https://api.flutter.dev/flutter/widgets/Stack/overflow.html] is not a good idea, and the Flutter team has noticed that it would take time to remove all the usage without breaking Google.
+Since the overflow has been removed in 1.20 and be rolled back now(perhaps 1.22? not for sure). It's hard to say when it will be removed again, so just replace all overflow with clipBehavior.
+```
+---
+
 > Please search the [issue list](https://github.com/hacktons/convex_bottom_bar/issues) and [FAQ list](https://github.com/hacktons/convex_bottom_bar#faq) before opening any issues!!
 
 **Describe the bug**

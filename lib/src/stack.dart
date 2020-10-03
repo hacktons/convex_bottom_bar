@@ -23,7 +23,7 @@ import 'package:flutter/widgets.dart' as widget;
 /// respond to gestures](https://github.com/flutter/flutter/issues/19445).
 ///
 /// The optional way to enable the hit test is define a new Stack and remove
-/// the size checking when teh Stack instance is overflow enable.
+/// the size checking when the Stack instance is overflow enable.
 ///
 class Stack extends widget.Stack {
   /// Create stack instance
