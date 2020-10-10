@@ -391,16 +391,29 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   /// change active tab index; can be used with [PageView].
   Future<void> animateTo(int index) async {
-    _initAnimation(from: _currentIndex, to: index);
+    var gap = DateTime.now().millisecondsSinceEpoch - _previousTimestamp;
+    _initAnimation(
+      from: _currentIndex,
+      to: index,
+      duration: Duration(
+          milliseconds: gap < TRANSITION_DURATION ? 0 : TRANSITION_DURATION),
+    );
     _controller?.forward();
     if (mounted) {
       setState(() {
         _currentIndex = index;
       });
     }
+    _previousTimestamp = DateTime.now().millisecondsSinceEpoch;
   }
 
-  Animation<double> _initAnimation({int from, int to}) {
+  int _previousTimestamp = 0;
+  static const TRANSITION_DURATION = 150;
+
+  Animation<double> _initAnimation(
+      {int from,
+      int to,
+      Duration duration = const Duration(milliseconds: TRANSITION_DURATION)}) {
     if (from != null && (from == to)) {
       return _animation;
     }
@@ -412,10 +425,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
       _controller.dispose();
       _controller = null;
     }
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 150),
-      vsync: this,
-    );
+    _controller = AnimationController(duration: duration, vsync: this);
     final Animation curve = CurvedAnimation(
       parent: _controller,
       curve: widget.curve,
@@ -582,10 +592,18 @@ class ConvexAppBarState extends State<ConvexAppBar>
   void _onTabClick(int i) {
     if (_blockEvent(i)) return;
     animateTo(i);
-    _tabController?.index = i;
+    _tabController?.animateTo(i);
     if (widget.onTap != null) {
       widget.onTap(i);
     }
+  }
+
+  /// Used to simulate tab event on tab item; This will notify [ConvexAppBar.onTap];
+  ///
+  /// Also see:
+  /// * [animateTo]
+  void tap(int index) {
+    _onTabClick(index);
   }
 }
 

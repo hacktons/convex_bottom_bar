@@ -1,3 +1,6 @@
+## [2.5.1+1]
+* Bug fix [#111 Tab selection not registered during tab transition](https://github.com/hacktons/convex_bottom_bar/issues/111)
+
 ## [2.5.1]
 
 * Replace all Stack.overflow to Stack.clipBehavior. 
@@ -5,7 +8,7 @@
 Since the overflow has been removed in 1.20 and be rolled back now(perhaps 1.22? not for sure). It's hard to say when it will be removed again, so just replace all overflow with clipBehavior.
 
 ## [2.5.0]
-* Support hook api for tab event. [how-to-block-tab-event?](https://github.com/hacktons/convex_bottom_bar/blob/master/doc/how-to-block-tab-event.md)
+* Support hook api for tab event. [How to block tab event?](https://github.com/hacktons/convex_bottom_bar/blob/master/doc/how-to-block-tab-event.md)
 
 ## [2.4.2]
 * Bug fix [#102 dispose is executed more than once](https://github.com/hacktons/convex_bottom_bar/issues/102)

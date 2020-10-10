@@ -32,7 +32,11 @@ void main() {
 
   testWidgets('TabStyle.fixed, all tab has icon and text',
       (WidgetTester tester) async {
+    GlobalKey<ConvexAppBarState> key = GlobalKey();
+    var tabController = TabController(length: 3, vsync: tester);
     await tester.pumpWidget(material(ConvexAppBar(
+      key: key,
+      controller: tabController,
       items: [
         TabItem(title: 'Tab A', icon: Icons.add),
         TabItem(title: 'Tab B', icon: Icons.near_me),
@@ -51,6 +55,8 @@ void main() {
     expect(find.byIcon(Icons.add), findsOneWidget);
     expect(find.byIcon(Icons.near_me), findsOneWidget);
     expect(find.byIcon(Icons.web), findsOneWidget);
+    key.currentState.tap(2);
+    expect(2, tabController.index);
   });
 
   testWidgets('TabStyle.reactCircle, selected tab has no text',
