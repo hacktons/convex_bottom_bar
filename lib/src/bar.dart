@@ -391,8 +391,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
     var _diff = (_controller.index - _currentIndex).abs();
     if (_diff == 1) {
       if (_blockEvent(_controller.index)) return;
-      final int previousIndex = _controller.previousIndex;
-      final int index = _controller.index;
+      final previousIndex = _controller.previousIndex;
+      final index = _controller.index;
       _warpUnderwayCount += 1;
       await animateTo(index, from: previousIndex);
       _warpUnderwayCount -= 1;
@@ -407,7 +407,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
       from: from ?? _currentIndex,
       to: index,
       duration: Duration(
-          milliseconds: gap < TRANSITION_DURATION ? 0 : TRANSITION_DURATION),
+          milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION),
     );
     _animationController?.forward();
     if (mounted) {
@@ -419,12 +419,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   int _previousTimestamp = 0;
-  static const TRANSITION_DURATION = 150;
+  static const _TRANSITION_DURATION = 150;
 
   Animation<double> _updateAnimation(
       {int from,
       int to,
-      Duration duration = const Duration(milliseconds: TRANSITION_DURATION)}) {
+      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION)}) {
     if (from != null && (from == to)) {
       return _animation;
     }
@@ -447,8 +447,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   @override
   void dispose() {
-    if (_controllerIsValid)
+    if (_controllerIsValid) {
       _controller.animation.removeListener(_handleTabControllerAnimationTick);
+    }
     _controller = null;
 
     _animationController?.dispose();

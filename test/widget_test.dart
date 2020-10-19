@@ -14,6 +14,8 @@
  *  limitations under the License.
  */
 
+import 'dart:math';
+
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,8 @@ void main() {
   testWidgets('TabStyle.fixed, all tab has icon and text',
       (WidgetTester tester) async {
     GlobalKey<ConvexAppBarState> key = GlobalKey();
-    var tabController = TabController(length: 3, vsync: tester);
+    var tabController =
+        TabController(length: 3, vsync: tester, initialIndex: 2);
     await tester.pumpWidget(material(ConvexAppBar(
       key: key,
       controller: tabController,
@@ -42,7 +45,6 @@ void main() {
         TabItem(title: 'Tab B', icon: Icons.near_me),
         TabItem(title: 'Tab C', icon: Icons.web),
       ],
-      initialActiveIndex: 2,
       style: TabStyle.fixed,
       cornerRadius: 25,
     )));
@@ -135,6 +137,7 @@ void main() {
         material(DefaultTabController(
           length: 3,
           child: ConvexAppBar(
+            key: ObjectKey(s),
             items: [
               TabItem(title: 'Tab A', icon: Icons.add),
               TabItem(title: 'Tab B', icon: Icons.near_me),
@@ -148,6 +151,7 @@ void main() {
       await tester.tap(find.byIcon(Icons.near_me).first);
       await tester.pumpAndSettle(Duration(milliseconds: 300));
       await tester.drag(find.byType(ConvexAppBar), Offset(200, 0));
+      await tester.drag(find.byType(ConvexAppBar), Offset(-200, 0));
       await tester.pumpAndSettle(Duration(milliseconds: 300));
       await tester.startGesture(Offset(0, 100)).then((g) {
         return g.moveTo(Offset(500, 100));
@@ -155,14 +159,17 @@ void main() {
       await tester.startGesture(Offset(0, 100)).then((g) {
         return g.moveTo(Offset(100, 100));
       });
+      print('style=$s');
       if (s != TabStyle.titled) {
         await tester.tap(find.byIcon(Icons.web).first);
         await tester.pumpAndSettle(Duration(milliseconds: 300));
         await tester.tap(find.byIcon(Icons.near_me).first);
+        await tester.pumpAndSettle(Duration(milliseconds: 300));
       } else {
         await tester.tap(find.text('Tab A').first);
         await tester.pumpAndSettle(Duration(milliseconds: 300));
         await tester.tap(find.byIcon(Icons.add).first);
+        await tester.pumpAndSettle(Duration(milliseconds: 300));
       }
     }
     await tester.pumpWidget(
@@ -182,7 +189,8 @@ void main() {
   });
 
   testWidgets('Test tab controller', (WidgetTester tester) async {
-    TabController controller = TabController(length: 3, vsync: TestVSync());
+    TabController controller =
+        TabController(length: 3, vsync: TestVSync(), initialIndex: 2);
     GlobalKey key = GlobalKey(debugLabel: 'appbar');
     var appbar = ConvexAppBar.builder(
       key: key,
@@ -190,7 +198,6 @@ void main() {
       itemBuilder: Builder(),
       count: 3,
       top: -20,
-      initialActiveIndex: 2,
       onTap: (i) {
         assert(i == 1);
       },
@@ -214,7 +221,7 @@ void main() {
     await tester.pumpAndSettle(Duration(milliseconds: 300));
     await tester.pumpWidget(
       material(DefaultTabController(
-          initialIndex: 0,
+          initialIndex: 2,
           length: 3,
           child: ConvexAppBar.builder(
             key: key,
@@ -222,7 +229,6 @@ void main() {
             itemBuilder: Builder(),
             count: 3,
             top: -20,
-            initialActiveIndex: 2,
             onTap: (i) {
               assert(i == 1);
             },
@@ -297,7 +303,7 @@ void main() {
     }
   });
   testWidgets(
-    'test invalid initialActiveIndex',
+    'Test invalid initialActiveIndex',
     (WidgetTester tester) async {
       try {
         await tester.pumpWidget(ConvexAppBar(
@@ -316,11 +322,28 @@ void main() {
         // takeException is not working here
         expect(e, isAssertionError);
       }
+
+      // await tester.pumpWidget(
+      //   DefaultTabController(
+      //     child: ConvexAppBar(
+      //       items: [
+      //         TabItem(title: 'A', icon: Icons.add),
+      //         TabItem(title: 'B', icon: Icons.add),
+      //         TabItem(title: 'C', icon: Icons.add)
+      //       ],
+      //       initialActiveIndex: 2,
+      //     ),
+      //     length: 3,
+      //   ),
+      //   Duration(milliseconds: 1000),
+      // );
+      //
+      // expect(tester.takeException(), isAssertionError);
     },
   );
 
   testWidgets(
-    'test invalid cornerRadius configuration',
+    'Test invalid cornerRadius configuration',
     (WidgetTester tester) async {
       await tester.pumpWidget(
         ConvexAppBar(
@@ -334,6 +357,21 @@ void main() {
         Duration(milliseconds: 300),
       );
       expect(tester.takeException(), isAssertionError);
+      try {
+        await tester.pumpWidget(
+          ConvexAppBar(
+            items: [
+              TabItem(title: 'A', icon: Icons.add),
+              TabItem(title: 'B', icon: Icons.add),
+              TabItem(title: 'C', icon: Icons.add)
+            ],
+            cornerRadius: -25,
+          ),
+          Duration(milliseconds: 300),
+        );
+      } catch (e) {
+        expect(e, isAssertionError);
+      }
     },
   );
 
@@ -347,6 +385,23 @@ void main() {
     await tester.pumpWidget(
       material(ConvexButton.fab()),
     );
+  });
+  testWidgets('Test event block', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      material(ConvexAppBar(
+        items: [
+          TabItem(title: 'A', icon: Icons.add),
+          TabItem(title: 'B', icon: Icons.add),
+          TabItem(title: 'C', icon: Icons.add)
+        ],
+        onTabNotify: (_) {
+          assert(_ == 1);
+          return false;
+        },
+      )),
+      Duration(milliseconds: 300),
+    );
+    await tester.tap(find.text('B'));
   });
 }
 
