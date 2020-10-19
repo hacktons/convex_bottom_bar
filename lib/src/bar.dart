@@ -355,9 +355,10 @@ class ConvexAppBar extends StatefulWidget {
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int _currentIndex;
+  int _warpUnderwayCount = 0;
   Animation<double> _animation;
-  AnimationController _controller;
-  TabController _tabController;
+  AnimationController _animationController;
+  TabController _controller;
 
   @override
   void initState() {
@@ -376,29 +377,39 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   void _handleTabControllerAnimationTick() {
-    if (_tabController.indexIsChanging) {
+    if (_warpUnderwayCount > 0 || !_controller.indexIsChanging) {
       return;
     }
-    if (_tabController.index != _currentIndex) {
-      // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
-      var _diff = (_tabController.index - _currentIndex).abs();
-      if (_diff == 1) {
-        if (_blockEvent(_tabController.index)) return;
-        animateTo(_tabController.index);
-      }
+    if (_controller.index != _currentIndex) {
+      _warpToCurrentIndex();
+    }
+  }
+
+  Future<void> _warpToCurrentIndex() async {
+    if (!mounted) return Future<void>.value();
+    // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
+    var _diff = (_controller.index - _currentIndex).abs();
+    if (_diff == 1) {
+      if (_blockEvent(_controller.index)) return;
+      final previousIndex = _controller.previousIndex;
+      final index = _controller.index;
+      _warpUnderwayCount += 1;
+      await animateTo(index, from: previousIndex);
+      _warpUnderwayCount -= 1;
+      return Future<void>.value();
     }
   }
 
   /// change active tab index; can be used with [PageView].
-  Future<void> animateTo(int index) async {
+  Future<void> animateTo(int index, {int from}) async {
     var gap = DateTime.now().millisecondsSinceEpoch - _previousTimestamp;
-    _initAnimation(
-      from: _currentIndex,
+    _updateAnimation(
+      from: from ?? _currentIndex,
       to: index,
       duration: Duration(
-          milliseconds: gap < TRANSITION_DURATION ? 0 : TRANSITION_DURATION),
+          milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION),
     );
-    _controller?.forward();
+    _animationController?.forward();
     if (mounted) {
       setState(() {
         _currentIndex = index;
@@ -408,26 +419,26 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   int _previousTimestamp = 0;
-  static const TRANSITION_DURATION = 150;
+  static const _TRANSITION_DURATION = 150;
 
-  Animation<double> _initAnimation(
+  Animation<double> _updateAnimation(
       {int from,
       int to,
-      Duration duration = const Duration(milliseconds: TRANSITION_DURATION)}) {
+      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION)}) {
     if (from != null && (from == to)) {
       return _animation;
     }
-    from ??= widget.initialActiveIndex ?? _tabController?.index ?? 0;
+    from ??= _controller?.index ?? widget.initialActiveIndex ?? 0;
     to ??= from;
     var lower = (2 * from + 1) / (2 * widget.count);
     var upper = (2 * to + 1) / (2 * widget.count);
-    if (_controller != null) {
-      _controller.dispose();
-      _controller = null;
+    if (_animationController != null) {
+      _animationController.dispose();
+      _animationController = null;
     }
-    _controller = AnimationController(duration: duration, vsync: this);
+    _animationController = AnimationController(duration: duration, vsync: this);
     final Animation curve = CurvedAnimation(
-      parent: _controller,
+      parent: _animationController,
       curve: widget.curve,
     );
     _animation = Tween(begin: lower, end: upper).animate(curve);
@@ -436,43 +447,50 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   @override
   void dispose() {
-    _controller?.dispose();
+    if (_controllerIsValid) {
+      _controller.animation.removeListener(_handleTabControllerAnimationTick);
+    }
     _controller = null;
+
+    _animationController?.dispose();
+    _animationController = null;
     super.dispose();
   }
 
+  bool get _controllerIsValid => _controller?.animation != null;
+
   void _updateTabController() {
     final newController = widget.controller ?? DefaultTabController.of(context);
-    if (newController == _tabController && _tabController != null) return;
-    _tabController?.removeListener(_handleTabControllerAnimationTick);
-    _tabController = newController;
-    _tabController?.addListener(_handleTabControllerAnimationTick);
-    // take care of priority
-    // initialActiveIndex > index > _currentIndex
-    _currentIndex = widget.initialActiveIndex ??
-        _tabController?.index ??
-        _currentIndex ??
-        0;
-    if (!isFixed() && _tabController != null) {
-      // when controller is not defined, the default index can rollback to 0
-      // https://github.com/hacktons/convex_bottom_bar/issues/67
-      _initAnimation();
+    assert(() {
+      if (newController != null && widget.initialActiveIndex != null) {
+        throw FlutterError(
+            'ConvexAppBar.initialActiveIndex is not allowed when working with TabController.\n'
+            'Please setup through TabController.initialIndex, or there can be conflict');
+      }
+      return true;
+    }());
+    if (newController == _controller) return;
+    if (_controllerIsValid) {
+      _controller.animation.removeListener(_handleTabControllerAnimationTick);
     }
+    _controller = newController;
+    _controller?.animation?.addListener(_handleTabControllerAnimationTick);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _updateTabController();
+    // _currentIndex is null when initialize the first time
+    if (_currentIndex == null) {
+      var index = _controller?.index ?? widget.initialActiveIndex ?? 0;
+      _currentIndex = index;
+    }
 
-    /// When both ConvexAppBar and TabController are configured with initial index, there can be conflict;
-    /// We use ConvexAppBar's value;
-    if (widget.initialActiveIndex != null &&
-        _tabController != null &&
-        widget.initialActiveIndex != _tabController.index) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _tabController.index = _currentIndex;
-      });
+    if (!isFixed() && _controller != null) {
+      // when controller is not defined, the default index can rollback to 0
+      // https://github.com/hacktons/convex_bottom_bar/issues/67
+      _updateAnimation();
     }
   }
 
@@ -496,7 +514,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     final width = MediaQuery.of(context).size.width;
     var percent = isFixed()
         ? const AlwaysStoppedAnimation<double>(0.5)
-        : _animation ?? _initAnimation();
+        : _animation ?? _updateAnimation();
     var factor = 1 / widget.count;
     var textDirection = Directionality.of(context);
     var dx = convexIndex / (widget.count - 1);
@@ -592,7 +610,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   void _onTabClick(int i) {
     if (_blockEvent(i)) return;
     animateTo(i);
-    _tabController?.animateTo(i);
+    _controller?.animateTo(i);
     if (widget.onTap != null) {
       widget.onTap(i);
     }

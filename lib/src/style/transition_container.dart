@@ -29,9 +29,9 @@ class TransitionContainer extends StatefulWidget {
   /// Control whether the animation should be skipped when widget change.
   final int data;
 
-  /// Create transition with builder.
-  TransitionContainer({@required this.builder, this.duration, this.data})
-      : assert(builder != null);
+  ///// Create transition with builder.
+  // TransitionContainer({@required this.builder, this.duration, this.data})
+  //     : assert(builder != null);
 
   /// Wrap a widget with scale transition.
   TransitionContainer.scale(
