@@ -213,7 +213,7 @@ Scaffold(
   )
 );
 
-/*user defined class*/
+// user defined class
 class Builder extends DelegateBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
