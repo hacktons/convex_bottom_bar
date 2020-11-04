@@ -34,11 +34,11 @@ class TitledTabStyle extends InnerBuilder {
 
   /// Create style builder.
   TitledTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.curve,
-    this.backgroundColor,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
+    required this.backgroundColor,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -77,7 +77,7 @@ class TitledTabStyle extends InnerBuilder {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         children: <Widget>[
-          Text(item.title, style: textStyle),
+          Text(item.title ?? '', style: textStyle),
           TransitionContainer.slide(
             reverse: true,
             child: Container(
@@ -97,6 +97,6 @@ class TitledTabStyle extends InnerBuilder {
         ],
       );
     }
-    return Center(child: Text(item.title, style: textStyle));
+    return Center(child: Text(item.title ?? '', style: textStyle));
   }
 }

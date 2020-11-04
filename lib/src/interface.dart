@@ -69,7 +69,7 @@ abstract class DelegateBuilder {
 /// to take risk of the modified effects, try with the config carefully.
 abstract class StyleHook {
   /// size of icon
-  double get iconSize;
+  double? get iconSize;
 
   /// margin outside of icon
   double get activeIconMargin;

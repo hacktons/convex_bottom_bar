@@ -28,10 +28,10 @@ class FlipTabStyle extends InnerBuilder {
 
   /// Create style builder.
   FlipTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.curve,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -41,6 +41,17 @@ class FlipTabStyle extends InnerBuilder {
     var textStyle = style.textStyle(activeColor);
 
     if (active) {
+      var children = <Widget>[
+        BlendImageIcon(
+          item.activeIcon ?? item.icon,
+          color: item.blend ? activeColor : null,
+          size: style.activeIconSize,
+        ),
+      ];
+      var noLabel = style.hideEmptyLabel && hasNoText(item);
+      if (!noLabel) {
+        children.add(Text(item.title ?? '', style: textStyle));
+      }
       return TransitionContainer.flip(
         data: index,
         duration: Duration(milliseconds: 500),
@@ -49,16 +60,7 @@ class FlipTabStyle extends InnerBuilder {
           padding: EdgeInsets.only(bottom: 2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              BlendImageIcon(
-                item.activeIcon ?? item.icon,
-                color: item.blend ? activeColor : null,
-                size: style.activeIconSize,
-              ),
-              style.hideEmptyLabel && (item.title == null || item.title.isEmpty)
-                  ? null
-                  : Text(item.title ?? '', style: textStyle)
-            ]..removeWhere((it) => it == null),
+            children: children,
           ),
         ),
         topChild: Container(

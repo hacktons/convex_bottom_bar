@@ -42,11 +42,11 @@ class DefaultChipBuilder extends ChipBuilder {
   /// Create a chip builder
   DefaultChipBuilder(
     this.chips, {
-    this.textColor,
-    this.badgeColor,
-    this.padding,
-    this.margin,
-    this.borderRadius,
+    required this.textColor,
+    required this.badgeColor,
+    required this.padding,
+    required this.margin,
+    required this.borderRadius,
   });
 
   @override
@@ -72,17 +72,14 @@ class DefaultChipBuilder extends ChipBuilder {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
-            padding: padding ?? EdgeInsets.only(left: 4, right: 4),
+            margin: margin,
+            padding: padding,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: badgeColor ?? Colors.redAccent,
-              borderRadius: BorderRadius.circular(borderRadius ?? 20),
+              color: badgeColor,
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
-            child: Text(
-              chip,
-              style: TextStyle(color: textColor ?? Colors.white, fontSize: 12),
-            ),
+            child: Text(chip, style: TextStyle(color: textColor, fontSize: 12)),
           ),
         ),
       );
@@ -91,9 +88,9 @@ class DefaultChipBuilder extends ChipBuilder {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
-            padding: padding ?? EdgeInsets.only(left: 4, right: 4),
-            child: Icon(chip, color: badgeColor ?? Colors.redAccent, size: 14),
+            margin: margin,
+            padding: padding,
+            child: Icon(chip, color: badgeColor, size: 14),
           ),
         ),
       );
@@ -101,11 +98,7 @@ class DefaultChipBuilder extends ChipBuilder {
       return Positioned.fill(
         child: Align(
           alignment: Alignment.center,
-          child: Container(
-            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
-            padding: padding ?? EdgeInsets.only(left: 4, right: 4),
-            child: chip,
-          ),
+          child: Container(margin: margin, padding: padding, child: chip),
         ),
       );
     } else if (chip is Color) {
@@ -113,12 +106,11 @@ class DefaultChipBuilder extends ChipBuilder {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            margin: margin ?? EdgeInsets.only(top: 10, right: 10),
-            padding: padding ?? EdgeInsets.only(left: 4, right: 4),
+            margin: margin,
+            padding: padding,
             child: Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: badgeColor ?? Colors.redAccent),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: badgeColor),
               width: 10,
               height: 10,
             ),

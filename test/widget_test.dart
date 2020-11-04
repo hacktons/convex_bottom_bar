@@ -34,7 +34,7 @@ void main() {
 
   testWidgets('TabStyle.fixed, all tab has icon and text',
       (WidgetTester tester) async {
-    GlobalKey<ConvexAppBarState> key = GlobalKey();
+    var key = GlobalKey<ConvexAppBarState>();
     var tabController =
         TabController(length: 3, vsync: tester, initialIndex: 2);
     await tester.pumpWidget(material(ConvexAppBar(
@@ -57,7 +57,7 @@ void main() {
     expect(find.byIcon(Icons.add), findsOneWidget);
     expect(find.byIcon(Icons.near_me), findsOneWidget);
     expect(find.byIcon(Icons.web), findsOneWidget);
-    key.currentState.tap(2);
+    key.currentState?.tap(2);
     expect(2, tabController.index);
   });
 
@@ -288,7 +288,8 @@ void main() {
     await tester.pumpAndSettle(Duration(milliseconds: 300));
   });
 
-  test('test invalid builder', () {
+  // no longer needed for null safety
+  /*test('test invalid builder', () {
     try {
       ConvexAppBar.builder(
         itemBuilder: null,
@@ -301,7 +302,7 @@ void main() {
     } catch (e) {
       expect(e, isAssertionError);
     }
-  });
+  });*/
   testWidgets(
     'Test invalid initialActiveIndex',
     (WidgetTester tester) async {

@@ -31,11 +31,11 @@ class FixedCircleTabStyle extends InnerBuilder {
 
   /// Create style builder
   FixedCircleTabStyle(
-      {List<TabItem> items,
-      Color activeColor,
-      Color color,
-      this.backgroundColor,
-      this.convexIndex})
+      {required List<TabItem> items,
+      required Color activeColor,
+      required Color color,
+      required this.backgroundColor,
+      required this.convexIndex})
       : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -65,20 +65,20 @@ class FixedCircleTabStyle extends InnerBuilder {
       );
     }
 
+    var noLabel = style.hideEmptyLabel && hasNoText(item);
+    var icon = BlendImageIcon(
+      active ? item.activeIcon ?? item.icon : item.icon,
+      color: item.blend ? (c) : null,
+      size: style.iconSize,
+    );
+    var children = noLabel
+        ? <Widget>[icon]
+        : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? (c) : null,
-            size: style.iconSize,
-          ),
-          style.hideEmptyLabel && (item.title == null || item.title.isEmpty)
-              ? null
-              : Text(item.title ?? '', style: textStyle)
-        ]..removeWhere((it) => it == null),
+        children: children,
       ),
     );
   }

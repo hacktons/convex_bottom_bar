@@ -24,24 +24,23 @@ class TransitionContainer extends StatefulWidget {
   final TransitionContainerBuilder builder;
 
   /// Transition duration.
-  final Duration duration;
+  final Duration? duration;
 
   /// Control whether the animation should be skipped when widget change.
-  final int data;
-
-  ///// Create transition with builder.
-  // TransitionContainer({@required this.builder, this.duration, this.data})
-  //     : assert(builder != null);
+  final int? data;
 
   /// Wrap a widget with scale transition.
-  TransitionContainer.scale(
-      {Widget child, Curve curve, this.duration, this.data})
-      : builder = ScaleBuilder(curve: curve, child: child);
+  TransitionContainer.scale({
+    required Widget child,
+    required Curve curve,
+    this.duration,
+    this.data,
+  }) : builder = ScaleBuilder(curve: curve, child: child);
 
   /// Wrap a widget with slide transition.
   TransitionContainer.slide({
-    Widget child,
-    Curve curve,
+    required Widget child,
+    required Curve curve,
     this.duration,
     bool reverse = false,
     this.data,
@@ -49,10 +48,10 @@ class TransitionContainer extends StatefulWidget {
 
   /// Wrap a widget with flip transition.
   TransitionContainer.flip({
-    Widget topChild,
-    Widget bottomChild,
-    Curve curve,
-    double height,
+    required Widget topChild,
+    required Widget bottomChild,
+    required Curve curve,
+    required double height,
     this.duration,
     this.data,
   }) : builder = FlipBuilder(
@@ -69,8 +68,8 @@ class TransitionContainer extends StatefulWidget {
 }
 
 class _State extends State<TransitionContainer> with TickerProviderStateMixin {
-  AnimationController animationController;
-  Animation animation;
+  AnimationController? animationController;
+  late Animation animation;
 
   @override
   void initState() {
@@ -83,8 +82,8 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       vsync: this,
       duration: widget.duration ?? Duration(milliseconds: 150),
     )..addListener(() => setState(() {}));
-    animationController.forward();
-    animation = widget.builder.animation(animationController);
+    animationController!.forward();
+    animation = widget.builder.animation(animationController!);
   }
 
   @override
