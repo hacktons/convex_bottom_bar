@@ -245,7 +245,7 @@ class ConvexAppBar extends StatefulWidget {
   /// ```
   const ConvexAppBar.builder({
     Key? key,
-    @required required this.itemBuilder,
+    required this.itemBuilder,
     required this.count,
     this.initialActiveIndex,
     this.onTap,
@@ -358,6 +358,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Animation<double>? _animation;
   AnimationController? _animationController;
   TabController? _controller;
+
   @override
   void initState() {
     if (widget.cornerRadius != null && widget.cornerRadius! > 0 && !isFixed()) {
@@ -387,10 +388,10 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   Future<void> _warpToCurrentIndex() async {
     if (!mounted) return Future<void>.value();
-    if (_controller == null) {
+    final c = _controller;
+    if (c == null) {
       return;
     }
-    var c = _controller!;
     // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
     var _diff = (c.index - _currentIndex!).abs();
     if (_diff == 1) {
@@ -413,6 +414,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
       duration: Duration(
           milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION),
     );
+    // ignore: unawaited_futures
     _animationController?.forward();
     if (mounted) {
       setState(() {
@@ -434,17 +436,16 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
     from ??= _controller?.index ?? widget.initialActiveIndex ?? 0;
     to ??= from;
-    var lower = (2 * from + 1) / (2 * widget.count);
-    var upper = (2 * to + 1) / (2 * widget.count);
+    final lower = (2 * from + 1) / (2 * widget.count);
+    final upper = (2 * to + 1) / (2 * widget.count);
     _animationController?.dispose();
-    _animationController = null;
-    _animationController = AnimationController(duration: duration, vsync: this);
+    final controller = AnimationController(duration: duration, vsync: this);
     final curve = CurvedAnimation(
-      parent: _animationController!,
+      parent: controller,
       curve: widget.curve,
     );
-    _animation = Tween(begin: lower, end: upper).animate(curve);
-    return _animation!;
+    _animationController = controller;
+    return _animation = Tween(begin: lower, end: upper).animate(curve);
   }
 
   @override
@@ -453,7 +454,6 @@ class ConvexAppBarState extends State<ConvexAppBar>
     _controller = null;
 
     _animationController?.dispose();
-    _animationController = null;
     super.dispose();
   }
 
@@ -607,9 +607,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     if (_blockEvent(i)) return;
     animateTo(i);
     _controller?.animateTo(i);
-    if (widget.onTap != null) {
-      widget.onTap!(i);
-    }
+    widget.onTap?.call(i);
   }
 
   /// Used to simulate tab event on tab item; This will notify [ConvexAppBar.onTap];
