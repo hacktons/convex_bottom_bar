@@ -589,11 +589,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   Widget _newTab(int i, bool active) {
-    var child = widget.itemBuilder.build(context, i, active);
-    if (widget.chipBuilder != null) {
-      child = widget.chipBuilder!.build(context, child, i, active);
-    }
-    return child;
+    final child = widget.itemBuilder.build(context, i, active);
+    return widget.chipBuilder?.build(context, child, i, active) ?? child;
   }
 
   bool _blockEvent(int i) {

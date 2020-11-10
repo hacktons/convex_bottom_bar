@@ -83,7 +83,7 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
       duration: widget.duration ?? Duration(milliseconds: 150),
     )..addListener(() => setState(() {}));
     controller.forward();
-    animation = widget.builder.animation(controller!);
+    animation = widget.builder.animation(controller);
     animationController = controller;
   }
 
