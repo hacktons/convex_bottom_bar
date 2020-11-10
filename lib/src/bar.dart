@@ -26,6 +26,7 @@ import 'painter.dart';
 import 'stack.dart' as extend;
 import 'style/fixed_circle_tab_style.dart';
 import 'style/fixed_tab_style.dart';
+import 'style/internal_style_config.dart';
 import 'style/react_circle_tab_style.dart';
 import 'style/react_tab_style.dart';
 import 'style/styles.dart';
@@ -637,7 +638,7 @@ class StyleProvider extends InheritedWidget {
   StyleProvider({Key? key, required this.style, required Widget child})
       : super(key: key, child: child);
 
-  /// Get instance of style provider
+  /// Get instance of style provider, can be null if you're not providing one.
   static StyleProvider? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<StyleProvider>();
   }

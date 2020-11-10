@@ -16,8 +16,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import 'style/internal_style_config.dart';
-
 /// Tab callback, [index] are tab index which is being clicked.
 typedef GestureTapIndexCallback = void Function(int index);
 
@@ -53,11 +51,6 @@ abstract class DelegateBuilder {
   /// Whether the convex shape is fixed center or positioned according to selection.
   bool fixed() {
     return false;
-  }
-
-  /// Hook for internal tab styles.
-  StyleHook provideStyle() {
-    return InternalStyle();
   }
 }
 

@@ -21,6 +21,7 @@ import 'package:flutter/cupertino.dart';
 import '../bar.dart';
 import '../interface.dart';
 import '../item.dart';
+import 'internal_style_config.dart';
 
 /// Simple builder which extend [DelegateBuilder] to provide some necessary config.
 abstract class InnerBuilder extends DelegateBuilder {
@@ -42,7 +43,7 @@ abstract class InnerBuilder extends DelegateBuilder {
 
   /// Get style config
   StyleHook ofStyle(BuildContext context) {
-    return StyleProvider.of(context)?.style ?? (_style ??= provideStyle());
+    return StyleProvider.of(context)?.style ?? (_style ??= InternalStyle());
   }
 
   /// Return true if title text exists
