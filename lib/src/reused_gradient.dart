@@ -14,7 +14,6 @@
  *  limitations under the License.
  */
 
-
 import 'package:flutter/painting.dart';
 
 /// Wrapper for [Gradient], we don't want to re-create instance frequently in

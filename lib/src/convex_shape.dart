@@ -58,7 +58,6 @@ class ConvexNotchedRectangle extends NotchedShape {
     final p2yA = -math.sqrt(r * r - p2xA * p2xA);
     final p2yB = -math.sqrt(r * r - p2xB * p2xB);
 
-
     final p = List<Offset>.filled(6, Offset.zero, growable: false);
     // p0, p1, and p2 are the control points for segment A.
     p[0] = Offset(a - s1, b);

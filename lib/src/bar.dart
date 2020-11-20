@@ -26,7 +26,6 @@ import 'painter.dart';
 import 'stack.dart' as extend;
 import 'style/fixed_circle_tab_style.dart';
 import 'style/fixed_tab_style.dart';
-import 'style/internal_style_config.dart';
 import 'style/react_circle_tab_style.dart';
 import 'style/react_tab_style.dart';
 import 'style/styles.dart';

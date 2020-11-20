@@ -14,8 +14,6 @@
  *  limitations under the License.
  */
 
-import 'dart:math';
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';
@@ -189,9 +187,9 @@ void main() {
   });
 
   testWidgets('Test tab controller', (WidgetTester tester) async {
-    TabController controller =
+    var controller =
         TabController(length: 3, vsync: TestVSync(), initialIndex: 2);
-    GlobalKey key = GlobalKey(debugLabel: 'appbar');
+    var key = GlobalKey(debugLabel: 'appbar');
     var appbar = ConvexAppBar.builder(
       key: key,
       controller: controller,
