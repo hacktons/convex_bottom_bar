@@ -32,11 +32,11 @@ class ReactCircleTabStyle extends InnerBuilder {
 
   /// Create style builder.
   ReactCircleTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.backgroundColor,
-    this.curve,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.backgroundColor,
+    required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -67,19 +67,21 @@ class ReactCircleTabStyle extends InnerBuilder {
       );
     }
     var textStyle = style.textStyle(color);
+    var noLabel = style.hideEmptyLabel && hasNoText(item);
+    var children = <Widget>[
+      BlendImageIcon(
+        active ? item.activeIcon ?? item.icon : item.icon,
+        color: item.blend ? color : null,
+      ),
+    ];
+    if (!noLabel) {
+      children.add(Text(item.title ?? '', style: textStyle));
+    }
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            color: item.blend ? color : null,
-          ),
-          style.hideEmptyLabel && (item.title == null || item.title.isEmpty)
-              ? null
-              : Text(item.title ?? '', style: textStyle)
-        ]..removeWhere((it) => it == null),
+        children: children,
       ),
     );
   }

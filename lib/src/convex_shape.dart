@@ -13,6 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+// Copyright 2014 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 import 'package:flutter/painting.dart';
 import 'dart:math' as math;
@@ -34,7 +37,7 @@ class ConvexNotchedRectangle extends NotchedShape {
   const ConvexNotchedRectangle({this.radius = 0});
 
   @override
-  Path getOuterPath(Rect host, Rect guest) {
+  Path getOuterPath(Rect host, Rect? guest) {
     if (guest == null || !host.overlaps(guest)) return Path()..addRect(host);
 
     // The guest's shape is a circle bounded by the guest rectangle.
@@ -54,8 +57,7 @@ class ConvexNotchedRectangle extends NotchedShape {
     final p2yA = -math.sqrt(r * r - p2xA * p2xA);
     final p2yB = -math.sqrt(r * r - p2xB * p2xB);
 
-    final p = List<Offset>(6);
-
+    final p = List<Offset>.filled(6, Offset.zero, growable: false);
     // p0, p1, and p2 are the control points for segment A.
     p[0] = Offset(a - s1, b);
     p[1] = Offset(a, b);
@@ -70,11 +72,11 @@ class ConvexNotchedRectangle extends NotchedShape {
 
     // translate all points back to the absolute coordinate system.
     for (var i = 0; i < p.length; i += 1) {
-      p[i] += guest.center;
+      p[i] = p[i] + guest.center;
       //p[i] += padding;
     }
 
-    return (radius ?? 0) > 0
+    return radius > 0
         ? (Path()
           ..moveTo(host.left, host.top + radius)
           ..arcToPoint(Offset(host.left + radius, host.top),

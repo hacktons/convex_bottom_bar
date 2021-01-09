@@ -25,29 +25,29 @@ class ConvexButton extends StatelessWidget {
   static const _DEFAULT_THICKNESS = 4.0;
 
   /// Size of convex shape, should be lager than [top]
-  final double size;
+  final double? size;
 
   /// The distance to edge from the bottom of child widget.
-  final double top;
+  final double? top;
 
   /// Height of bottom border
-  final double thickness;
+  final double? thickness;
 
   /// Sigma for border
-  final double sigma;
+  final double? sigma;
 
   /// Optional child widget, default to be a widget of Icons.keyboard_voice
   final Widget child;
 
   /// Color for the button
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Make new instance of [ConvexButton]
   const ConvexButton({
-    Key key,
+    Key? key,
     this.size,
     this.sigma,
-    this.child,
+    required this.child,
     this.thickness,
     this.backgroundColor,
     this.top,
@@ -57,17 +57,17 @@ class ConvexButton extends StatelessWidget {
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-single-shape.png)
   factory ConvexButton.fab({
-    Key key,
-    double size,
-    double thickness,
-    double top,
-    double sigma,
+    Key? key,
+    double? size,
+    double? thickness,
+    double? top,
+    double? sigma,
     double iconSize = 32,
     double border = 2,
     Color color = Colors.redAccent,
     IconData icon = Icons.keyboard_voice,
-    Color backgroundColor,
-    VoidCallback onTap,
+    Color? backgroundColor,
+    VoidCallback? onTap,
   }) {
     thickness = thickness ?? _DEFAULT_THICKNESS;
     var fab = Container(
@@ -100,7 +100,7 @@ class ConvexButton extends StatelessWidget {
             top: -(top ?? _DEFAULT_TOP),
             width: size ?? _DEFAULT_SIZE,
             height: size ?? _DEFAULT_SIZE,
-            color: backgroundColor ?? Colors.grey[50],
+            color: backgroundColor ?? Colors.grey[50]!,
             sigma: sigma ?? _DEFAULT_SIGMA,
             leftPercent: const AlwaysStoppedAnimation<double>(0.5),
           ),

@@ -29,10 +29,10 @@ class FixedTabStyle extends InnerBuilder {
 
   /// Create style builder.
   FixedTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.convexIndex,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.convexIndex,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -54,26 +54,26 @@ class FixedTabStyle extends InnerBuilder {
               color: item.blend ? (c) : null,
               size: style.activeIconSize,
             ),
-            Text(item.title, style: textStyle)
+            Text(item.title ?? '', style: textStyle)
           ],
         ),
       );
     }
 
+    var noLabel = style.hideEmptyLabel && hasNoText(item);
+    var icon = BlendImageIcon(
+      active ? item.activeIcon ?? item.icon : item.icon,
+      size: style.iconSize,
+      color: item.blend ? (c) : null,
+    );
+    var children = noLabel
+        ? <Widget>[icon]
+        : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          BlendImageIcon(
-            active ? item.activeIcon ?? item.icon : item.icon,
-            size: style.iconSize,
-            color: item.blend ? (c) : null,
-          ),
-          style.hideEmptyLabel && (item.title == null || item.title.isEmpty)
-              ? null
-              : Text(item.title ?? '', style: textStyle)
-        ]..removeWhere((it) => it == null),
+        children: children,
       ),
     );
   }
