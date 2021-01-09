@@ -14,7 +14,6 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'dart:math' as math;
 
