@@ -124,6 +124,9 @@ class ConvexAppBar extends StatefulWidget {
   /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView].
   final int initialActiveIndex;
 
+  /// Disable access of DefaultTabController to avoid unexpected conflict.
+  final bool disableDefaultTabController;
+
   /// Tab count.
   final int count;
 
@@ -187,6 +190,7 @@ class ConvexAppBar extends StatefulWidget {
     Key key,
     @required List<TabItem> items,
     int initialActiveIndex,
+    bool disableDefaultTabController,
     GestureTapIndexCallback onTap,
     TapNotifier onTabNotify,
     TabController controller,
@@ -218,6 +222,7 @@ class ConvexAppBar extends StatefulWidget {
           backgroundColor: backgroundColor ?? Colors.blue,
           count: items.length,
           initialActiveIndex: initialActiveIndex,
+          disableDefaultTabController: disableDefaultTabController,
           gradient: gradient,
           height: height,
           curveSize: curveSize,
@@ -248,6 +253,7 @@ class ConvexAppBar extends StatefulWidget {
     @required this.itemBuilder,
     @required this.count,
     this.initialActiveIndex,
+    this.disableDefaultTabController,
     this.onTap,
     this.onTapNotify,
     this.controller,
@@ -297,6 +303,7 @@ class ConvexAppBar extends StatefulWidget {
     // parameter for appbar
     List<TabItem> items,
     int initialActiveIndex,
+    bool disableDefaultTabController,
     GestureTapIndexCallback onTap,
     TapNotifier onTabNotify,
     TabController controller,
@@ -327,6 +334,7 @@ class ConvexAppBar extends StatefulWidget {
       key: key,
       items: items,
       initialActiveIndex: initialActiveIndex,
+      disableDefaultTabController: disableDefaultTabController,
       onTap: onTap,
       onTabNotify: onTabNotify,
       controller: controller,
@@ -359,6 +367,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Animation<double> _animation;
   AnimationController _animationController;
   TabController _controller;
+
+  int _previousTimestamp = 0;
+  static const _TRANSITION_DURATION = 150;
 
   @override
   void initState() {
@@ -418,9 +429,6 @@ class ConvexAppBarState extends State<ConvexAppBar>
     _previousTimestamp = DateTime.now().millisecondsSinceEpoch;
   }
 
-  int _previousTimestamp = 0;
-  static const _TRANSITION_DURATION = 150;
-
   Animation<double> _updateAnimation(
       {int from,
       int to,
@@ -459,13 +467,22 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   bool get _controllerIsValid => _controller?.animation != null;
 
+  TabController get _takeControllerRef {
+    if (widget.disableDefaultTabController == true) {
+      return widget.controller;
+    }
+    return widget.controller ?? DefaultTabController.of(context);
+  }
+
   void _updateTabController() {
-    final newController = widget.controller ?? DefaultTabController.of(context);
+    final newController = _takeControllerRef;
     assert(() {
-      if (newController != null && widget.initialActiveIndex != null) {
+      if (newController != null &&
+          widget.controller == null &&
+          widget.initialActiveIndex != null) {
         throw FlutterError(
             'ConvexAppBar.initialActiveIndex is not allowed when working with TabController.\n'
-            'Please setup through TabController.initialIndex, or there can be conflict');
+            'Please setup through TabController.initialIndex, or disable DefaultTabController by #disableDefaultTabController');
       }
       return true;
     }());
@@ -477,15 +494,10 @@ class ConvexAppBarState extends State<ConvexAppBar>
     _controller?.animation?.addListener(_handleTabControllerAnimationTick);
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void _resetState() {
     _updateTabController();
-    // _currentIndex is null when initialize the first time
-    if (_currentIndex == null) {
-      var index = _controller?.index ?? widget.initialActiveIndex ?? 0;
-      _currentIndex = index;
-    }
+    var index = widget.initialActiveIndex ?? _controller?.index;
+    _currentIndex = index;
 
     if (!isFixed() && _controller != null) {
       // when controller is not defined, the default index can rollback to 0
@@ -495,10 +507,20 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // init state here so we can take a reference of DefaultTabController
+    if (_controller != _takeControllerRef) {
+      _resetState();
+    }
+  }
+
+  @override
   void didUpdateWidget(ConvexAppBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.controller != oldWidget.controller) {
-      _updateTabController();
+    if (widget.controller != oldWidget.controller ||
+        widget.count != oldWidget.count) {
+      _resetState();
     }
   }
 
