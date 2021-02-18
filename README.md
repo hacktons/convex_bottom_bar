@@ -7,7 +7,6 @@
   <a href="https://pub.dev/packages/convex_bottom_bar/score"><img src="https://badges.bar/convex_bottom_bar/likes" alt="likes"></a>
   <a href="https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build"><img src="https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg" alt="build status"></a>
   <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
-  <a href="https://ko-fi.com/hacktons"><img src="https://img.shields.io/badge/donate-PayPal-blue.svg" alt="PayPal"></a>
 </p>
 <p align="center">
     <a href="https://github.com/hacktons/convex_bottom_bar/blob/master/README.md">English</a>

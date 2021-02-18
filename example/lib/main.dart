@@ -49,7 +49,7 @@ class HelloConvexAppBar extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Hello ConvexAppBar')),
       body: Center(
-          child: FlatButton(
+          child: TextButton(
         child: Text('Click to show usage'),
         onPressed: () => Navigator.of(context).pushNamed('/'),
       )),
