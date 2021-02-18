@@ -14,7 +14,6 @@
  *  limitations under the License.
  */
 
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';

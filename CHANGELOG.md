@@ -1,3 +1,6 @@
+## [2.7.0+1]
+* add new configuration `disableDefaultTabController`
+
 ## [2.6.0]
 * Fix tab highlight state to satisfy keyboard and router case; [#115](https://github.com/hacktons/convex_bottom_bar/issues/115), [#112](https://github.com/hacktons/convex_bottom_bar/issues/112)
 * Breaking changes: disable initial index property when working with TabController to avoid potential index conflict;
