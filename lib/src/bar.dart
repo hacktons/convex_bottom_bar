@@ -510,7 +510,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   void didChangeDependencies() {
     super.didChangeDependencies();
     // init state here so we can take a reference of DefaultTabController
-    if (_controller != _takeControllerRef) {
+    if (_controller == null || _controller != _takeControllerRef) {
       _resetState();
     }
   }

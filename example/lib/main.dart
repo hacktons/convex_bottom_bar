@@ -34,10 +34,10 @@ class _State extends State<MyApp> {
     return MaterialApp(
       initialRoute: "/",
       routes: {
-        "/": (BuildContext context) => DefaultAppBarDemo(),
+        "/": (_) => HelloConvexAppBar(),
+        "/bar": (BuildContext context) => DefaultAppBarDemo(),
         "/custom": (BuildContext context) => CustomAppBarDemo(),
         "/fab": (BuildContext context) => ConvexButtonDemo(),
-        "/bar": (_) => HelloConvexAppBar(),
       },
     );
   }
@@ -50,8 +50,8 @@ class HelloConvexAppBar extends StatelessWidget {
       appBar: AppBar(title: Text('Hello ConvexAppBar')),
       body: Center(
           child: TextButton(
-        child: Text('Click to show usage'),
-        onPressed: () => Navigator.of(context).pushNamed('/'),
+        child: Text('Click to show full example'),
+        onPressed: () => Navigator.of(context).pushNamed('/bar'),
       )),
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.react,
@@ -60,7 +60,7 @@ class HelloConvexAppBar extends StatelessWidget {
           TabItem(icon: Icons.calendar_today),
           TabItem(icon: Icons.assessment),
         ],
-        initialActiveIndex: 1 /*optional*/,
+        initialActiveIndex: 1,
         onTap: (int i) => print('click index=$i'),
       ),
     );

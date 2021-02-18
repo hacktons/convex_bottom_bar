@@ -1,3 +1,6 @@
+## [2.7.1]
+* fix runtime exception when there is no controller passed in
+
 ## [2.7.0+1]
 * add new configuration `disableDefaultTabController`
 
