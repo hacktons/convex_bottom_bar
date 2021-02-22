@@ -122,6 +122,7 @@ class ConvexAppBar extends StatefulWidget {
   final Gradient gradient;
 
   /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView].
+  /// If controller exists, use controller.index instead of initialActiveIndex.
   final int initialActiveIndex;
 
   /// Disable access of DefaultTabController to avoid unexpected conflict.
@@ -253,7 +254,7 @@ class ConvexAppBar extends StatefulWidget {
     @required this.itemBuilder,
     @required this.count,
     this.initialActiveIndex,
-    this.disableDefaultTabController,
+    this.disableDefaultTabController = false,
     this.onTap,
     this.onTapNotify,
     this.controller,
@@ -384,6 +385,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
             ' background display with topLeft/topRight corner'),
       ]);
     }
+    _resetState();
     super.initState();
   }
 
@@ -495,9 +497,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   void _resetState() {
-    _updateTabController();
-    var index = widget.initialActiveIndex ?? _controller?.index;
-    _currentIndex = index;
+    var index =  _controller?.index ?? widget.initialActiveIndex;
+    // when both initialActiveIndex and controller are not configured
+    _currentIndex = index ?? 0;
 
     if (!isFixed() && _controller != null) {
       // when controller is not defined, the default index can rollback to 0
@@ -509,8 +511,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // init state here so we can take a reference of DefaultTabController
-    if (_controller == null || _controller != _takeControllerRef) {
+    if (_controller != _takeControllerRef) {
+      _updateTabController();
       _resetState();
     }
   }
@@ -520,6 +522,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller ||
         widget.count != oldWidget.count) {
+      _updateTabController();
       _resetState();
     }
   }
