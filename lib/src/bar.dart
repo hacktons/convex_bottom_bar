@@ -497,7 +497,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   void _resetState() {
-    var index =  _controller?.index ?? widget.initialActiveIndex;
+    var index = _controller?.index ?? widget.initialActiveIndex;
     // when both initialActiveIndex and controller are not configured
     _currentIndex = index ?? 0;
 

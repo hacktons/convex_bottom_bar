@@ -1,3 +1,6 @@
+## [2.7.1+2]
+* format
+
 ## [2.7.1+1]
 * Bug fix [Manual update tab index workaround seems not working since version 2.7.x](https://github.com/hacktons/convex_bottom_bar/issues/134)
 
