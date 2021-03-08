@@ -1,3 +1,6 @@
+## [3.0.0-nullsafety.1]
+* Prepare for Flutter 2.
+
 ## [2.7.1+2]
 * format
 
@@ -9,6 +12,10 @@
 
 ## [2.7.0+1]
 * add new configuration `disableDefaultTabController`
+
+## [3.0.0-nullsafety.0]
+
+* Migrate to [null-safety](https://dart.dev/null-safety/migration-guide).
 
 ## [2.6.0]
 * Fix tab highlight state to satisfy keyboard and router case; [#115](https://github.com/hacktons/convex_bottom_bar/issues/115), [#112](https://github.com/hacktons/convex_bottom_bar/issues/112)

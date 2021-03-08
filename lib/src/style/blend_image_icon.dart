@@ -21,19 +21,19 @@ import 'package:flutter/material.dart';
 /// Decorate the provided [Image] or [IconData].
 class BlendImageIcon<T> extends StatelessWidget {
   /// Create image widget
-  const BlendImageIcon(this.image, {Key key, this.color, this.size})
+  const BlendImageIcon(this.image, {Key? key, this.color, this.size})
       : assert(image is Widget || image is IconData,
             'image must be IconData or Widget'),
         super(key: key);
 
   /// Color used for Icon and gradient.
-  final Color color;
+  final Color? color;
 
   /// Child image.
   final T image;
 
   /// Size of icon.
-  final double size;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +52,12 @@ class BlendImageIcon<T> extends StatelessWidget {
         width: s,
         height: s,
         child: ShaderMask(
-          child: image as Widget,
           shaderCallback: (Rect bounds) {
-            return LinearGradient(colors: [color, color]).createShader(bounds);
+            return LinearGradient(colors: [color!, color!])
+                .createShader(bounds);
           },
           blendMode: BlendMode.srcIn,
+          child: image as Widget,
         ),
       );
     }

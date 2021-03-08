@@ -28,52 +28,55 @@ class ReactTabStyle extends InnerBuilder {
 
   /// Create style builder.
   ReactTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.curve,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
     var style = ofStyle(context);
-    var hasTitle = item.title != null && item.title.isNotEmpty;
+    var noLabel = style.hideEmptyLabel && hasNoText(item);
 
     if (active) {
+      var children = <Widget>[
+        TransitionContainer.scale(
+          data: index,
+          curve: curve,
+          child: BlendImageIcon(
+            item.activeIcon ?? item.icon,
+            color: item.blend ? activeColor : null,
+            size: style.activeIconSize,
+          ),
+        ),
+      ];
+      if (!noLabel) {
+        children
+            .add(Text(item.title ?? '', style: style.textStyle(activeColor)));
+      }
       return Container(
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment:
-              hasTitle ? MainAxisAlignment.end : MainAxisAlignment.center,
-          children: <Widget>[
-            TransitionContainer.scale(
-              data: index,
-              child: BlendImageIcon(
-                item.activeIcon ?? item.icon,
-                color: item.blend ? activeColor : null,
-                size: style.activeIconSize,
-              ),
-              curve: curve,
-            ),
-            style.hideEmptyLabel && !hasTitle
-                ? null
-                : Text(item.title, style: style.textStyle(activeColor))
-          ]..removeWhere((it) => it == null),
+              noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+          children: children,
         ),
       );
+    }
+    var children = <Widget>[
+      BlendImageIcon(item.icon, color: item.blend ? color : null),
+    ];
+    if (!noLabel) {
+      children.add(Text(item.title ?? '', style: style.textStyle(color)));
     }
     return Container(
       padding: const EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment:
-            hasTitle ? MainAxisAlignment.end : MainAxisAlignment.center,
-        children: <Widget>[
-          BlendImageIcon(item.icon, color: item.blend ? color : null),
-          style.hideEmptyLabel && !hasTitle
-              ? null
-              : Text(item.title, style: style.textStyle(color))
-        ]..removeWhere((it) => it == null),
+            noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+        children: children,
       ),
     );
   }

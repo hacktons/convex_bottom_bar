@@ -34,11 +34,11 @@ class TitledTabStyle extends InnerBuilder {
 
   /// Create style builder.
   TitledTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.curve,
-    this.backgroundColor,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
+    required this.backgroundColor,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -55,6 +55,7 @@ class TitledTabStyle extends InnerBuilder {
       return TransitionContainer.slide(
         data: index,
         duration: Duration(milliseconds: 200),
+        curve: curve,
         child: Container(
           // necessary otherwise the badge will not large enough
           width: style.layoutSize,
@@ -67,7 +68,6 @@ class TitledTabStyle extends InnerBuilder {
             color: item.blend ? backgroundColor : null,
           ),
         ),
-        curve: curve,
       );
     }
 
@@ -77,9 +77,10 @@ class TitledTabStyle extends InnerBuilder {
         clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         children: <Widget>[
-          Text(item.title, style: textStyle),
+          Text(item.title ?? '', style: textStyle),
           TransitionContainer.slide(
             reverse: true,
+            curve: curve,
             child: Container(
               margin: EdgeInsets.all(margin),
               decoration: BoxDecoration(
@@ -92,11 +93,10 @@ class TitledTabStyle extends InnerBuilder {
                 color: item.blend ? backgroundColor : null,
               ),
             ),
-            curve: curve,
           )
         ],
       );
     }
-    return Center(child: Text(item.title, style: textStyle));
+    return Center(child: Text(item.title ?? '', style: textStyle));
   }
 }

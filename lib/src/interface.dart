@@ -16,8 +16,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import 'style/internal_style_config.dart';
-
 /// Tab callback, [index] are tab index which is being clicked.
 typedef GestureTapIndexCallback = void Function(int index);
 
@@ -54,11 +52,6 @@ abstract class DelegateBuilder {
   bool fixed() {
     return false;
   }
-
-  /// Hook for internal tab styles.
-  StyleHook provideStyle() {
-    return InternalStyle();
-  }
 }
 
 /// Default tab styles are configured with internal layout/size, these are not
@@ -69,7 +62,7 @@ abstract class DelegateBuilder {
 /// to take risk of the modified effects, try with the config carefully.
 abstract class StyleHook {
   /// size of icon
-  double get iconSize;
+  double? get iconSize;
 
   /// margin outside of icon
   double get activeIconMargin;

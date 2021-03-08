@@ -22,7 +22,7 @@ import 'package:flutter/cupertino.dart';
 import 'transition_container.dart';
 
 /// Interface to provide a transition, work with [TransitionContainer].
-abstract class TransitionContainerBuilder {
+abstract class TransitionContainerBuilder<T> {
   /// Curve for animation.
   final Curve curve;
 
@@ -33,11 +33,11 @@ abstract class TransitionContainerBuilder {
   Animation animation(AnimationController controller);
 
   /// Return animated widget with provided animation.
-  Widget build(Animation animation);
+  Widget build(Animation<T> animation);
 }
 
 /// Scale transition builder.
-class ScaleBuilder extends TransitionContainerBuilder {
+class ScaleBuilder extends TransitionContainerBuilder<double> {
   /// The target widget to scale with.
   Widget child;
 
@@ -47,16 +47,16 @@ class ScaleBuilder extends TransitionContainerBuilder {
   }
 
   @override
-  Widget build(Animation animation) {
+  Widget build(Animation<double> animation) {
     return ScaleTransition(scale: animation, child: child);
   }
 
   /// Create scale builder
-  ScaleBuilder({Curve curve, this.child}) : super(curve);
+  ScaleBuilder({required Curve curve, required this.child}) : super(curve);
 }
 
 /// Slide transition builder.
-class SlideBuilder extends TransitionContainerBuilder {
+class SlideBuilder extends TransitionContainerBuilder<Offset> {
   /// The target widget to slide with.
   Widget child;
 
@@ -64,10 +64,12 @@ class SlideBuilder extends TransitionContainerBuilder {
   final bool reverse;
 
   /// Create slide builder.
-  SlideBuilder({Curve curve, this.child, this.reverse}) : super(curve);
+  SlideBuilder(
+      {required Curve curve, required this.child, required this.reverse})
+      : super(curve);
 
   @override
-  Widget build(Animation animation) {
+  Widget build(Animation<Offset> animation) {
     return SlideTransition(position: animation, child: child);
   }
 
@@ -93,8 +95,12 @@ class FlipBuilder extends TransitionContainerBuilder {
   final double height;
 
   /// Create flip builder
-  FlipBuilder(this.height, {Curve curve, this.topChild, this.bottomChild})
-      : super(curve);
+  FlipBuilder(
+    this.height, {
+    required Curve curve,
+    required this.topChild,
+    required this.bottomChild,
+  }) : super(curve);
 
   @override
   Animation animation(AnimationController controller) {

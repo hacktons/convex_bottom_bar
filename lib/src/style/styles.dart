@@ -30,13 +30,13 @@ import 'titled_tab_style.dart';
 /// Factory method to return the [DelegateBuilder] for each [TabStyle].
 DelegateBuilder supportedStyle(
   TabStyle style, {
-  @required List<TabItem> items,
-  Color color,
-  Color activeColor,
-  Color backgroundColor,
-  Curve curve,
+  required List<TabItem> items,
+  required Color color,
+  required Color activeColor,
+  required Color backgroundColor,
+  required Curve curve,
 }) {
-  assert(items != null && items.isNotEmpty, 'items should not be empty');
+  assert(items.isNotEmpty, 'items should not be empty');
   assert(
       ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
               items.length.isOdd) ||
@@ -79,7 +79,7 @@ DelegateBuilder supportedStyle(
       );
       break;
     case TabStyle.textIn:
-      assert(items.every((it) => it.title != null && it.title.isNotEmpty),
+      assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
           'title is necessary for TabStyle.textIn');
       builder = TextInTabStyle(
         items: items,
@@ -89,7 +89,7 @@ DelegateBuilder supportedStyle(
       );
       break;
     case TabStyle.titled:
-      assert(items.every((it) => it.title != null && it.title.isNotEmpty),
+      assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
           'title is necessary for TabStyle.titled');
       builder = TitledTabStyle(
         items: items,

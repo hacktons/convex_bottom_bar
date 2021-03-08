@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ void main() {
 
   testWidgets('TabStyle.fixed, all tab has icon and text',
       (WidgetTester tester) async {
-    GlobalKey<ConvexAppBarState> key = GlobalKey();
+    var key = GlobalKey<ConvexAppBarState>();
     var tabController =
         TabController(length: 3, vsync: tester, initialIndex: 2);
     await tester.pumpWidget(material(ConvexAppBar(
@@ -55,7 +54,7 @@ void main() {
     expect(find.byIcon(Icons.add), findsOneWidget);
     expect(find.byIcon(Icons.near_me), findsOneWidget);
     expect(find.byIcon(Icons.web), findsOneWidget);
-    key.currentState.tap(2);
+    key.currentState?.tap(2);
     expect(2, tabController.index);
   });
 
@@ -187,9 +186,9 @@ void main() {
   });
 
   testWidgets('Test tab controller', (WidgetTester tester) async {
-    TabController controller =
+    var controller =
         TabController(length: 3, vsync: TestVSync(), initialIndex: 2);
-    GlobalKey key = GlobalKey(debugLabel: 'appbar');
+    var key = GlobalKey(debugLabel: 'appbar');
     var appbar = ConvexAppBar.builder(
       key: key,
       controller: controller,
@@ -286,7 +285,8 @@ void main() {
     await tester.pumpAndSettle(Duration(milliseconds: 300));
   });
 
-  test('test invalid builder', () {
+  // no longer needed for null safety
+  /*test('test invalid builder', () {
     try {
       ConvexAppBar.builder(
         itemBuilder: null,
@@ -299,7 +299,7 @@ void main() {
     } catch (e) {
       expect(e, isAssertionError);
     }
-  });
+  });*/
   testWidgets(
     'Test invalid initialActiveIndex',
     (WidgetTester tester) async {
@@ -412,10 +412,10 @@ class Builder extends DelegateBuilder {
 
 Widget material(Widget widget) {
   return Directionality(
+    textDirection: TextDirection.ltr,
     child: MediaQuery(
       data: MediaQueryData(),
       child: widget,
     ),
-    textDirection: TextDirection.ltr,
   );
 }

@@ -24,7 +24,7 @@ import 'reused_gradient.dart';
 class ConvexPainter extends CustomPainter {
   final _paint = Paint();
   final _shadowPaint = Paint();
-  ConvexNotchedRectangle _shape;
+  late ConvexNotchedRectangle _shape;
   final ReusedGradient _gradient = ReusedGradient();
 
   /// Width of the convex shape.
@@ -40,27 +40,31 @@ class ConvexPainter extends CustomPainter {
   final Animation<double> leftPercent;
 
   /// RLT support
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   /// Create painter
   ConvexPainter({
-    this.top,
-    this.width,
-    this.height,
+    required this.top,
+    required this.width,
+    required this.height,
     this.leftPercent = const AlwaysStoppedAnimation<double>(0.5),
     this.textDirection,
     Color color = Colors.white,
     Color shadowColor = Colors.black38,
     double sigma = 2,
-    Gradient gradient,
-    double cornerRadius,
+    Gradient? gradient,
+    double? cornerRadius,
   }) : super(repaint: leftPercent) {
-    _paint..color = color;
-    _shadowPaint
-      ..color = shadowColor
-      ..maskFilter = MaskFilter.blur(BlurStyle.outer, sigma);
+    _paint.color = color;
+    try {
+      _shadowPaint
+        ..color = shadowColor
+        ..maskFilter = MaskFilter.blur(BlurStyle.outer, sigma);
+    } catch (e, s) {
+      debugPrintStack(label: 'ElevationError', stackTrace: s);
+    }
     _gradient.gradient = gradient;
-    _shape = ConvexNotchedRectangle(radius: cornerRadius);
+    _shape = ConvexNotchedRectangle(radius: cornerRadius ?? 0);
   }
 
   @override

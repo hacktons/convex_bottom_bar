@@ -35,7 +35,8 @@ void main() {
           ),
         ))));
   });
-  testWidgets('Test Provider assertion, style should not be null',
+  // no longer needed for null safety
+  /*testWidgets('Test Provider assertion, style should not be null',
       (WidgetTester tester) async {
     expect(() async {
       await tester.pumpWidget(StyleProvider(
@@ -43,8 +44,8 @@ void main() {
         child: null,
       ));
     }, throwsAssertionError);
-  });
-  testWidgets('Test Provider assertion, child should not be null',
+  });*/
+  /*testWidgets('Test Provider assertion, child should not be null',
       (WidgetTester tester) async {
     expect(() async {
       await tester.pumpWidget(StyleProvider(
@@ -52,7 +53,7 @@ void main() {
         child: null,
       ));
     }, throwsAssertionError);
-  });
+  });*/
 }
 
 /// testWidgets('MyWidget asserts invalid bounds', (WidgetTester tester) async {

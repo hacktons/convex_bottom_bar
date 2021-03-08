@@ -21,7 +21,7 @@ import '../../convex_bottom_bar.dart';
 /// Internal style configuration.
 class InternalStyle extends StyleHook {
   @override
-  double get iconSize {
+  double? get iconSize {
     // use null will fallback to size of IconTheme
     return null;
   }

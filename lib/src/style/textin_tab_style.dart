@@ -28,10 +28,10 @@ class TextInTabStyle extends InnerBuilder {
 
   /// Create style builder.
   TextInTabStyle({
-    List<TabItem> items,
-    Color activeColor,
-    Color color,
-    this.curve,
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -47,16 +47,16 @@ class TextInTabStyle extends InnerBuilder {
           children: <Widget>[
             TransitionContainer.scale(
               data: index,
+              curve: curve,
               child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: item.blend ? activeColor : null,
                 size: style.activeIconSize,
               ),
-              curve: curve,
             ),
             TransitionContainer.slide(
-              child: Text(item.title, style: textStyle),
               curve: curve,
+              child: Text(item.title ?? '', style: textStyle),
             ),
           ],
         ),

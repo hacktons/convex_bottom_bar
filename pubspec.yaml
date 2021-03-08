@@ -1,10 +1,10 @@
 name: convex_bottom_bar
 description: A Flutter package which implements a ConvexAppBar to show a convex tab in the bottom bar. Theming supported.
-version: 2.7.1+2
+version: 3.0.0-nullsafety.1
 homepage: https://github.com/hacktons/convex_bottom_bar
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,8 +13,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pana_html: ^0.1.3
-  pedantic: ^1.8.0
+  pedantic: ^1.10.0-nullsafety.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
