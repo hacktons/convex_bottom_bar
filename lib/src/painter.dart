@@ -55,10 +55,14 @@ class ConvexPainter extends CustomPainter {
     Gradient? gradient,
     double? cornerRadius,
   }) : super(repaint: leftPercent) {
-    _paint..color = color;
-    _shadowPaint
-      ..color = shadowColor
-      ..maskFilter = MaskFilter.blur(BlurStyle.outer, sigma);
+    _paint.color = color;
+    try {
+      _shadowPaint
+        ..color = shadowColor
+        ..maskFilter = MaskFilter.blur(BlurStyle.outer, sigma);
+    } catch (e, s) {
+      debugPrintStack(label: 'ElevationError', stackTrace: s);
+    }
     _gradient.gradient = gradient;
     _shape = ConvexNotchedRectangle(radius: cornerRadius ?? 0);
   }

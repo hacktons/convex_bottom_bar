@@ -48,6 +48,7 @@ class ReactCircleTabStyle extends InnerBuilder {
       final item = items[index];
       return TransitionContainer.scale(
         data: index,
+        curve: curve,
         child: Container(
           // necessary otherwise the badge will not large enough
           width: style.layoutSize,
@@ -63,7 +64,6 @@ class ReactCircleTabStyle extends InnerBuilder {
             color: item.blend ? backgroundColor : null,
           ),
         ),
-        curve: curve,
       );
     }
     var textStyle = style.textStyle(color);

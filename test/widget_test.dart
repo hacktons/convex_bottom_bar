@@ -412,10 +412,10 @@ class Builder extends DelegateBuilder {
 
 Widget material(Widget widget) {
   return Directionality(
+    textDirection: TextDirection.ltr,
     child: MediaQuery(
       data: MediaQueryData(),
       child: widget,
     ),
-    textDirection: TextDirection.ltr,
   );
 }

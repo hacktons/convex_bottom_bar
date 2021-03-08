@@ -44,12 +44,12 @@ class ReactTabStyle extends InnerBuilder {
       var children = <Widget>[
         TransitionContainer.scale(
           data: index,
+          curve: curve,
           child: BlendImageIcon(
             item.activeIcon ?? item.icon,
             color: item.blend ? activeColor : null,
             size: style.activeIconSize,
           ),
-          curve: curve,
         ),
       ];
       if (!noLabel) {

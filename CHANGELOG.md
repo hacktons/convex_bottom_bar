@@ -1,3 +1,18 @@
+## [3.0.0-nullsafety.1]
+* Prepare for Flutter 2.
+
+## [2.7.1+2]
+* format
+
+## [2.7.1+1]
+* Bug fix [Manual update tab index workaround seems not working since version 2.7.x](https://github.com/hacktons/convex_bottom_bar/issues/134)
+
+## [2.7.1]
+* fix runtime exception when there is no controller passed in
+
+## [2.7.0+1]
+* add new configuration `disableDefaultTabController`
+
 ## [3.0.0-nullsafety.0]
 
 * Migrate to [null-safety](https://dart.dev/null-safety/migration-guide).

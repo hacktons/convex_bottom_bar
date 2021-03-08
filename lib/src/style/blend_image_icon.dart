@@ -52,12 +52,12 @@ class BlendImageIcon<T> extends StatelessWidget {
         width: s,
         height: s,
         child: ShaderMask(
-          child: image as Widget,
           shaderCallback: (Rect bounds) {
             return LinearGradient(colors: [color!, color!])
                 .createShader(bounds);
           },
           blendMode: BlendMode.srcIn,
+          child: image as Widget,
         ),
       );
     }

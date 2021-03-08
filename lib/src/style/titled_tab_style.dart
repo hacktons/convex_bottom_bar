@@ -55,6 +55,7 @@ class TitledTabStyle extends InnerBuilder {
       return TransitionContainer.slide(
         data: index,
         duration: Duration(milliseconds: 200),
+        curve: curve,
         child: Container(
           // necessary otherwise the badge will not large enough
           width: style.layoutSize,
@@ -67,7 +68,6 @@ class TitledTabStyle extends InnerBuilder {
             color: item.blend ? backgroundColor : null,
           ),
         ),
-        curve: curve,
       );
     }
 
@@ -80,6 +80,7 @@ class TitledTabStyle extends InnerBuilder {
           Text(item.title ?? '', style: textStyle),
           TransitionContainer.slide(
             reverse: true,
+            curve: curve,
             child: Container(
               margin: EdgeInsets.all(margin),
               decoration: BoxDecoration(
@@ -92,7 +93,6 @@ class TitledTabStyle extends InnerBuilder {
                 color: item.blend ? backgroundColor : null,
               ),
             ),
-            curve: curve,
           )
         ],
       );

@@ -133,7 +133,7 @@ class _State extends State<DefaultAppBarDemo>
       textDirection: _textDirection,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Default ConvexAppBar'),
+          title: const Text('ConvexAppBar'),
           backgroundColor: _barColor,
           actions: <Widget>[
             IconButton(

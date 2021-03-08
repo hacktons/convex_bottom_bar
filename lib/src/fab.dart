@@ -85,7 +85,7 @@ class ConvexButton extends StatelessWidget {
       top: top,
       backgroundColor: backgroundColor,
       sigma: sigma,
-      child: GestureDetector(child: fab, onTap: onTap),
+      child: GestureDetector(onTap: onTap, child: fab),
     );
   }
 

@@ -47,16 +47,16 @@ class TextInTabStyle extends InnerBuilder {
           children: <Widget>[
             TransitionContainer.scale(
               data: index,
+              curve: curve,
               child: BlendImageIcon(
                 item.activeIcon ?? item.icon,
                 color: item.blend ? activeColor : null,
                 size: style.activeIconSize,
               ),
-              curve: curve,
             ),
             TransitionContainer.slide(
-              child: Text(item.title ?? '', style: textStyle),
               curve: curve,
+              child: Text(item.title ?? '', style: textStyle),
             ),
           ],
         ),

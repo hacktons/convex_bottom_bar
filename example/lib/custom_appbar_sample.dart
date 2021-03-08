@@ -78,6 +78,7 @@ class _State extends State<CustomAppBarDemo>
           bottomNavigationBar: StyleProvider(
             style: Style(),
             child: ConvexAppBar(
+              disableDefaultTabController: true,
               height: 50,
               top: -30,
               curveSize: 100,
