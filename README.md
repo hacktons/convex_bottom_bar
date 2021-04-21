@@ -15,7 +15,7 @@
 
 ---
 
-The official BottomAppBar can only display a notch FAB with app bar, sometimes we need a convex FAB. This ConvexAppBar is inspired by BottomAppBar and NotchShape's implementation.
+The official BottomAppBar can only display a notch FAB with an app bar, and sometimes we need a convex FAB. BottomAppBar and NotchShape's implementation inspires this ConvexAppBar.
 
 Online example can be found at [https://appbar.codemagic.app](https://appbar.codemagic.app).
 
@@ -41,7 +41,7 @@ Here are some supported style:
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
 
-The `ConvexAppBar` has to two constructors, the `ConvexAppBar()` will use default style to simplify the tab creation.
+The `ConvexAppBar` has two constructors. The `ConvexAppBar()` will use the default style to simplify the tab creation.
 
 Add this to your package's pubspec.yaml file, use the latest version [![Pub](https://img.shields.io/pub/v/convex_bottom_bar.svg)](https://pub.dartlang.org/packages/convex_bottom_bar):
 
@@ -69,8 +69,8 @@ Scaffold(
 ```
 
 **Flutter Version Support**  
-As Flutter is developing fast. There can be breaking changes, we will trying to support the
-stable version and beta version through different package version.
+As Flutter is developing fast. There can be breaking changes. We will be trying to support the
+stable version and beta version through different package versions.
 
 |            **Stable Flutter Version**             |            **Package Version**             | **More** |
 | :------------------------------: | :------------------------------: | :------------------------------: |
@@ -80,10 +80,10 @@ stable version and beta version through different package version.
 ## Features
 * Provide multiple internal styles
 * Ability to change the theme of AppBar
-* Provide builder API to customize new style
-* Add badge on tab menu
+* Provide builder API to customize a new style
+* Add badge on the tab menu
 * Elegant transition animation
-* Provide hook API to override some of internal styles
+* Provide hook API to override some of the internal styles
 * RTL support
 
 ## Table of contents
@@ -117,7 +117,7 @@ The bar will use default style, you may want to theme it. Here are some supporte
 
 ## Badge
 
-If you need to add badge on the tab, use `ConvexAppBar.badge` to get it done. 
+If you need to add a badge on the tab, use the `ConvexAppBar.badge` to get it done. 
 
 [![badge demo](doc/badge-demo-preview.gif)](doc/badge-demo.mp4 "badge demo")
 
@@ -132,7 +132,7 @@ ConvexAppBar.badge({0: '99+', 1: Icons.assistant_photo, 2: Colors.redAccent},
 );
 ```
 
-The `badge()` method accept an array of badges; The `badges` is map with tab items, each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
+The `badge()` method accepts an array of badges; The `badges` is a map with tab items. Each value of entry can be either `String`, `IconData`, `Color` or `Widget`. 
 
 ## Single Button
 
@@ -151,10 +151,10 @@ Scaffold(
 ```
 
 ## Style Hook
-Hook for internal tab style. Unlike the `ConvexAppBar.builder`, you may want to update the tab style without define a new tab style.
+Hook for internal tab style. Unlike the `ConvexAppBar.builder`, you may want to update the tab style without defining a new tab style.
 
 **Warning:**  
-This hook is limited, and can lead to `overflow broken` if the size you provide does no match with internal style.
+This hook is limited and can lead to `overflow broken` if the size you provide does not match with internal style.
 
 ```dart
 StyleProvider(
@@ -191,7 +191,7 @@ class Style extends StyleHook {
 ```
 
 ## RTL Support
-RTL is supported internally, if you define the TextDirection inside app, the AppBar should work fine.
+RTL is supported internally, and if you define the TextDirection inside the app, the AppBar should work fine.
 Both RTL and LTR can be configured through `Directionality`:
 ```dart
 Directionality(
@@ -202,7 +202,7 @@ Directionality(
 
 ## Custom Example
 
-If the default style does not match with your situation, try with `ConvexAppBar.builder()`, which allow you to custom nearly all the tab features.
+If the default style does not match your situation, try with `ConvexAppBar.builder()`, allowing you to custom nearly all the tab features.
 
 ```dart
 Scaffold(
