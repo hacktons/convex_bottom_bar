@@ -39,8 +39,8 @@ class FixedTabStyle extends InnerBuilder {
   Widget build(BuildContext context, int index, bool active) {
     var c = active ? activeColor : color;
     var style = ofStyle(context);
-    var textStyle = style.textStyle(c);
     var item = items[index];
+    var textStyle = style.textStyle(c, item.fontFamily);
 
     if (index == convexIndex) {
       var item = items[convexIndex];
