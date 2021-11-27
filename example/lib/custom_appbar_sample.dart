@@ -210,7 +210,7 @@ class Style extends StyleHook {
   double get iconSize => 20;
 
   @override
-  TextStyle textStyle(Color color) {
-    return TextStyle(fontSize: 20, color: color);
+  TextStyle textStyle(Color color, String fontFamily) {
+    return TextStyle(fontSize: 20, color: color, fontFamily: fontFamily);
   }
 }
