@@ -49,7 +49,9 @@ class ReactCircleTabStyle extends InnerBuilder {
       return TransitionContainer.scale(
         data: index,
         curve: curve,
-        child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child:Container(
           // necessary otherwise the badge will not large enough
           width: style.layoutSize,
           height: style.layoutSize,
@@ -62,9 +64,10 @@ class ReactCircleTabStyle extends InnerBuilder {
             active ? item.activeIcon ?? item.icon : item.icon,
             size: style.activeIconSize,
             color: item.blend ? backgroundColor : null,
+            size: 20, // size of icon
           ),
         ),
-      );
+      ));
     }
     var textStyle = style.textStyle(color, item.fontFamily);
     var noLabel = style.hideEmptyLabel && hasNoText(item);
@@ -72,6 +75,7 @@ class ReactCircleTabStyle extends InnerBuilder {
       BlendImageIcon(
         active ? item.activeIcon ?? item.icon : item.icon,
         color: item.blend ? color : null,
+        size: 20, // size of icon
       ),
     ];
     if (!noLabel) {
