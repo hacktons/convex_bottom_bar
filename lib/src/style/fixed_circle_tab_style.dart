@@ -15,6 +15,7 @@
  */
 
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../item.dart';
@@ -54,7 +55,7 @@ class FixedCircleTabStyle extends InnerBuilder {
         height: style.layoutSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: c,
+          color: Color(0xFFE31E24),
         ),
         margin: EdgeInsets.all(margin),
         child: BlendImageIcon(
