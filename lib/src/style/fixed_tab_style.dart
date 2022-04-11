@@ -49,11 +49,24 @@ class FixedTabStyle extends InnerBuilder {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            BlendImageIcon(
+              Container(
+              // necessary otherwise the badge will not large enough
+                width: style.activeIconSize +2,
+                height: style.activeIconSize +2,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFE31E24),
+                ), child :  BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
               color: item.blend ? (c) : null,
               size: style.activeIconSize,
-            ),
+            )),
+            
+//             BlendImageIcon(
+//               active ? item.activeIcon ?? item.icon : item.icon,
+//               color: item.blend ? (c) : null,
+//               size: style.activeIconSize,
+//             ),
             Text(item.title ?? '', style: textStyle)
           ],
         ),
