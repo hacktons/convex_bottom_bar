@@ -29,7 +29,10 @@ class DefaultChipBuilder extends ChipBuilder {
 
   /// Color of the badge chip.
   final Color badgeColor;
-
+  
+  /// show/hide badge
+  final bool showBadge;
+  
   /// Padding for badge.
   final EdgeInsets padding;
 
@@ -44,6 +47,7 @@ class DefaultChipBuilder extends ChipBuilder {
     this.chips, {
     required this.textColor,
     required this.badgeColor,
+    required this.showBadge,
     required this.padding,
     required this.margin,
     required this.borderRadius,
@@ -57,7 +61,10 @@ class DefaultChipBuilder extends ChipBuilder {
     }
     return Stack(
       alignment: Alignment.center,
-      children: <Widget>[child, asBadge(chip)],
+      children: <Widget>[
+        child,
+        showBadge ? asBadge(chip) : const SizedBox.shrink()
+      ],
     );
   }
 
