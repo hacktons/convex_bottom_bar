@@ -323,7 +323,7 @@ class ConvexAppBar extends StatefulWidget {
     if (badge.isNotEmpty) {
       chipBuilder = DefaultChipBuilder(
         badge,
-        showBadge: showBadge ?? false,
+        showBadge: showBadge,
         textColor: badgeTextColor ?? Colors.white,
         badgeColor: badgeColor ?? Colors.redAccent,
         padding: badgePadding ?? EdgeInsets.only(left: 4, right: 4),
