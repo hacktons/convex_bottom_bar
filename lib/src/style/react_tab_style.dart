@@ -66,7 +66,8 @@ class ReactTabStyle extends InnerBuilder {
       );
     }
     var children = <Widget>[
-      BlendImageIcon(item.icon, color: item.blend ? color : null),
+      BlendImageIcon(item.icon,
+          color: item.blend ? color : null, size: style.iconSize),
     ];
     if (!noLabel) {
       children.add(Text(item.title ?? '',

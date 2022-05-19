@@ -71,6 +71,7 @@ class ReactCircleTabStyle extends InnerBuilder {
     var children = <Widget>[
       BlendImageIcon(
         active ? item.activeIcon ?? item.icon : item.icon,
+        size: style.iconSize,
         color: item.blend ? color : null,
       ),
     ];

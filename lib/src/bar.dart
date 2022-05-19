@@ -17,7 +17,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'chip_builder.dart';
 import 'interface.dart';
