@@ -25,7 +25,7 @@ class RadioItem<T> extends StatelessWidget {
 
   final ChoiceValue<T> value;
   final ChoiceValue<T> groupValue;
-  final ValueChanged<ChoiceValue<T>> onChanged;
+  final ValueChanged<ChoiceValue<T>?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class RadioItem<T> extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
                     if (onChanged != null) {
-                      onChanged(value);
+                      onChanged!(value);
                     }
                   },
                   child: Text(value.title),

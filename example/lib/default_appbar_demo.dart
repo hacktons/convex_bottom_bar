@@ -96,9 +96,9 @@ class _State extends State<DefaultAppBarDemo>
   ChoiceValue<TabStyle> _style = kStyles.first;
   ChoiceValue<Curve> _curve = Data.curves.first;
   Color _barColor = Data.namedColors.first.color;
-  Gradient _gradient = Data.gradients.first;
-  Badge _badge;
-  TabController _tabController;
+  Gradient? _gradient = Data.gradients.first;
+  Badge? _badge;
+  TabController? _tabController;
   TextDirection _textDirection = TextDirection.ltr;
 
   @override
@@ -121,7 +121,7 @@ class _State extends State<DefaultAppBarDemo>
       const Heading('Tab Style'),
     ];
     options.addAll(kStyles.map((s) => RadioItem<TabStyle>(s, _style,
-        s.value == TabStyle.flip && kIsWeb ? null : _onStyleChanged)));
+        s.value == TabStyle.flip && kIsWeb ? _onNothing : _onStyleChanged)));
     if (_style.value != TabStyle.fixed &&
         _style.value != TabStyle.fixedCircle) {
       options.add(const Heading('Animation Curve'));
@@ -188,10 +188,10 @@ class _State extends State<DefaultAppBarDemo>
                 onTap: (int i) => debugPrint('select index=$i'),
               )
             : ConvexAppBar.badge(
-                {3: _badge.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
-                badgePadding: _badge.padding,
-                badgeColor: _badge.badgeColor,
-                badgeBorderRadius: _badge.borderRadius,
+                {3: _badge!.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
+                badgePadding: _badge!.padding,
+                badgeColor: _badge!.badgeColor,
+                badgeBorderRadius: _badge!.borderRadius,
                 badgeMargin: EdgeInsets.only(bottom: 20, left: 30),
                 items: _tabItems.value,
                 style: _style.value,
@@ -205,19 +205,32 @@ class _State extends State<DefaultAppBarDemo>
     );
   }
 
-  void _onTabItemTypeChanged(ChoiceValue<List<TabItem>> value) {
+  void _onTabItemTypeChanged(ChoiceValue<List<TabItem>>? value) {
+    if (value == null) {
+      return;
+    }
     setState(() {
       _tabItems = value;
     });
   }
 
-  void _onStyleChanged(ChoiceValue<TabStyle> value) {
+  void _onNothing(ChoiceValue<TabStyle>? value) {
+
+  }
+
+  void _onStyleChanged(ChoiceValue<TabStyle>? value) {
+    if (value == null) {
+      return;
+    }
     setState(() {
       _style = value;
     });
   }
 
-  void _onCurveChanged(ChoiceValue<Curve> value) {
+  void _onCurveChanged(ChoiceValue<Curve>? value) {
+    if (value == null) {
+      return;
+    }
     setState(() {
       _curve = value;
     });
@@ -229,13 +242,13 @@ class _State extends State<DefaultAppBarDemo>
     });
   }
 
-  void _onGradientChanged(Gradient value) {
+  void _onGradientChanged(Gradient? value) {
     setState(() {
       _gradient = value;
     });
   }
 
-  void _onBadgeChanged(Badge value) {
+  void _onBadgeChanged(Badge? value) {
     setState(() {
       _badge = value;
     });

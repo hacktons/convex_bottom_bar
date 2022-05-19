@@ -17,10 +17,10 @@
 import 'package:flutter/material.dart';
 
 class Badge {
-  final Color color;
-  final Color badgeColor;
-  final EdgeInsets padding;
-  final double borderRadius;
+  final Color? color;
+  final Color? badgeColor;
+  final EdgeInsets? padding;
+  final double? borderRadius;
   final String text;
 
   const Badge(

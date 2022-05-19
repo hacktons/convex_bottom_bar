@@ -20,15 +20,15 @@ import 'package:flutter/material.dart';
 class GradientItem extends StatelessWidget {
   const GradientItem(this.colors, this.selectedColor, this.onChanged);
 
-  final List<Gradient> colors;
-  final Gradient selectedColor;
-  final ValueChanged<Gradient> onChanged;
+  final List<Gradient?> colors;
+  final Gradient? selectedColor;
+  final ValueChanged<Gradient?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: colors.map<Widget>((Gradient namedColor) {
+      children: colors.map<Widget>((Gradient? namedColor) {
         return GestureDetector(
           onTap: () => onChanged(namedColor),
           child: Container(

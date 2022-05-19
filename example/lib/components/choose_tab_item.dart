@@ -26,7 +26,7 @@ class ChooseTabItem extends StatelessWidget {
 
   final List<ChoiceValue<List<TabItem>>> tabTypes;
   final ChoiceValue<List<TabItem>> selectedType;
-  final ValueChanged<ChoiceValue<List<TabItem>>> onChanged;
+  final ValueChanged<ChoiceValue<List<TabItem>>?>? onChanged;
 
   @override
   Widget build(BuildContext context) {

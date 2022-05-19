@@ -66,19 +66,21 @@ class _State extends State<CustomAppBarDemo>
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: items
-                .map((i) => i.title == 'Discovery'
-                    ? paletteBody()
-                    : Center(
-                        child: Text(
-                        '<\t\t${i.title}\t\t>',
-                        style: TextStyle(fontSize: 30),
-                      )))
+                .map((i) =>
+            i.title == 'Discovery'
+                ? paletteBody()
+                : Center(
+                child: Text(
+                  '<\t\t${i.title}\t\t>',
+                  style: TextStyle(fontSize: 30),
+                )))
                 .toList(growable: false),
           ),
           bottomNavigationBar: StyleProvider(
             style: Style(),
             child: ConvexAppBar(
               disableDefaultTabController: true,
+              initialActiveIndex: 0,
               height: 50,
               top: -30,
               curveSize: 100,
@@ -87,12 +89,12 @@ class _State extends State<CustomAppBarDemo>
                 TabItem(title: '2019', icon: Icons.link),
                 TabItem(
                     icon: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFFFF5722),
-                  ),
-                  child: Icon(Icons.add, color: Colors.white, size: 40),
-                )),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFFFF5722),
+                      ),
+                      child: Icon(Icons.add, color: Colors.white, size: 40),
+                    )),
                 TabItem(title: "2020", icon: Icons.work),
               ],
               backgroundColor: _tabBackgroundColor,
@@ -126,7 +128,8 @@ class _State extends State<CustomAppBarDemo>
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Icon(data.icon, color: color),
-            Text(data.title, style: TextStyle(color: color))
+            Text(data.title != null ? data.title! : "",
+                style: TextStyle(color: color))
           ],
         ));
   }
@@ -138,10 +141,11 @@ class _State extends State<CustomAppBarDemo>
       mainAxisSpacing: 1,
       crossAxisSpacing: 1,
       children: paletteColors
-          .map((c) => GestureDetector(
-                child: ColorItemView(c),
-                onTap: () => _onColorChanged(c),
-              ))
+          .map((c) =>
+          GestureDetector(
+            child: ColorItemView(c),
+            onTap: () => _onColorChanged(c),
+          ))
           .toList(),
     );
   }
@@ -180,6 +184,7 @@ class _CustomBuilder extends DelegateBuilder {
     var _icon = active
         ? navigationItem.activeIcon ?? navigationItem.icon
         : navigationItem.icon;
+    var _title = navigationItem.title ?? "";
     return Container(
       color: Colors.transparent,
       padding: EdgeInsets.only(bottom: 2),
@@ -187,7 +192,7 @@ class _CustomBuilder extends DelegateBuilder {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Icon(_icon, color: _color),
-          Text(navigationItem.title, style: TextStyle(color: _color))
+          Text(_title, style: TextStyle(color: _color))
         ],
       ),
     );
@@ -210,7 +215,7 @@ class Style extends StyleHook {
   double get iconSize => 20;
 
   @override
-  TextStyle textStyle(Color color, String fontFamily) {
+  TextStyle textStyle(Color color, String? fontFamily) {
     return TextStyle(fontSize: 20, color: color, fontFamily: fontFamily);
   }
 }
