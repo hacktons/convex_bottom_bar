@@ -62,7 +62,6 @@ Scaffold(
       TabItem(icon: Icons.message, title: 'Message'),
       TabItem(icon: Icons.people, title: 'Profile'),
     ],
-    initialActiveIndex: 2,//optional, default as 0
     onTap: (int i) => print('click index=$i'),
   )
 );
@@ -209,7 +208,6 @@ Scaffold(
   bottomNavigationBar: ConvexAppBar.builder(
     count: 5,
     backgroundColor: Colors.blue,
-    style: TabStyle.fixed,
     itemBuilder: Builder(),
   )
 );

@@ -163,6 +163,13 @@ class _State extends State<DefaultAppBarDemo>
               color: Colors.white,
               tooltip: "convex button example",
               onPressed: () => Navigator.of(context).pushNamed('/fab'),
+            ), IconButton(
+              icon: Icon(Icons.radio_button_checked),
+              color: Colors.white,
+              tooltip: "change tab by controller",
+              onPressed: (){
+                _tabController?.animateTo(2);
+              },
             )
           ],
         ),
