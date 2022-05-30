@@ -405,7 +405,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     }
     // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
     var _diff = (c.index - _currentIndex!).abs();
-    if (_diff == 1) {
+    // if (_diff == 1) {
       if (_blockEvent(c.index)) return;
       final previousIndex = c.previousIndex;
       final index = c.index;
@@ -413,7 +413,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
       await animateTo(index, from: previousIndex);
       _warpUnderwayCount -= 1;
       return Future<void>.value();
-    }
+    // }
   }
 
   /// change active tab index; can be used with [PageView].
