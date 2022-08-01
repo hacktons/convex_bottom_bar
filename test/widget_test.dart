@@ -188,7 +188,7 @@ void main() {
   testWidgets('Test tab controller', (WidgetTester tester) async {
     var controller =
         TabController(length: 3, vsync: TestVSync(), initialIndex: 2);
-    var key = GlobalKey(debugLabel: 'appbar');
+    var key = GlobalKey<ConvexAppBarState>(debugLabel: 'appbar');
     var appbar = ConvexAppBar.builder(
       key: key,
       controller: controller,
@@ -196,31 +196,62 @@ void main() {
       count: 3,
       top: -20,
       onTap: (i) {
-        assert(i == 1);
+        expect(i, 1);
       },
     );
     await tester.pumpWidget(
-      material(appbar),
+      // material(appbar),
+      material(Scaffold(
+        body: TabBarView(
+          controller: controller,
+          children: const <Widget>[
+            Center(child: Text('CHILD 0')),
+            Center(child: Text('CHILD 1')),
+            Center(child: Text('CHILD 2')),
+          ],
+        ),
+        bottomNavigationBar: appbar,
+      )),
       Duration(milliseconds: 300),
     );
+    expect(key.currentState?.currentIndex, 2);
     expect(find.text('TAB 0'), findsOneWidget);
     expect(find.text('TAB 1'), findsOneWidget);
+    expect(find.text('TAB 2'), findsOneWidget);
+    expect(find.text('CHILD 2'), findsOneWidget);
+
     await tester.tap(find.text('TAB 1'));
     await tester.tap(find.text('TAB 1'));
     await tester.pumpAndSettle(Duration(milliseconds: 300));
-    await tester.startGesture(Offset(0, 100)).then((g) {
-      return g.moveTo(Offset(500, 100));
-    });
-    await tester.startGesture(Offset(0, 100)).then((g) {
-      return g.moveTo(Offset(100, 100));
-    });
-    controller.index = 1;
+    expect(controller.index, 1);
+    expect(key.currentState?.currentIndex, 1);
+
+    await tester.drag(find.text('CHILD 1'), Offset(1000, 0));
     await tester.pumpAndSettle(Duration(milliseconds: 300));
+    expect(controller.index, 0);
+    expect(key.currentState?.currentIndex, 0);
+
+    controller.animateTo(2);
+    await tester.pumpAndSettle(Duration(milliseconds: 300));
+    expect(controller.index, 2);
+    expect(key.currentState?.currentIndex, 2);
+
+    // Test a custom controller accidentally used with the DefaultTabController
+    controller.index = 2;
     await tester.pumpWidget(
       material(DefaultTabController(
-          initialIndex: 2,
-          length: 3,
-          child: ConvexAppBar.builder(
+        initialIndex: 0,
+        length: 3,
+        child: material(Scaffold(
+          body: TabBarView(
+            controller: controller,
+            children: const <Widget>[
+              Center(child: Text('CHILD 0')),
+              Center(child: Text('CHILD 1')),
+              Center(child: Text('CHILD 2')),
+            ],
+          ),
+          bottomNavigationBar: ConvexAppBar.builder(
             key: key,
             controller: controller,
             itemBuilder: Builder(),
@@ -229,10 +260,16 @@ void main() {
             onTap: (i) {
               assert(i == 1);
             },
-          ))),
+          ),
+        )),
+      )),
       Duration(milliseconds: 300),
     );
-    controller.index = 1;
+    expect(key.currentState?.currentIndex, 2);
+    await tester.flingFrom(Offset(0, 100), const Offset(600, 100), 10000.0);
+    await tester.pumpAndSettle(Duration(milliseconds: 300));
+    expect(controller.index, 1);
+    expect(key.currentState?.currentIndex, 1);
   });
 
   testWidgets('Add badge on AppBar', (WidgetTester tester) async {
