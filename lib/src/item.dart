@@ -18,7 +18,7 @@ import 'package:flutter/cupertino.dart';
 
 /// Tab item used for [ConvexAppBar].
 class TabItem<T> {
-  // this code is added by moein
+  // title fontFamily
   final String? fontFamily;
 
   /// Tab text.
@@ -36,8 +36,10 @@ class TabItem<T> {
   /// If [icon] is instance of [IconData] then blend is default to true, otherwise false
   final bool blend;
 
+  /// Optional if not provided ,fontWeight = FontWeight.normal.
   final FontWeight fontWeight;
 
+  /// fontSize for title which is 20 by default
   final double fontSize;
 
   /// Create item
