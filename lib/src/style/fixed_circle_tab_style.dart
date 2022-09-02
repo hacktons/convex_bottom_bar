@@ -43,7 +43,8 @@ class FixedCircleTabStyle extends InnerBuilder {
     var c = active ? activeColor : color;
     var item = items[index];
     var style = ofStyle(context);
-    var textStyle = style.textStyle(c, item.fontFamily);
+    var textStyle =
+        style.textStyle(c, item.fontFamily, item.fontWeight, item.fontSize);
     var margin = style.activeIconMargin;
 
     if (index == convexIndex) {

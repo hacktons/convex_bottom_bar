@@ -38,7 +38,8 @@ class FlipTabStyle extends InnerBuilder {
   Widget build(BuildContext context, int index, bool active) {
     var item = items[index];
     var style = ofStyle(context);
-    var textStyle = style.textStyle(activeColor, item.fontFamily);
+    var textStyle = style.textStyle(
+        activeColor, item.fontFamily, item.fontWeight, item.fontSize);
 
     if (active) {
       var children = <Widget>[

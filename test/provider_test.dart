@@ -28,7 +28,10 @@ void main() {
           textDirection: TextDirection.rtl,
           child: ConvexAppBar(
             items: [
-              TabItem(icon: Icons.gradient, title: ''),
+              TabItem(
+                icon: Icons.gradient,
+                title: '',
+              ),
               TabItem(icon: Icons.help_outline, title: ''),
               TabItem(icon: Icons.work, title: ''),
             ],
@@ -67,8 +70,14 @@ class Style extends StyleHook {
   }
 
   @override
-  TextStyle textStyle(Color color, String? fontFamily) {
-    return TextStyle(color: color, fontFamily: fontFamily);
+  TextStyle textStyle(Color color, String? fontFamily, FontWeight? fontWeight,
+      double? fontSize) {
+    return TextStyle(
+      color: color,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+    );
   }
 
   @override

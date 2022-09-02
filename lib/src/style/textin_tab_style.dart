@@ -39,7 +39,8 @@ class TextInTabStyle extends InnerBuilder {
     var item = items[index];
     var style = ofStyle(context);
     if (active) {
-      var textStyle = style.textStyle(activeColor, item.fontFamily);
+      var textStyle = style.textStyle(
+          activeColor, item.fontFamily, item.fontWeight, item.fontSize);
       return Container(
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(

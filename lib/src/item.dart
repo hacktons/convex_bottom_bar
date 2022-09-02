@@ -36,12 +36,18 @@ class TabItem<T> {
   /// If [icon] is instance of [IconData] then blend is default to true, otherwise false
   final bool blend;
 
+  final FontWeight fontWeight;
+
+  final double fontSize;
+
   /// Create item
   const TabItem({
-    this.fontFamily,
-    this.title = '',
     required this.icon,
+    this.title = '',
+    this.fontFamily,
     this.activeIcon,
+    this.fontSize = 20,
+    this.fontWeight = FontWeight.normal,
     bool? isIconBlend,
   })  : assert(icon is IconData || icon is Widget,
             'TabItem only support IconData and Widget'),

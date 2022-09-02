@@ -66,7 +66,8 @@ class ReactCircleTabStyle extends InnerBuilder {
         ),
       );
     }
-    var textStyle = style.textStyle(color, item.fontFamily);
+    var textStyle =
+        style.textStyle(color, item.fontFamily, item.fontWeight, item.fontSize);
     var noLabel = style.hideEmptyLabel && hasNoText(item);
     var children = <Widget>[
       BlendImageIcon(

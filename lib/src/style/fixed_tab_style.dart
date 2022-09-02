@@ -40,7 +40,8 @@ class FixedTabStyle extends InnerBuilder {
     var c = active ? activeColor : color;
     var style = ofStyle(context);
     var item = items[index];
-    var textStyle = style.textStyle(c, item.fontFamily);
+    var textStyle =
+        style.textStyle(c, item.fontFamily, item.fontWeight, item.fontSize);
 
     if (index == convexIndex) {
       var item = items[convexIndex];

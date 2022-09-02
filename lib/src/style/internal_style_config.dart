@@ -37,7 +37,13 @@ class InternalStyle extends StyleHook {
   }
 
   @override
-  TextStyle textStyle(Color color, String? fontFamily) {
-    return TextStyle(color: color, fontFamily: fontFamily);
+  TextStyle textStyle(Color color, String? fontFamily, FontWeight? fontWeight,
+      double? fontSize) {
+    return TextStyle(
+      color: color,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+    );
   }
 }

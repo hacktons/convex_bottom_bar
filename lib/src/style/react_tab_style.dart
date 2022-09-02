@@ -54,7 +54,8 @@ class ReactTabStyle extends InnerBuilder {
       ];
       if (!noLabel) {
         children.add(Text(item.title ?? '',
-            style: style.textStyle(activeColor, item.fontFamily)));
+            style: style.textStyle(
+                activeColor, item.fontFamily, item.fontWeight, item.fontSize)));
       }
       return Container(
         padding: const EdgeInsets.only(bottom: 2),
@@ -71,7 +72,8 @@ class ReactTabStyle extends InnerBuilder {
     ];
     if (!noLabel) {
       children.add(Text(item.title ?? '',
-          style: style.textStyle(color, item.fontFamily)));
+          style: style.textStyle(
+              color, item.fontFamily, item.fontWeight, item.fontSize)));
     }
     return Container(
       padding: const EdgeInsets.only(bottom: 2),

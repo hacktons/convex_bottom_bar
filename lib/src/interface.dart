@@ -75,7 +75,8 @@ abstract class StyleHook {
   /// Warning:
   /// Override the text size can lead to `layout overflow` warning, you may need
   /// to update the height of bar too.
-  TextStyle textStyle(Color color, String? fontFamily);
+  TextStyle textStyle(
+      Color color, String? fontFamily, FontWeight fontWeight, double fontSize);
 
   /// For styles with both ICON and label, omit the Text widget when label is null/empty
   bool get hideEmptyLabel {

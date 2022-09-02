@@ -71,7 +71,8 @@ class TitledTabStyle extends InnerBuilder {
       );
     }
 
-    var textStyle = style.textStyle(activeColor, item.fontFamily);
+    var textStyle = style.textStyle(
+        activeColor, item.fontFamily, item.fontWeight, item.fontSize);
     if (pre == index) {
       return Stack(
         clipBehavior: Clip.hardEdge,
