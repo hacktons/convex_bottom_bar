@@ -361,6 +361,7 @@ class ConvexAppBar extends StatefulWidget {
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int? _currentIndex;
+  int? get currentIndex => _currentIndex;
   int _warpUnderwayCount = 0;
   Animation<double>? _animation;
   AnimationController? _animationController;
@@ -403,17 +404,14 @@ class ConvexAppBarState extends State<ConvexAppBar>
     if (c == null) {
       return;
     }
-    // Workaround for TabController, see https://github.com/hacktons/convex_bottom_bar/issues/59
-    var _diff = (c.index - _currentIndex!).abs();
-    if (_diff == 1) {
-      if (_blockEvent(c.index)) return;
-      final previousIndex = c.previousIndex;
-      final index = c.index;
-      _warpUnderwayCount += 1;
-      await animateTo(index, from: previousIndex);
-      _warpUnderwayCount -= 1;
-      return Future<void>.value();
-    }
+    if (_blockEvent(c.index)) return;
+    final previousIndex = c.previousIndex;
+    final index = c.index;
+    // Counter to avoid repeat calls to animateTo in the middle of a transition.
+    _warpUnderwayCount += 1;
+    await animateTo(index, from: previousIndex);
+    _warpUnderwayCount -= 1;
+    return Future<void>.value();
   }
 
   /// change active tab index; can be used with [PageView].
@@ -465,7 +463,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
     super.dispose();
   }
 
-  TabController? get _takeControllerRef {
+  TabController? get _currentControllerRef {
     if (widget.disableDefaultTabController == true) {
       return widget.controller;
     }
@@ -473,7 +471,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   void _updateTabController() {
-    final newController = _takeControllerRef;
+    final newController = _currentControllerRef;
     assert(() {
       if (newController != null &&
           widget.controller == null &&
@@ -505,7 +503,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_controller != _takeControllerRef) {
+    if (_controller != _currentControllerRef) {
       _updateTabController();
       _resetState();
     }
@@ -625,8 +623,13 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   void _onTabClick(int i) {
     if (_blockEvent(i)) return;
-    animateTo(i);
-    _controller?.animateTo(i);
+    if (_controller == null) {
+      animateTo(i);
+    } else {
+      // animation listener [_handleTabControllerAnimationTick] will drive the
+      // internal animateTo() via [_warpToCurrentIndex].
+      _controller!.animateTo(i);
+    }
     widget.onTap?.call(i);
   }
 

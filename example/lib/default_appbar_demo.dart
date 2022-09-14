@@ -163,11 +163,12 @@ class _State extends State<DefaultAppBarDemo>
               color: Colors.white,
               tooltip: "convex button example",
               onPressed: () => Navigator.of(context).pushNamed('/fab'),
-            ), IconButton(
-              icon: Icon(Icons.radio_button_checked),
+            ),
+            IconButton(
+              icon: Icon(Icons.looks_two),
               color: Colors.white,
               tooltip: "change tab by controller",
-              onPressed: (){
+              onPressed: () {
                 _tabController?.animateTo(2);
               },
             )
@@ -195,7 +196,11 @@ class _State extends State<DefaultAppBarDemo>
                 onTap: (int i) => debugPrint('select index=$i'),
               )
             : ConvexAppBar.badge(
-                {3: _badge!.text, 4: Icons.assistant_photo, 2: Colors.redAccent},
+                {
+                  3: _badge!.text,
+                  4: Icons.assistant_photo,
+                  2: Colors.redAccent
+                },
                 badgePadding: _badge!.padding,
                 badgeColor: _badge!.badgeColor,
                 badgeBorderRadius: _badge!.borderRadius,
@@ -221,9 +226,7 @@ class _State extends State<DefaultAppBarDemo>
     });
   }
 
-  void _onNothing(ChoiceValue<TabStyle>? value) {
-
-  }
+  void _onNothing(ChoiceValue<TabStyle>? value) {}
 
   void _onStyleChanged(ChoiceValue<TabStyle>? value) {
     if (value == null) {
