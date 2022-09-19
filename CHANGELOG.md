@@ -1,3 +1,8 @@
+## [3.1.0]
+* Bug fix;
+* New API to set shadow color
+* Fix lint warning 
+
 ## [3.0.0-nullsafety.1]
 * Prepare for Flutter 2.
 
