@@ -147,8 +147,10 @@ void main() {
       );
       await tester.tap(find.byIcon(Icons.near_me).first, warnIfMissed: false);
       await tester.pumpAndSettle(Duration(milliseconds: 300));
-      await tester.drag(find.byType(ConvexAppBar), Offset(200, 0), warnIfMissed: false);
-      await tester.drag(find.byType(ConvexAppBar), Offset(-200, 0), warnIfMissed: false);
+      await tester.drag(find.byType(ConvexAppBar), Offset(200, 0),
+          warnIfMissed: false);
+      await tester.drag(find.byType(ConvexAppBar), Offset(-200, 0),
+          warnIfMissed: false);
       await tester.pumpAndSettle(Duration(milliseconds: 300));
       await tester.startGesture(Offset(0, 100)).then((g) {
         return g.moveTo(Offset(500, 100));

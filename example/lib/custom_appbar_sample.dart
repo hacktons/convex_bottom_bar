@@ -66,14 +66,13 @@ class _State extends State<CustomAppBarDemo>
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: items
-                .map((i) =>
-            i.title == 'Discovery'
-                ? paletteBody()
-                : Center(
-                child: Text(
-                  '<\t\t${i.title}\t\t>',
-                  style: TextStyle(fontSize: 30),
-                )))
+                .map((i) => i.title == 'Discovery'
+                    ? paletteBody()
+                    : Center(
+                        child: Text(
+                        '<\t\t${i.title}\t\t>',
+                        style: TextStyle(fontSize: 30),
+                      )))
                 .toList(growable: false),
           ),
           bottomNavigationBar: StyleProvider(
@@ -89,12 +88,12 @@ class _State extends State<CustomAppBarDemo>
                 TabItem(title: '2019', icon: Icons.link),
                 TabItem(
                     icon: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0xFFFF5722),
-                      ),
-                      child: Icon(Icons.add, color: Colors.white, size: 40),
-                    )),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFFF5722),
+                  ),
+                  child: Icon(Icons.add, color: Colors.white, size: 40),
+                )),
                 TabItem(title: "2020", icon: Icons.work),
               ],
               backgroundColor: _tabBackgroundColor,
@@ -141,11 +140,10 @@ class _State extends State<CustomAppBarDemo>
       mainAxisSpacing: 1,
       crossAxisSpacing: 1,
       children: paletteColors
-          .map((c) =>
-          GestureDetector(
-            child: ColorItemView(c),
-            onTap: () => _onColorChanged(c),
-          ))
+          .map((c) => GestureDetector(
+                child: ColorItemView(c),
+                onTap: () => _onColorChanged(c),
+              ))
           .toList(),
     );
   }

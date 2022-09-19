@@ -1,3 +1,6 @@
+## [3.1.0+1]
+* Format project with `flutter format .`
+
 ## [3.1.0]
 * Bug fix;
 * New API to set shadow color

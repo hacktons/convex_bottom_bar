@@ -109,8 +109,7 @@ class DefaultChipBuilder extends ChipBuilder {
             margin: margin,
             padding: padding,
             child: Container(
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: chip),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: chip),
               width: 10,
               height: 10,
             ),
