@@ -110,6 +110,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Color of the AppBar.
   final Color? backgroundColor;
 
+  /// Color of the elevation.
+  final Color? shadowColor;
+
   /// Draw the background with topLeft and topRight corner; Only work work with fixed style
   ///
   /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
@@ -196,6 +199,7 @@ class ConvexAppBar extends StatefulWidget {
     Color? color,
     Color? activeColor,
     Color? backgroundColor,
+    Color? shadowColor,
     Gradient? gradient,
     double? height,
     double? curveSize,
@@ -219,6 +223,7 @@ class ConvexAppBar extends StatefulWidget {
           onTapNotify: onTabNotify,
           controller: controller,
           backgroundColor: backgroundColor,
+          shadowColor: shadowColor,
           count: items.length,
           initialActiveIndex: initialActiveIndex,
           disableDefaultTabController: disableDefaultTabController ?? false,
@@ -257,6 +262,7 @@ class ConvexAppBar extends StatefulWidget {
     this.onTapNotify,
     this.controller,
     this.backgroundColor,
+    this.shadowColor,
     this.gradient,
     this.height,
     this.curveSize,
@@ -308,6 +314,7 @@ class ConvexAppBar extends StatefulWidget {
     Color? color,
     Color? activeColor,
     Color? backgroundColor,
+    Color? shadowColor,
     Gradient? gradient,
     double? height,
     double? curveSize,
@@ -339,6 +346,7 @@ class ConvexAppBar extends StatefulWidget {
       color: color,
       activeColor: activeColor,
       backgroundColor: backgroundColor,
+      shadowColor: shadowColor,
       gradient: gradient,
       height: height,
       curveSize: curveSize,
@@ -553,6 +561,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
               width: widget.curveSize ?? CONVEX_SIZE,
               height: widget.curveSize ?? CONVEX_SIZE,
               color: widget.backgroundColor ?? Colors.blue,
+              shadowColor: widget.shadowColor ?? Colors.black38,
               gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: percent,

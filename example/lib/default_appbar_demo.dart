@@ -96,6 +96,7 @@ class _State extends State<DefaultAppBarDemo>
   ChoiceValue<TabStyle> _style = kStyles.first;
   ChoiceValue<Curve> _curve = Data.curves.first;
   Color _barColor = Data.namedColors.first.color;
+  Color _shadowColor = Data.namedColors.first.color;
   Gradient? _gradient = Data.gradients.first;
   Badge? _badge;
   TabController? _tabController;
@@ -112,6 +113,8 @@ class _State extends State<DefaultAppBarDemo>
     var options = <Widget>[
       const Heading('Appbar Color'),
       ColorsItem(Data.namedColors, _barColor, _onBarColorChanged),
+      const Heading('Shadow Color'),
+      ColorsItem(Data.namedShadowColors, _shadowColor, _onShadowColorChanged),
       const Heading('Background Gradient'),
       GradientItem(Data.gradients, _gradient, _onGradientChanged),
       const Heading('Badge Chip'),
@@ -190,6 +193,7 @@ class _State extends State<DefaultAppBarDemo>
                 items: _tabItems.value,
                 style: _style.value,
                 curve: _curve.value,
+                shadowColor: _shadowColor,
                 backgroundColor: _barColor,
                 gradient: _gradient,
                 controller: _tabController,
@@ -208,6 +212,7 @@ class _State extends State<DefaultAppBarDemo>
                 items: _tabItems.value,
                 style: _style.value,
                 curve: _curve.value,
+                shadowColor: _shadowColor,
                 backgroundColor: _barColor,
                 gradient: _gradient,
                 controller: _tabController,
@@ -249,6 +254,12 @@ class _State extends State<DefaultAppBarDemo>
   void _onBarColorChanged(Color value) {
     setState(() {
       _barColor = value;
+    });
+  }
+
+  void _onShadowColorChanged(Color value) {
+    setState(() {
+      _shadowColor = value;
     });
   }
 
