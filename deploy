@@ -105,5 +105,24 @@ info "Step 4 Run publish --dry-run"
 flutter pub publish --dry-run
 confirm
 
+info "read pub.dev mirror site"
+hostUrl=$PUB_HOSTED_URL
+storageUrl=$FLUTTER_STORAGE_BASE_URL
+warning "PUB_HOSTED_URL=$PUB_HOSTED_URL"
+warning "FLUTTER_STORAGE_BASE_URL=$FLUTTER_STORAGE_BASE_URL"
+
+info "remove environment variables"
+export PUB_HOSTED_URL=""
+export FLUTTER_STORAGE_BASE_URL=""
+warning "PUB_HOSTED_URL=$PUB_HOSTED_URL"
+warning "FLUTTER_STORAGE_BASE_URL=$FLUTTER_STORAGE_BASE_URL"
+
 info "Step 5 Publish to pub.dev"
 flutter pub publish
+
+info "reset environment variables"
+export PUB_HOSTED_URL=$hostUrl
+export FLUTTER_STORAGE_BASE_URL=$storageUrl
+
+warning "PUB_HOSTED_URL=$PUB_HOSTED_URL"
+warning "FLUTTER_STORAGE_BASE_URL=$FLUTTER_STORAGE_BASE_URL"
