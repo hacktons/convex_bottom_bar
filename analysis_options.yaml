@@ -6,5 +6,4 @@ include: package:pedantic/analysis_options.yaml
 analyzer:
   exclude:
     - example/**
-  enable-experiment:
-    - non-nullable
+    - test/**

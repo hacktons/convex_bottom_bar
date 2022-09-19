@@ -15,7 +15,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'convex_shape.dart';
 import 'reused_gradient.dart';
