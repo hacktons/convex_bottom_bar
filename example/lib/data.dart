@@ -47,11 +47,19 @@ class Data {
 
   static const namedColors = [
     NamedColor(Colors.blue, 'Blue'),
-    NamedColor(Color(0xFFf44336), 'Read'),
+    NamedColor(Color(0xFFf44336), 'Red'),
     NamedColor(Color(0xFF673AB7), 'Purple'),
     NamedColor(Color(0xFF009688), 'Green'),
     NamedColor(Color(0xFFFFC107), 'Yellow'),
     NamedColor(Color(0xFF607D8B), 'Grey'),
+  ];
+  static const namedShadowColors = [
+    NamedColor(Colors.black38, 'Black'),
+    NamedColor(Color(0xeef44336), 'Red'),
+    NamedColor(Color(0xee673AB7), 'Purple'),
+    NamedColor(Color(0xee009688), 'Green'),
+    NamedColor(Color(0xeeFFC107), 'Yellow'),
+    NamedColor(Color(0xee607D8B), 'Grey'),
   ];
   static const badges = [
     null,

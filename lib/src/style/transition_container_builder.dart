@@ -16,7 +16,6 @@
 
 import 'dart:math';
 
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'transition_container.dart';
