@@ -60,7 +60,9 @@ class ReactTabStyle extends InnerBuilder {
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment:
-              noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+              // noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+          MainAxisAlignment.center,
+
           children: children,
         ),
       );
@@ -77,7 +79,8 @@ class ReactTabStyle extends InnerBuilder {
       padding: const EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment:
-            noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+            // noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+            MainAxisAlignment.center,
         children: children,
       ),
     );

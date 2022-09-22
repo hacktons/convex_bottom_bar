@@ -45,7 +45,9 @@ class FixedTabStyle extends InnerBuilder {
       return Container(
         padding: EdgeInsets.only(bottom: 2),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+//          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
@@ -70,7 +72,8 @@ class FixedTabStyle extends InnerBuilder {
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: children,
       ),
     );
