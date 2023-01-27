@@ -28,7 +28,7 @@ class CustomAppBarDemo extends StatefulWidget {
 
 class _State extends State<CustomAppBarDemo>
     with SingleTickerProviderStateMixin {
-  List<TabItem> items = <TabItem>[
+  List<TabItem<dynamic>> items = <TabItem>[
     TabItem(icon: Icons.home, title: 'Home'),
     TabItem(icon: Icons.map, title: 'Discovery'),
     TabItem(icon: Icons.plus_one, title: 'Add'),
@@ -156,7 +156,7 @@ class _State extends State<CustomAppBarDemo>
 }
 
 class _CustomBuilder extends DelegateBuilder {
-  final List<TabItem> items;
+  final List<TabItem<dynamic>> items;
   final Color _tabBackgroundColor;
 
   _CustomBuilder(this.items, this._tabBackgroundColor);

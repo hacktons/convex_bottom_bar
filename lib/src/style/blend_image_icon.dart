@@ -23,7 +23,7 @@ class BlendImageIcon<T> extends StatelessWidget {
   /// Create image widget
   const BlendImageIcon(this.image, {Key? key, this.color, this.size})
       : assert(image is Widget || image is IconData,
-            'image must be IconData or Widget'),
+            'image must be IconData or Widget',),
         super(key: key);
 
   /// Color used for Icon and gradient.
@@ -37,10 +37,10 @@ class BlendImageIcon<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var s = size ?? IconTheme.of(context).size;
+    final s = size ?? IconTheme.of(context).size;
     if (image is Widget) {
       // flutter web do not support shader mask. (flutter v1.12.x)
-      var showRawImage = kIsWeb || color == null;
+      final showRawImage = kIsWeb || color == null;
       if (showRawImage) {
         return SizedBox(
           width: s,

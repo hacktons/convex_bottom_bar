@@ -16,20 +16,19 @@
 
 import 'dart:math';
 
+import 'package:convex_bottom_bar/src/style/transition_container.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'transition_container.dart';
 
 /// Interface to provide a transition, work with [TransitionContainer].
 abstract class TransitionContainerBuilder<T> {
-  /// Curve for animation.
-  final Curve curve;
-
   /// Create style builder.
   TransitionContainerBuilder(this.curve);
 
-  /// Animation used for widget.
-  Animation animation(AnimationController controller);
+  /// Curve for animation.
+  final Curve curve;
+
+  /// Animation<dynamic>used for widget.
+  Animation<dynamic> animation(AnimationController controller);
 
   /// Return animated widget with provided animation.
   Widget build(Animation<T> animation);
@@ -37,11 +36,14 @@ abstract class TransitionContainerBuilder<T> {
 
 /// Scale transition builder.
 class ScaleBuilder extends TransitionContainerBuilder<double> {
+  /// Create scale builder
+  ScaleBuilder({required Curve curve, required this.child}) : super(curve);
+
   /// The target widget to scale with.
   Widget child;
 
   @override
-  Animation animation(AnimationController controller) {
+  Animation<dynamic> animation(AnimationController controller) {
     return CurvedAnimation(parent: controller, curve: curve);
   }
 
@@ -49,23 +51,20 @@ class ScaleBuilder extends TransitionContainerBuilder<double> {
   Widget build(Animation<double> animation) {
     return ScaleTransition(scale: animation, child: child);
   }
-
-  /// Create scale builder
-  ScaleBuilder({required Curve curve, required this.child}) : super(curve);
 }
 
 /// Slide transition builder.
 class SlideBuilder extends TransitionContainerBuilder<Offset> {
+  /// Create slide builder.
+  SlideBuilder(
+      {required Curve curve, required this.child, required this.reverse,})
+      : super(curve);
+
   /// The target widget to slide with.
   Widget child;
 
   /// slide direction.
   final bool reverse;
-
-  /// Create slide builder.
-  SlideBuilder(
-      {required Curve curve, required this.child, required this.reverse})
-      : super(curve);
 
   @override
   Widget build(Animation<Offset> animation) {
@@ -73,7 +72,7 @@ class SlideBuilder extends TransitionContainerBuilder<Offset> {
   }
 
   @override
-  Animation animation(AnimationController controller) {
+  Animation<dynamic> animation(AnimationController controller) {
     return Tween<Offset>(
       begin: reverse ? Offset.zero : const Offset(0.0, 2.0),
       end: reverse ? const Offset(0.0, 2.0) : Offset.zero,
@@ -81,9 +80,17 @@ class SlideBuilder extends TransitionContainerBuilder<Offset> {
   }
 }
 
-/// This flip animation is origin from [https://github.com/deven98/flip_box_bar/blob/master/lib/src/flip_box.dart]
+/// This flip Animation<dynamic>is origin from [https://github.com/deven98/flip_box_bar/blob/master/lib/src/flip_box.dart]
 /// UX => ![](https://cdn.dribbble.com/users/1094383/screenshots/4811135/800_5.gif).
-class FlipBuilder extends TransitionContainerBuilder {
+class FlipBuilder extends TransitionContainerBuilder<dynamic> {
+  /// Create flip builder
+  FlipBuilder(
+    this.height, {
+    required Curve curve,
+    required this.topChild,
+    required this.bottomChild,
+  }) : super(curve);
+
   /// Top widget.
   final Widget topChild;
 
@@ -93,56 +100,45 @@ class FlipBuilder extends TransitionContainerBuilder {
   /// Size of builder.
   final double height;
 
-  /// Create flip builder
-  FlipBuilder(
-    this.height, {
-    required Curve curve,
-    required this.topChild,
-    required this.bottomChild,
-  }) : super(curve);
-
   @override
-  Animation animation(AnimationController controller) {
+  Animation<dynamic> animation(AnimationController controller) {
     return Tween(begin: 0.0, end: pi / 2).animate(
       CurvedAnimation(parent: controller, curve: curve),
     );
   }
 
   @override
-  Widget build(Animation animation) {
-    return Container(
-      child: Stack(
-        children: <Widget>[
+  Widget build(Animation<dynamic> animation) {
+    return Stack(
+      children: <Widget>[
+        Transform(
+          alignment: Alignment.bottomCenter,
+          transform: Matrix4.identity()
+            ..setEntry(3, 2, 0.001)
+            ..translate(0.0, (cos(animation.value) * (height / 2)),
+                ((height / 2) * sin(animation.value)),)
+            ..rotateX(-(pi / 2) + animation.value),
+          child: Center(child: bottomChild),
+        ),
+        if (animation.value < (85 * pi / 180))
           Transform(
             alignment: Alignment.bottomCenter,
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.001)
-              ..translate(0.0, (cos(animation.value) * (height / 2)),
-                  ((height / 2) * sin(animation.value)))
-              ..rotateX(-(pi / 2) + animation.value),
+              ..translate(
+                0.0,
+                -(height / 2) * sin(animation.value),
+                ((height / 2) * cos(animation.value)),
+              )
+              ..rotateX(animation.value),
             child: Container(
-              child: Center(child: bottomChild),
+              alignment: Alignment.bottomCenter,
+              child: Center(child: topChild),
             ),
-          ),
-          animation.value < (85 * pi / 180)
-              ? Transform(
-                  alignment: Alignment.bottomCenter,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..translate(
-                      0.0,
-                      -(height / 2) * sin(animation.value),
-                      ((height / 2) * cos(animation.value)),
-                    )
-                    ..rotateX(animation.value),
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Center(child: topChild),
-                  ),
-                )
-              : Container(),
-        ],
-      ),
+          )
+        else
+          Container(),
+      ],
     );
   }
 }

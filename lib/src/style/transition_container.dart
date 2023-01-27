@@ -14,23 +14,14 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/style/transition_container_builder.dart';
 import 'package:flutter/material.dart';
-
-import 'transition_container_builder.dart';
 
 /// Add controller with provided transition api, such as [SlideTransition], [ScaleTransition].
 class TransitionContainer extends StatefulWidget {
-  /// Build transition.
-  final TransitionContainerBuilder builder;
-
-  /// Transition duration.
-  final Duration? duration;
-
-  /// Control whether the animation should be skipped when widget change.
-  final int? data;
-
   /// Wrap a widget with scale transition.
   TransitionContainer.scale({
+    super.key,
     required Widget child,
     required Curve curve,
     this.duration,
@@ -39,6 +30,7 @@ class TransitionContainer extends StatefulWidget {
 
   /// Wrap a widget with slide transition.
   TransitionContainer.slide({
+    super.key,
     required Widget child,
     required Curve curve,
     this.duration,
@@ -48,6 +40,7 @@ class TransitionContainer extends StatefulWidget {
 
   /// Wrap a widget with flip transition.
   TransitionContainer.flip({
+    super.key,
     required Widget topChild,
     required Widget bottomChild,
     required Curve curve,
@@ -61,15 +54,24 @@ class TransitionContainer extends StatefulWidget {
           bottomChild: bottomChild,
         );
 
+  /// Build transition.
+  final TransitionContainerBuilder<dynamic> builder;
+
+  /// Transition duration.
+  final Duration? duration;
+
+  /// Control whether the animation should be skipped when widget change.
+  final int? data;
+
   @override
-  _State createState() {
+  State createState() {
     return _State();
   }
 }
 
 class _State extends State<TransitionContainer> with TickerProviderStateMixin {
   AnimationController? animationController;
-  late Animation animation;
+  late Animation<dynamic> animation;
 
   @override
   void initState() {
@@ -80,7 +82,7 @@ class _State extends State<TransitionContainer> with TickerProviderStateMixin {
   void _setAnimation() {
     final controller = AnimationController(
       vsync: this,
-      duration: widget.duration ?? Duration(milliseconds: 150),
+      duration: widget.duration ?? const Duration(milliseconds: 150),
     )..addListener(() => setState(() {}));
     controller.forward();
     animation = widget.builder.animation(controller);

@@ -14,33 +14,12 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/convex_shape.dart';
+import 'package:convex_bottom_bar/src/reused_gradient.dart';
 import 'package:flutter/material.dart';
-
-import 'convex_shape.dart';
-import 'reused_gradient.dart';
 
 /// Custom painter to draw the [ConvexNotchedRectangle] into canvas.
 class ConvexPainter extends CustomPainter {
-  final _paint = Paint();
-  final _shadowPaint = Paint();
-  late ConvexNotchedRectangle _shape;
-  final ReusedGradient _gradient = ReusedGradient();
-
-  /// Width of the convex shape.
-  final double width;
-
-  /// Height of the convex shape.
-  final double height;
-
-  /// Position in vertical which describe the offset of shape.
-  final double top;
-
-  /// Position in horizontal which describe the offset of shape.
-  final Animation<double> leftPercent;
-
-  /// RLT support
-  final TextDirection? textDirection;
-
   /// Create painter
   ConvexPainter({
     required this.top,
@@ -65,19 +44,39 @@ class ConvexPainter extends CustomPainter {
     _gradient.gradient = gradient;
     _shape = ConvexNotchedRectangle(radius: cornerRadius ?? 0);
   }
+  final _paint = Paint();
+  final _shadowPaint = Paint();
+  late ConvexNotchedRectangle _shape;
+  final ReusedGradient _gradient = ReusedGradient();
+
+  /// Width of the convex shape.
+  final double width;
+
+  /// Height of the convex shape.
+  final double height;
+
+  /// Position in vertical which describe the offset of shape.
+  final double top;
+
+  /// Position in horizontal which describe the offset of shape.
+  final Animation<double> leftPercent;
+
+  /// RLT support
+  final TextDirection? textDirection;
 
   @override
   void paint(Canvas canvas, Size size) {
-    var host = Rect.fromLTWH(0, 0, size.width, size.height);
-    var percent = textDirection == TextDirection.rtl
+    final host = Rect.fromLTWH(0, 0, size.width, size.height);
+    final percent = textDirection == TextDirection.rtl
         ? (1 - leftPercent.value)
         : leftPercent.value;
-    var guest =
+    final guest =
         Rect.fromLTWH(size.width * percent - width / 2, top, width, height);
     _gradient.updateWith(_paint, size: host);
-    var path = _shape.getOuterPath(host, guest);
-    canvas.drawPath(path, _shadowPaint);
-    canvas.drawPath(path, _paint);
+    final path = _shape.getOuterPath(host, guest);
+    canvas
+      ..drawPath(path, _shadowPaint)
+      ..drawPath(path, _paint);
   }
 
   @override

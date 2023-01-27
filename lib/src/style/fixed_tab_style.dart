@@ -14,42 +14,41 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
+import 'package:convex_bottom_bar/src/style/inner_builder.dart';
 import 'package:flutter/material.dart';
-
-import '../item.dart';
-import 'blend_image_icon.dart';
-import 'inner_builder.dart';
 
 /// Convex shape is fixed center.
 class FixedTabStyle extends InnerBuilder {
-  /// Index of the centered convex shape.
-  final int convexIndex;
-
   /// Create style builder.
   FixedTabStyle({
-    required List<TabItem> items,
+    required List<TabItem<dynamic>> items,
     required Color activeColor,
     required Color color,
     required this.convexIndex,
   }) : super(items: items, activeColor: activeColor, color: color);
 
+  /// Index of the centered convex shape.
+  final int convexIndex;
+
   @override
   Widget build(BuildContext context, int index, bool active) {
-    var c = active ? activeColor : color;
-    var style = ofStyle(context);
-    var item = items[index];
-    var textStyle = style.textStyle(c, item.fontFamily);
+    final c = active ? activeColor : color;
+    final style = ofStyle(context);
+    final item = items[index];
+    final textStyle = style.textStyle(c, item.fontFamily);
 
     if (index == convexIndex) {
-      var item = items[convexIndex];
+      final item = items[convexIndex];
       return Container(
-        padding: EdgeInsets.only(bottom: 2),
+        padding: const EdgeInsets.only(bottom: 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
-              color: item.blend ? (c) : null,
+              color: item.blend ? c : null,
               size: style.activeIconSize,
             ),
             Text(item.title ?? '', style: textStyle)
@@ -58,17 +57,17 @@ class FixedTabStyle extends InnerBuilder {
       );
     }
 
-    var noLabel = style.hideEmptyLabel && hasNoText(item);
-    var icon = BlendImageIcon(
+    final noLabel = style.hideEmptyLabel && hasNoText(item);
+    final icon = BlendImageIcon(
       active ? item.activeIcon ?? item.icon : item.icon,
       size: style.iconSize,
-      color: item.blend ? (c) : null,
+      color: item.blend ? c : null,
     );
-    var children = noLabel
+    final children = noLabel
         ? <Widget>[icon]
         : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
     return Container(
-      padding: EdgeInsets.only(bottom: 2),
+      padding: const EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: children,

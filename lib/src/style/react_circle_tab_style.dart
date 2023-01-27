@@ -14,36 +14,35 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
+import 'package:convex_bottom_bar/src/style/inner_builder.dart';
+import 'package:convex_bottom_bar/src/style/transition_container.dart';
 import 'package:flutter/material.dart';
-
-import '../../convex_bottom_bar.dart';
-import '../item.dart';
-import 'blend_image_icon.dart';
-import 'inner_builder.dart';
-import 'transition_container.dart';
 
 /// Convex shape is moved after selection.
 class ReactCircleTabStyle extends InnerBuilder {
-  /// Color used as background of appbar and circle icon.
-  final Color backgroundColor;
-
-  /// Curve for tab transition.
-  final Curve curve;
-
   /// Create style builder.
   ReactCircleTabStyle({
-    required List<TabItem> items,
+    required List<TabItem<dynamic>> items,
     required Color activeColor,
     required Color color,
     required this.backgroundColor,
     required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
+  /// Color used as background of appbar and circle icon.
+  final Color backgroundColor;
+
+  /// Curve for tab transition.
+  final Curve curve;
+
   @override
   Widget build(BuildContext context, int index, bool active) {
-    var item = items[index];
-    var style = ofStyle(context);
-    var margin = style.activeIconMargin;
+    final item = items[index];
+    final style = ofStyle(context);
+    final margin = style.activeIconMargin;
     if (active) {
       final item = items[index];
       return TransitionContainer.scale(
@@ -66,9 +65,9 @@ class ReactCircleTabStyle extends InnerBuilder {
         ),
       );
     }
-    var textStyle = style.textStyle(color, item.fontFamily);
-    var noLabel = style.hideEmptyLabel && hasNoText(item);
-    var children = <Widget>[
+    final textStyle = style.textStyle(color, item.fontFamily);
+    final noLabel = style.hideEmptyLabel && hasNoText(item);
+    final children = <Widget>[
       BlendImageIcon(
         active ? item.activeIcon ?? item.icon : item.icon,
         size: style.iconSize,
@@ -79,7 +78,7 @@ class ReactCircleTabStyle extends InnerBuilder {
       children.add(Text(item.title ?? '', style: textStyle));
     }
     return Container(
-      padding: EdgeInsets.only(bottom: 2),
+      padding: const EdgeInsets.only(bottom: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: children,

@@ -14,9 +14,8 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-
-import '../../convex_bottom_bar.dart';
 
 /// Internal style configuration.
 class InternalStyle extends StyleHook {

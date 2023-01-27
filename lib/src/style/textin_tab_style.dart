@@ -14,32 +14,31 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
+import 'package:convex_bottom_bar/src/style/inner_builder.dart';
+import 'package:convex_bottom_bar/src/style/transition_container.dart';
 import 'package:flutter/material.dart';
-
-import '../item.dart';
-import 'blend_image_icon.dart';
-import 'inner_builder.dart';
-import 'transition_container.dart';
 
 /// Tab icon, text animated with pop transition.
 class TextInTabStyle extends InnerBuilder {
-  /// Curve for tab transition.
-  final Curve curve;
-
   /// Create style builder.
   TextInTabStyle({
-    required List<TabItem> items,
+    required List<TabItem<dynamic>> items,
     required Color activeColor,
     required Color color,
     required this.curve,
   }) : super(items: items, activeColor: activeColor, color: color);
 
+  /// Curve for tab transition.
+  final Curve curve;
+
   @override
   Widget build(BuildContext context, int index, bool active) {
-    var item = items[index];
-    var style = ofStyle(context);
+    final item = items[index];
+    final style = ofStyle(context);
     if (active) {
-      var textStyle = style.textStyle(activeColor, item.fontFamily);
+      final textStyle = style.textStyle(activeColor, item.fontFamily);
       return Container(
         padding: const EdgeInsets.only(bottom: 2),
         child: Column(
@@ -65,7 +64,7 @@ class TextInTabStyle extends InnerBuilder {
 
     return Center(
       child: BlendImageIcon(item.icon,
-          size: style.iconSize, color: item.blend ? color : null),
+          size: style.iconSize, color: item.blend ? color : null,),
     );
   }
 }

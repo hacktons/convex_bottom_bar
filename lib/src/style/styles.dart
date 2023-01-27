@@ -14,23 +14,22 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/bar.dart';
+import 'package:convex_bottom_bar/src/interface.dart';
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/fixed_circle_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/fixed_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/flip_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/react_circle_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/react_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/textin_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/titled_tab_style.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../bar.dart';
-import '../interface.dart';
-import '../item.dart';
-import 'fixed_circle_tab_style.dart';
-import 'fixed_tab_style.dart';
-import 'flip_tab_style.dart';
-import 'react_circle_tab_style.dart';
-import 'react_tab_style.dart';
-import 'textin_tab_style.dart';
-import 'titled_tab_style.dart';
 
 /// Factory method to return the [DelegateBuilder] for each [TabStyle].
 DelegateBuilder supportedStyle(
   TabStyle style, {
-  required List<TabItem> items,
+  required List<TabItem<dynamic>> items,
   required Color color,
   required Color activeColor,
   required Color backgroundColor,
@@ -41,7 +40,7 @@ DelegateBuilder supportedStyle(
       ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
               items.length.isOdd) ||
           (style != TabStyle.fixed && style != TabStyle.fixedCircle),
-      'item count should be an odd number when using fixed/fixedCircle');
+      'item count should be an odd number when using fixed/fixedCircle',);
   DelegateBuilder builder;
   switch (style) {
     case TabStyle.fixed:
@@ -80,7 +79,7 @@ DelegateBuilder supportedStyle(
       break;
     case TabStyle.textIn:
       assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
-          'title is necessary for TabStyle.textIn');
+          'title is necessary for TabStyle.textIn',);
       builder = TextInTabStyle(
         items: items,
         color: color,
@@ -90,7 +89,7 @@ DelegateBuilder supportedStyle(
       break;
     case TabStyle.titled:
       assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
-          'title is necessary for TabStyle.titled');
+          'title is necessary for TabStyle.titled',);
       builder = TitledTabStyle(
         items: items,
         color: color,

@@ -14,17 +14,23 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/bar.dart';
+import 'package:convex_bottom_bar/src/interface.dart';
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/internal_style_config.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../bar.dart';
-import '../interface.dart';
-import '../item.dart';
-import 'internal_style_config.dart';
 
 /// Simple builder which extend [DelegateBuilder] to provide some necessary config.
 abstract class InnerBuilder extends DelegateBuilder {
+  /// Create style builder.
+  InnerBuilder({
+    required this.items,
+    required this.activeColor,
+    required this.color,
+  });
+
   /// List of [TabItem] stands for tabs.
-  final List<TabItem> items;
+  final List<TabItem<dynamic>> items;
 
   /// Color used when tab is active.
   final Color activeColor;
@@ -35,17 +41,13 @@ abstract class InnerBuilder extends DelegateBuilder {
   /// Style hook to override the internal tab style
   StyleHook? _style;
 
-  /// Create style builder.
-  InnerBuilder(
-      {required this.items, required this.activeColor, required this.color});
-
   /// Get style config
   StyleHook ofStyle(BuildContext context) {
     return StyleProvider.of(context)?.style ?? (_style ??= InternalStyle());
   }
 
   /// Return true if title text exists
-  bool hasNoText(TabItem item) {
+  bool hasNoText(TabItem<dynamic> item) {
     return item.title == null || item.title!.isEmpty;
   }
 }

@@ -27,7 +27,7 @@ typedef TapNotifier = bool Function(int index);
 /// * [index] index of tab
 /// * [active] active state for tab index
 typedef CustomTabBuilder = Widget Function(
-    BuildContext context, int index, bool active);
+    BuildContext context, int index, bool active,);
 
 /// Interface to apply any custom badge chip.
 abstract class ChipBuilder {

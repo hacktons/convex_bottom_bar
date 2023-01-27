@@ -19,29 +19,6 @@ import 'package:flutter/material.dart';
 
 /// Single convex button widget
 class ConvexButton extends StatelessWidget {
-  static const _DEFAULT_SIZE = 60.0;
-  static const _DEFAULT_TOP = 50.0;
-  static const _DEFAULT_SIGMA = 2.0;
-  static const _DEFAULT_THICKNESS = 4.0;
-
-  /// Size of convex shape, should be lager than [top]
-  final double? size;
-
-  /// The distance to edge from the bottom of child widget.
-  final double? top;
-
-  /// Height of bottom border
-  final double? thickness;
-
-  /// Sigma for border
-  final double? sigma;
-
-  /// Optional child widget, default to be a widget of Icons.keyboard_voice
-  final Widget child;
-
-  /// Color for the button
-  final Color? backgroundColor;
-
   /// Make new instance of [ConvexButton]
   const ConvexButton({
     Key? key,
@@ -70,7 +47,7 @@ class ConvexButton extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     thickness = thickness ?? _DEFAULT_THICKNESS;
-    var fab = Container(
+    final fab = Container(
       margin: EdgeInsets.only(bottom: thickness),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -88,11 +65,33 @@ class ConvexButton extends StatelessWidget {
       child: GestureDetector(onTap: onTap, child: fab),
     );
   }
+  static const _DEFAULT_SIZE = 60.0;
+  static const _DEFAULT_TOP = 50.0;
+  static const _DEFAULT_SIGMA = 2.0;
+  static const _DEFAULT_THICKNESS = 4.0;
+
+  /// Size of convex shape, should be lager than [top]
+  final double? size;
+
+  /// The distance to edge from the bottom of child widget.
+  final double? top;
+
+  /// Height of bottom border
+  final double? thickness;
+
+  /// Sigma for border
+  final double? sigma;
+
+  /// Optional child widget, default to be a widget of Icons.keyboard_voice
+  final Widget child;
+
+  /// Color for the button
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.bottomCenter, children: <Widget>[
-      Container(
+      SizedBox(
         height: thickness ?? _DEFAULT_THICKNESS,
         width: double.infinity,
         child: CustomPaint(
@@ -102,11 +101,10 @@ class ConvexButton extends StatelessWidget {
             height: size ?? _DEFAULT_SIZE,
             color: backgroundColor ?? Colors.grey[50]!,
             sigma: sigma ?? _DEFAULT_SIGMA,
-            leftPercent: const AlwaysStoppedAnimation<double>(0.5),
           ),
         ),
       ),
       child,
-    ]);
+    ],);
   }
 }

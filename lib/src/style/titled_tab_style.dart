@@ -14,15 +14,23 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/style/blend_image_icon.dart';
+import 'package:convex_bottom_bar/src/style/inner_builder.dart';
+import 'package:convex_bottom_bar/src/style/transition_container.dart';
 import 'package:flutter/material.dart';
-
-import '../item.dart';
-import 'blend_image_icon.dart';
-import 'inner_builder.dart';
-import 'transition_container.dart';
 
 /// Tab icon, text animated with pop transition.
 class TitledTabStyle extends InnerBuilder {
+  /// Create style builder.
+  TitledTabStyle({
+    required List<TabItem<dynamic>> items,
+    required Color activeColor,
+    required Color color,
+    required this.curve,
+    required this.backgroundColor,
+  }) : super(items: items, activeColor: activeColor, color: color);
+
   /// Curve for tab transition.
   final Curve curve;
 
@@ -32,29 +40,20 @@ class TitledTabStyle extends InnerBuilder {
   /// Previous active tab index.
   int _preActivate = -1;
 
-  /// Create style builder.
-  TitledTabStyle({
-    required List<TabItem> items,
-    required Color activeColor,
-    required Color color,
-    required this.curve,
-    required this.backgroundColor,
-  }) : super(items: items, activeColor: activeColor, color: color);
-
   @override
   Widget build(BuildContext context, int index, bool active) {
-    var pre = _preActivate;
+    final pre = _preActivate;
     if (active) {
       _preActivate = index;
     }
-    var item = items[index];
-    var style = ofStyle(context);
-    var margin = style.activeIconMargin;
+    final item = items[index];
+    final style = ofStyle(context);
+    final margin = style.activeIconMargin;
 
     if (active) {
       return TransitionContainer.slide(
         data: index,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: curve,
         child: Container(
           // necessary otherwise the badge will not large enough
@@ -71,10 +70,9 @@ class TitledTabStyle extends InnerBuilder {
       );
     }
 
-    var textStyle = style.textStyle(activeColor, item.fontFamily);
+    final textStyle = style.textStyle(activeColor, item.fontFamily);
     if (pre == index) {
       return Stack(
-        clipBehavior: Clip.hardEdge,
         alignment: Alignment.center,
         children: <Widget>[
           Text(item.title ?? '', style: textStyle),

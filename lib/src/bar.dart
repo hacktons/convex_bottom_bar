@@ -16,18 +16,17 @@
 
 import 'dart:math' as math;
 
+import 'package:convex_bottom_bar/src/chip_builder.dart';
+import 'package:convex_bottom_bar/src/interface.dart';
+import 'package:convex_bottom_bar/src/item.dart';
+import 'package:convex_bottom_bar/src/painter.dart';
+import 'package:convex_bottom_bar/src/stack.dart' as extend;
+import 'package:convex_bottom_bar/src/style/fixed_circle_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/fixed_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/react_circle_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/react_tab_style.dart';
+import 'package:convex_bottom_bar/src/style/styles.dart';
 import 'package:flutter/material.dart';
-
-import 'chip_builder.dart';
-import 'interface.dart';
-import 'item.dart';
-import 'painter.dart';
-import 'stack.dart' as extend;
-import 'style/fixed_circle_tab_style.dart';
-import 'style/fixed_tab_style.dart';
-import 'style/react_circle_tab_style.dart';
-import 'style/react_tab_style.dart';
-import 'style/styles.dart';
 
 /// Default size of the curve line.
 const double CONVEX_SIZE = 80;
@@ -92,61 +91,6 @@ enum TabStyle {
 ///
 /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-theming.png)
 class ConvexAppBar extends StatefulWidget {
-  /// Tab item builder.
-  final DelegateBuilder itemBuilder;
-
-  /// Badge chip builder.
-  final ChipBuilder? chipBuilder;
-
-  /// Tab Click handler.
-  final GestureTapIndexCallback? onTap;
-
-  /// Tab event notifier, can be used to block tap event.
-  final TapNotifier? onTapNotify;
-
-  /// Tab controller to work with [TabBarView] or [PageView].
-  final TabController? controller;
-
-  /// Color of the AppBar.
-  final Color? backgroundColor;
-
-  /// Color of the elevation.
-  final Color? shadowColor;
-
-  /// Draw the background with topLeft and topRight corner; Only work work with fixed style
-  ///
-  /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
-  final double? cornerRadius;
-
-  /// If provided, backgroundColor for tab app will be ignored.
-  ///
-  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
-  final Gradient? gradient;
-
-  /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView].
-  final int? initialActiveIndex;
-
-  /// Disable access of DefaultTabController to avoid unexpected conflict.
-  final bool disableDefaultTabController;
-
-  /// Tab count.
-  final int count;
-
-  /// Height of the AppBar.
-  final double? height;
-
-  /// Size of the curve line.
-  final double? curveSize;
-
-  /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
-  final double? top;
-
-  /// Elevation for the bar top edge.
-  final double? elevation;
-
-  /// The curve to use in the forward direction. Only works when tab style is not fixed.
-  final Curve curve;
-
   /// Construct a new appbar with internal style.
   ///
   /// ```dart
@@ -190,7 +134,7 @@ class ConvexAppBar extends StatefulWidget {
   ///  * [ConvexAppBar.badge], construct a new appbar with styled badge.
   ConvexAppBar({
     Key? key,
-    required List<TabItem> items,
+    required List<TabItem<dynamic>> items,
     int? initialActiveIndex,
     bool? disableDefaultTabController,
     GestureTapIndexCallback? onTap,
@@ -273,9 +217,9 @@ class ConvexAppBar extends StatefulWidget {
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
-            'initial index should < $count'),
+            'initial index should < $count',),
         assert(cornerRadius == null || cornerRadius >= 0,
-            'cornerRadius must >= 0'),
+            'cornerRadius must >= 0',),
         super(key: key);
 
   /// Construct a new appbar with badge.
@@ -305,7 +249,7 @@ class ConvexAppBar extends StatefulWidget {
     EdgeInsets? badgeMargin,
     double? badgeBorderRadius,
     // parameter for appbar
-    required List<TabItem> items,
+    required List<TabItem<dynamic>> items,
     int? initialActiveIndex,
     bool? disableDefaultTabController,
     GestureTapIndexCallback? onTap,
@@ -330,8 +274,8 @@ class ConvexAppBar extends StatefulWidget {
         badge,
         textColor: badgeTextColor ?? Colors.white,
         badgeColor: badgeColor ?? Colors.redAccent,
-        padding: badgePadding ?? EdgeInsets.only(left: 4, right: 4),
-        margin: badgeMargin ?? EdgeInsets.only(top: 10, right: 10),
+        padding: badgePadding ?? const EdgeInsets.only(left: 4, right: 4),
+        margin: badgeMargin ?? const EdgeInsets.only(top: 10, right: 10),
         borderRadius: badgeBorderRadius ?? 20,
       );
     }
@@ -358,6 +302,61 @@ class ConvexAppBar extends StatefulWidget {
       chipBuilder: chipBuilder,
     );
   }
+
+  /// Tab item builder.
+  final DelegateBuilder itemBuilder;
+
+  /// Badge chip builder.
+  final ChipBuilder? chipBuilder;
+
+  /// Tab Click handler.
+  final GestureTapIndexCallback? onTap;
+
+  /// Tab event notifier, can be used to block tap event.
+  final TapNotifier? onTapNotify;
+
+  /// Tab controller to work with [TabBarView] or [PageView].
+  final TabController? controller;
+
+  /// Color of the AppBar.
+  final Color? backgroundColor;
+
+  /// Color of the elevation.
+  final Color? shadowColor;
+
+  /// Draw the background with topLeft and topRight corner; Only work work with fixed style
+  ///
+  /// ![corner image](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-corner.png)
+  final double? cornerRadius;
+
+  /// If provided, backgroundColor for tab app will be ignored.
+  ///
+  /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-gradient.gif)
+  final Gradient? gradient;
+
+  /// The initial active index, you can config initialIndex of [TabController] if work with [TabBarView] or [PageView].
+  final int? initialActiveIndex;
+
+  /// Disable access of DefaultTabController to avoid unexpected conflict.
+  final bool disableDefaultTabController;
+
+  /// Tab count.
+  final int count;
+
+  /// Height of the AppBar.
+  final double? height;
+
+  /// Size of the curve line.
+  final double? curveSize;
+
+  /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
+  final double? top;
+
+  /// Elevation for the bar top edge.
+  final double? elevation;
+
+  /// The curve to use in the forward direction. Only works when tab style is not fixed.
+  final Curve curve;
 
   @override
   ConvexAppBarState createState() {
@@ -407,12 +406,16 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   Future<void> _warpToCurrentIndex() async {
-    if (!mounted) return Future<void>.value();
+    if (!mounted) {
+      return Future<void>.value();
+    }
     final c = _controller;
     if (c == null) {
       return;
     }
-    if (_blockEvent(c.index)) return;
+    if (_blockEvent(c.index)) {
+      return;
+    }
     final previousIndex = c.previousIndex;
     final index = c.index;
     // Counter to avoid repeat calls to animateTo in the middle of a transition.
@@ -424,12 +427,12 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   /// change active tab index; can be used with [PageView].
   Future<void> animateTo(int index, {int? from}) async {
-    var gap = DateTime.now().millisecondsSinceEpoch - _previousTimestamp;
+    final gap = DateTime.now().millisecondsSinceEpoch - _previousTimestamp;
     _updateAnimation(
       from: from ?? _currentIndex,
       to: index,
       duration: Duration(
-          milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION),
+          milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION,),
     );
     // ignore: unawaited_futures
     _animationController?.forward();
@@ -444,7 +447,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Animation<double> _updateAnimation(
       {int? from,
       int? to,
-      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION)}) {
+      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION),}) {
     if (from != null && (from == to) && _animation != null) {
       return _animation!;
     }
@@ -490,14 +493,16 @@ class ConvexAppBarState extends State<ConvexAppBar>
       }
       return true;
     }());
-    if (newController == _controller) return;
+    if (newController == _controller) {
+      return;
+    }
     _controller?.animation?.removeListener(_handleTabControllerAnimationTick);
     _controller = newController;
     _controller?.animation?.addListener(_handleTabControllerAnimationTick);
   }
 
   void _resetState() {
-    var index = _controller?.index ?? widget.initialActiveIndex;
+    final index = _controller?.index ?? widget.initialActiveIndex;
     // when both initialActiveIndex and controller are not configured
     _currentIndex = index ?? 0;
 
@@ -533,26 +538,31 @@ class ConvexAppBarState extends State<ConvexAppBar>
     final additionalBottomPadding =
         math.max(MediaQuery.of(context).padding.bottom, 0.0);
     final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
-    final active = isFixed() ? convexIndex == _currentIndex : true;
+    final bool active;
+    if (isFixed()) {
+      active = convexIndex == _currentIndex;
+    } else {
+      active = true;
+    }
 
     final height = (widget.height ?? BAR_HEIGHT) + additionalBottomPadding;
     final width = MediaQuery.of(context).size.width;
-    var percent = isFixed()
+    final percent = isFixed()
         ? const AlwaysStoppedAnimation<double>(0.5)
         : _animation ?? _updateAnimation();
-    var factor = 1 / widget.count;
-    var textDirection = Directionality.of(context);
+    final factor = 1 / widget.count;
+    final textDirection = Directionality.of(context);
     var dx = convexIndex! / (widget.count - 1);
     if (textDirection == TextDirection.rtl) {
       dx = 1 - dx;
     }
 
-    var offset = FractionalOffset(widget.count > 1 ? dx : 0.0, 0);
+    final offset = FractionalOffset(widget.count > 1 ? dx : 0.0, 0);
     return extend.Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        Container(
+        SizedBox(
           height: height,
           width: width,
           child: CustomPaint(
@@ -580,7 +590,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
               child: GestureDetector(
                 onTap: () => _onTabClick(convexIndex),
                 child: _newTab(convexIndex, active),
-              )),
+              ),),
         ),
       ],
     );
@@ -590,28 +600,26 @@ class ConvexAppBarState extends State<ConvexAppBar>
   bool isFixed() => widget.itemBuilder.fixed();
 
   Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
-    var children = <Widget>[];
+    final children = <Widget>[];
     for (var i = 0; i < widget.count; i++) {
       if (i == curveTabIndex) {
         children.add(Expanded(child: Container()));
         continue;
       }
-      var active = _currentIndex == i;
+      final active = _currentIndex == i;
       children.add(Expanded(
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => _onTabClick(i),
           child: _newTab(i, active),
         ),
-      ));
+      ),);
     }
 
     return Container(
       height: height,
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: children,
       ),
     );
@@ -631,7 +639,9 @@ class ConvexAppBarState extends State<ConvexAppBar>
   }
 
   void _onTabClick(int i) {
-    if (_blockEvent(i)) return;
+    if (_blockEvent(i)) {
+      return;
+    }
     if (_controller == null) {
       animateTo(i);
     } else {
@@ -658,16 +668,16 @@ class ConvexAppBarState extends State<ConvexAppBar>
 /// This hook is limited, and can lead to `overflow broken` if the size you provide
 /// does no match with internal style.
 class StyleProvider extends InheritedWidget {
-  /// Style configuration
-  final StyleHook style;
-
   /// Provide style to provider, [ConvexAppBar] will bind to the provided style.
   /// See also:
   ///
   ///  * [ConvexAppBar]
   ///  * [StyleHook]
-  StyleProvider({Key? key, required this.style, required Widget child})
+  const StyleProvider({Key? key, required this.style, required Widget child})
       : super(key: key, child: child);
+
+  /// Style configuration
+  final StyleHook style;
 
   /// Get instance of style provider, can be null if you're not providing one.
   static StyleProvider? of(BuildContext context) {

@@ -14,13 +14,22 @@
  *  limitations under the License.
  */
 
+import 'package:convex_bottom_bar/src/interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'interface.dart';
-
 /// Simple badge with num inside.
 class DefaultChipBuilder extends ChipBuilder {
+  /// Create a chip builder
+  DefaultChipBuilder(
+    this.chips, {
+    required this.textColor,
+    required this.badgeColor,
+    required this.padding,
+    required this.margin,
+    required this.borderRadius,
+  });
+
   /// key-value map, stands for the badge data.
   final Map<int, dynamic> chips;
 
@@ -39,19 +48,9 @@ class DefaultChipBuilder extends ChipBuilder {
   /// Radius corner for badge.
   final double borderRadius;
 
-  /// Create a chip builder
-  DefaultChipBuilder(
-    this.chips, {
-    required this.textColor,
-    required this.badgeColor,
-    required this.padding,
-    required this.margin,
-    required this.borderRadius,
-  });
-
   @override
-  Widget build(_, child, i, active) {
-    var chip = chips[i];
+  Widget build(context, child, index, active) {
+    final chip = chips[index];
     if (chip == null || chip == '') {
       return child;
     }
@@ -70,12 +69,10 @@ class DefaultChipBuilder extends ChipBuilder {
     if (chip is String) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.center,
           child: Container(
             margin: margin,
             padding: padding,
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
               color: badgeColor,
               borderRadius: BorderRadius.circular(borderRadius),
             ),
@@ -86,7 +83,6 @@ class DefaultChipBuilder extends ChipBuilder {
     } else if (chip is IconData) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.center,
           child: Container(
             margin: margin,
             padding: padding,
@@ -97,14 +93,12 @@ class DefaultChipBuilder extends ChipBuilder {
     } else if (chip is Widget) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.center,
           child: Container(margin: margin, padding: padding, child: chip),
         ),
       );
     } else if (chip is Color) {
       return Positioned.fill(
         child: Align(
-          alignment: Alignment.center,
           child: Container(
             margin: margin,
             padding: padding,

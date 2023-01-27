@@ -80,12 +80,12 @@ class _State extends State<DefaultAppBarDemo>
   ];
 
   static final kTabTypes = [
-    ChoiceValue<List<TabItem>>(
+    ChoiceValue<List<TabItem<dynamic>>>(
       title: 'Icon Tab',
       label: 'Appbar use icon with Tab',
       value: Data.items(image: false),
     ),
-    ChoiceValue<List<TabItem>>(
+    ChoiceValue<List<TabItem<dynamic>>>(
       title: 'Image Tab',
       label: 'Appbar use image with Tab',
       value: Data.items(image: true),
@@ -222,7 +222,7 @@ class _State extends State<DefaultAppBarDemo>
     );
   }
 
-  void _onTabItemTypeChanged(ChoiceValue<List<TabItem>>? value) {
+  void _onTabItemTypeChanged(ChoiceValue<List<TabItem<dynamic>>>? value) {
     if (value == null) {
       return;
     }

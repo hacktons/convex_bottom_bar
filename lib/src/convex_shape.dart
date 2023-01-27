@@ -13,12 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+import 'dart:math' as math;
+
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 import 'package:flutter/painting.dart';
-import 'dart:math' as math;
 
 /// A convex shape which implemented [NotchedShape].
 ///
@@ -30,15 +31,17 @@ import 'dart:math' as math;
 ///
 ///  * [CircularNotchedRectangle], a rectangle with a smooth circular notch.
 class ConvexNotchedRectangle extends NotchedShape {
-  /// Draw the background with topLeft and topRight corner
-  final double radius;
-
   /// Create Shape instance
   const ConvexNotchedRectangle({this.radius = 0});
 
+  /// Draw the background with topLeft and topRight corner
+  final double radius;
+
   @override
   Path getOuterPath(Rect host, Rect? guest) {
-    if (guest == null || !host.overlaps(guest)) return Path()..addRect(host);
+    if (guest == null || !host.overlaps(guest)) {
+      return Path()..addRect(host);
+    }
 
     // The guest's shape is a circle bounded by the guest rectangle.
     // So the guest's radius is half the guest width.
@@ -57,7 +60,7 @@ class ConvexNotchedRectangle extends NotchedShape {
     final p2yA = -math.sqrt(r * r - p2xA * p2xA);
     final p2yB = -math.sqrt(r * r - p2xB * p2xB);
 
-    final p = List<Offset>.filled(6, Offset.zero, growable: false);
+    final p = List<Offset>.filled(6, Offset.zero);
     // p0, p1, and p2 are the control points for segment A.
     p[0] = Offset(a - s1, b);
     p[1] = Offset(a, b);
@@ -80,18 +83,17 @@ class ConvexNotchedRectangle extends NotchedShape {
         ? (Path()
           ..moveTo(host.left, host.top + radius)
           ..arcToPoint(Offset(host.left + radius, host.top),
-              radius: Radius.circular(radius))
+              radius: Radius.circular(radius),)
           ..lineTo(p[0].dx, p[0].dy)
           ..quadraticBezierTo(p[1].dx, p[1].dy, p[2].dx, p[2].dy)
           ..arcToPoint(
             p[3],
             radius: Radius.circular(notchRadius),
-            clockwise: true,
           )
           ..quadraticBezierTo(p[4].dx, p[4].dy, p[5].dx, p[5].dy)
           ..lineTo(host.right - radius, host.top)
           ..arcToPoint(Offset(host.right, host.top + radius),
-              radius: Radius.circular(radius))
+              radius: Radius.circular(radius),)
           ..lineTo(host.right, host.bottom)
           ..lineTo(host.left, host.bottom)
           ..close())
@@ -102,7 +104,6 @@ class ConvexNotchedRectangle extends NotchedShape {
           ..arcToPoint(
             p[3],
             radius: Radius.circular(notchRadius),
-            clockwise: true,
           )
           ..quadraticBezierTo(p[4].dx, p[4].dy, p[5].dx, p[5].dy)
           ..lineTo(host.right, host.top)

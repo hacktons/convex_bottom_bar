@@ -17,6 +17,6 @@
 library convex_appbar;
 
 export 'src/bar.dart';
+export 'src/fab.dart';
 export 'src/interface.dart';
 export 'src/item.dart';
-export 'src/fab.dart';

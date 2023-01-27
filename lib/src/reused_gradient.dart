@@ -19,13 +19,15 @@ import 'package:flutter/painting.dart';
 /// Wrapper for [Gradient], we don't want to re-create instance frequently in
 /// hot method, such as paint().
 class ReusedGradient {
+  /// Create gradient
+  ReusedGradient();
   Gradient? _gradient;
 
   Shader? _shader;
   Rect? _size;
 
-  /// Create gradient
-  ReusedGradient();
+  // getter for [Gradient]
+  Gradient? get gradient => _gradient;
 
   /// Setter to reset the [Gradient] instance
   set gradient(Gradient? gradient) {

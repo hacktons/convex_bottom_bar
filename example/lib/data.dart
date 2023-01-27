@@ -92,7 +92,7 @@ class Data {
     ),
   ];
 
-  static List<TabItem> items({bool image = false}) {
+  static List<TabItem<dynamic>> items({bool image = false}) {
     if (image) {
       return [
         TabItem<Image>(
