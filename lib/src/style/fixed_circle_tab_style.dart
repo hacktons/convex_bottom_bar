@@ -22,13 +22,13 @@ import 'package:flutter/material.dart';
 /// Convex shape is fixed center with circle.
 class FixedCircleTabStyle extends InnerBuilder {
   /// Create style builder
-  FixedCircleTabStyle(
-      {required List<TabItem<dynamic>> items,
-      required Color activeColor,
-      required Color color,
-      required this.backgroundColor,
-      required this.convexIndex,})
-      : super(items: items, activeColor: activeColor, color: color);
+  FixedCircleTabStyle({
+    required List<TabItem<dynamic>> items,
+    required Color activeColor,
+    required Color color,
+    required this.backgroundColor,
+    required this.convexIndex,
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   /// Color used as background of appbar and circle icon.
   final Color backgroundColor;

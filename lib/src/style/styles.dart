@@ -37,10 +37,11 @@ DelegateBuilder supportedStyle(
 }) {
   assert(items.isNotEmpty, 'items should not be empty');
   assert(
-      ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
-              items.length.isOdd) ||
-          (style != TabStyle.fixed && style != TabStyle.fixedCircle),
-      'item count should be an odd number when using fixed/fixedCircle',);
+    ((style == TabStyle.fixed || style == TabStyle.fixedCircle) &&
+            items.length.isOdd) ||
+        (style != TabStyle.fixed && style != TabStyle.fixedCircle),
+    'item count should be an odd number when using fixed/fixedCircle',
+  );
   DelegateBuilder builder;
   switch (style) {
     case TabStyle.fixed:
@@ -78,8 +79,10 @@ DelegateBuilder supportedStyle(
       );
       break;
     case TabStyle.textIn:
-      assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
-          'title is necessary for TabStyle.textIn',);
+      assert(
+        items.every((it) => it.title != null && it.title!.isNotEmpty),
+        'title is necessary for TabStyle.textIn',
+      );
       builder = TextInTabStyle(
         items: items,
         color: color,
@@ -88,8 +91,10 @@ DelegateBuilder supportedStyle(
       );
       break;
     case TabStyle.titled:
-      assert(items.every((it) => it.title != null && it.title!.isNotEmpty),
-          'title is necessary for TabStyle.titled',);
+      assert(
+        items.every((it) => it.title != null && it.title!.isNotEmpty),
+        'title is necessary for TabStyle.titled',
+      );
       builder = TitledTabStyle(
         items: items,
         color: color,

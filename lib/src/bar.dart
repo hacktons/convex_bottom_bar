@@ -216,10 +216,14 @@ class ConvexAppBar extends StatefulWidget {
     this.curve = Curves.easeInOut,
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
-        assert(initialActiveIndex == null || initialActiveIndex < count,
-            'initial index should < $count',),
-        assert(cornerRadius == null || cornerRadius >= 0,
-            'cornerRadius must >= 0',),
+        assert(
+          initialActiveIndex == null || initialActiveIndex < count,
+          'initial index should < $count',
+        ),
+        assert(
+          cornerRadius == null || cornerRadius >= 0,
+          'cornerRadius must >= 0',
+        ),
         super(key: key);
 
   /// Construct a new appbar with badge.
@@ -432,7 +436,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
       from: from ?? _currentIndex,
       to: index,
       duration: Duration(
-          milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION,),
+        milliseconds: gap < _TRANSITION_DURATION ? 0 : _TRANSITION_DURATION,
+      ),
     );
     // ignore: unawaited_futures
     _animationController?.forward();
@@ -444,10 +449,11 @@ class ConvexAppBarState extends State<ConvexAppBar>
     _previousTimestamp = DateTime.now().millisecondsSinceEpoch;
   }
 
-  Animation<double> _updateAnimation(
-      {int? from,
-      int? to,
-      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION),}) {
+  Animation<double> _updateAnimation({
+    int? from,
+    int? to,
+    Duration duration = const Duration(milliseconds: _TRANSITION_DURATION),
+  }) {
     if (from != null && (from == to) && _animation != null) {
       return _animation!;
     }
@@ -585,12 +591,13 @@ class ConvexAppBarState extends State<ConvexAppBar>
           top: widget.top ?? CURVE_TOP,
           bottom: additionalBottomPadding,
           child: FractionallySizedBox(
-              widthFactor: factor,
-              alignment: offset,
-              child: GestureDetector(
-                onTap: () => _onTabClick(convexIndex),
-                child: _newTab(convexIndex, active),
-              ),),
+            widthFactor: factor,
+            alignment: offset,
+            child: GestureDetector(
+              onTap: () => _onTabClick(convexIndex),
+              child: _newTab(convexIndex, active),
+            ),
+          ),
         ),
       ],
     );
@@ -607,13 +614,15 @@ class ConvexAppBarState extends State<ConvexAppBar>
         continue;
       }
       final active = _currentIndex == i;
-      children.add(Expanded(
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => _onTabClick(i),
-          child: _newTab(i, active),
+      children.add(
+        Expanded(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => _onTabClick(i),
+            child: _newTab(i, active),
+          ),
         ),
-      ),);
+      );
     }
 
     return Container(

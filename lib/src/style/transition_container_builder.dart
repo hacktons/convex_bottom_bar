@@ -56,9 +56,11 @@ class ScaleBuilder extends TransitionContainerBuilder<double> {
 /// Slide transition builder.
 class SlideBuilder extends TransitionContainerBuilder<Offset> {
   /// Create slide builder.
-  SlideBuilder(
-      {required Curve curve, required this.child, required this.reverse,})
-      : super(curve);
+  SlideBuilder({
+    required Curve curve,
+    required this.child,
+    required this.reverse,
+  }) : super(curve);
 
   /// The target widget to slide with.
   Widget child;
@@ -115,8 +117,11 @@ class FlipBuilder extends TransitionContainerBuilder<dynamic> {
           alignment: Alignment.bottomCenter,
           transform: Matrix4.identity()
             ..setEntry(3, 2, 0.001)
-            ..translate(0.0, (cos(animation.value) * (height / 2)),
-                ((height / 2) * sin(animation.value)),)
+            ..translate(
+              0.0,
+              (cos(animation.value) * (height / 2)),
+              ((height / 2) * sin(animation.value)),
+            )
             ..rotateX(-(pi / 2) + animation.value),
           child: Center(child: bottomChild),
         ),

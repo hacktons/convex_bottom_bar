@@ -63,8 +63,11 @@ class TextInTabStyle extends InnerBuilder {
     }
 
     return Center(
-      child: BlendImageIcon(item.icon,
-          size: style.iconSize, color: item.blend ? color : null,),
+      child: BlendImageIcon(
+        item.icon,
+        size: style.iconSize,
+        color: item.blend ? color : null,
+      ),
     );
   }
 }

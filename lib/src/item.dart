@@ -25,8 +25,10 @@ class TabItem<T> {
     required this.icon,
     this.activeIcon,
     bool? isIconBlend,
-  })  : assert(icon is IconData || icon is Widget,
-            'TabItem only support IconData and Widget',),
+  })  : assert(
+          icon is IconData || icon is Widget,
+          'TabItem only support IconData and Widget',
+        ),
         blend = isIconBlend ?? (icon is IconData);
   // this code is added by moein
   final String? fontFamily;

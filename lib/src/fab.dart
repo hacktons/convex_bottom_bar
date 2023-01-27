@@ -90,21 +90,24 @@ class ConvexButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.bottomCenter, children: <Widget>[
-      SizedBox(
-        height: thickness ?? _DEFAULT_THICKNESS,
-        width: double.infinity,
-        child: CustomPaint(
-          painter: ConvexPainter(
-            top: -(top ?? _DEFAULT_TOP),
-            width: size ?? _DEFAULT_SIZE,
-            height: size ?? _DEFAULT_SIZE,
-            color: backgroundColor ?? Colors.grey[50]!,
-            sigma: sigma ?? _DEFAULT_SIGMA,
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: <Widget>[
+        SizedBox(
+          height: thickness ?? _DEFAULT_THICKNESS,
+          width: double.infinity,
+          child: CustomPaint(
+            painter: ConvexPainter(
+              top: -(top ?? _DEFAULT_TOP),
+              width: size ?? _DEFAULT_SIZE,
+              height: size ?? _DEFAULT_SIZE,
+              color: backgroundColor ?? Colors.grey[50]!,
+              sigma: sigma ?? _DEFAULT_SIGMA,
+            ),
           ),
         ),
-      ),
-      child,
-    ],);
+        child,
+      ],
+    );
   }
 }
