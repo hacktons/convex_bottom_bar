@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ##################################################################
 ##
-##  Test case for CI buiding
+##  Test case for CI building
 ##
 ##
 ##  Author: Chaobin Wu
@@ -24,12 +24,12 @@ die() {
   exit 1
 }
 info "Step 1 Run custom lint rules"
-dartanalyzer lib --options ci-analysis_options.yaml >build/lint-result.txt
+dart analyze lib ci-analysis_options.yaml >build/lint-result.txt
 # n lints found. => issue found, No issues found! => success
 count=$(grep -c 'lints found.' <build/lint-result.txt)
 if [ "$count" = "0" ]; then
   info "Lint check passed."
 else
   warning "Issues list:\n$(grep 'lint' <build/lint-result.txt)"
-  die "Failed to passs Lint rules, check lint result at build/lint-result.txt"
+  die "Failed to pass Lint rules, check lint result at build/lint-result.txt"
 fi
