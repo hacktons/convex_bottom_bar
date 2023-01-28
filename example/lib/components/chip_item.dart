@@ -22,15 +22,15 @@ import '../model/badge.dart';
 class ChipItem extends StatelessWidget {
   const ChipItem(this.chips, this.selectedChip, this.onChanged);
 
-  final List<Badge?> chips;
-  final Badge? selectedChip;
-  final ValueChanged<Badge?> onChanged;
+  final List<SampleBadge?> chips;
+  final SampleBadge? selectedChip;
+  final ValueChanged<SampleBadge?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: chips.map<Widget>((Badge? chip) {
+      children: chips.map<Widget>((SampleBadge? chip) {
         return GestureDetector(
           onTap: () => onChanged(chip),
           child: Container(
