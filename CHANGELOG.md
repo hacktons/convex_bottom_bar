@@ -1,3 +1,6 @@
+## [3.2.0]
+* Support flutter 3.7
+
 ## [3.1.0+1]
 * Format project with `flutter format .`
 
