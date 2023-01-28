@@ -18,7 +18,7 @@ import 'package:flutter/cupertino.dart';
 
 /// Tab item used for [ConvexAppBar].
 class TabItem<T> {
-  // this code is added by moein
+  /// this code is added by moein
   final String? fontFamily;
 
   /// Tab text.

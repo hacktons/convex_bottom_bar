@@ -3,6 +3,9 @@
 # see https://github.com/dart-lang/pedantic#enabled-lints.
 include: package:pedantic/analysis_options.yaml
 
+linter:
+  rules:
+    - public_member_api_docs
 analyzer:
   exclude:
     - example/**
