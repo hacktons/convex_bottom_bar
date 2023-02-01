@@ -27,16 +27,15 @@ Online example can be found at [https://appbar.codemagic.app](https://appbar.cod
 
 Here are some supported style:
 
-|            **fixed**             |            **react**             | **badge chip** |
-| :------------------------------: | :------------------------------: | :------------------------------: |
-|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
-|         **fixedCircle**          |         **reactCircle**       | **flip** |
-| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif) |
-|            **textIn**            |          **titled**          | **tab image** |
-| ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
-|            **button**            |          **fixed corner**          |  |
-| ![](doc/appbar-single-button.png)   |    ![](doc/appbar-corner-fixed.png)    |  |
-
+|             **fixed**             |            **react**             |      **badge chip**       |
+|:---------------------------------:|:--------------------------------:|:-------------------------:|
+|     ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
+|          **fixedCircle**          |         **reactCircle**          |         **flip**          |
+| ![](doc/appbar-fixed-circle.gif)  | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif)  |
+|            **textIn**             |            **titled**            |       **tab image**       |
+|    ![](doc/appbar-textIn.gif)     |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
+|            **button**             |         **fixed corner**         |                           |
+| ![](doc/appbar-single-button.png) | ![](doc/appbar-corner-fixed.png) |                           |
 
 ## How to use
 Typically ConvexAppBar can work with `Scaffold` by setup its `bottomNavigationBar`.
@@ -71,10 +70,11 @@ Scaffold(
 As Flutter is developing fast. There can be breaking changes. We will be trying to support the
 stable version and beta version through different package versions.
 
-|            **Stable Flutter Version**             |            **Package Version**             | **More** |
-| :------------------------------: | :------------------------------: | :------------------------------: |
-|    >=1.20    |    >=2.4.0      | Since v1.20, the stable version changed the Stack api |
-|    <1.20     |    <=2.3.0      | Support for stable version such as v1.17, v1.12 is not going to be updated |
+| **Stable Flutter Version** | **Package Version** |                                  **More**                                  |
+|:--------------------------:|:-------------------:|:--------------------------------------------------------------------------:|
+|          >=3.7.0           |       >=3.2.0       |   Since v3.7.0, the stable version changed the DefaultTabController api    |
+|           >=1.20           |       >=2.4.0       |           Since v1.20, the stable version changed the Stack api            |
+|           <1.20            |       <=2.3.0       | Support for stable version such as v1.17, v1.12 is not going to be updated |
 
 ## Features
 * Provide multiple internal styles
@@ -101,18 +101,18 @@ The bar will use default style, you may want to theme it. Here are some supporte
 
 ![](doc/appbar-theming.png)
 
-| Attributes      | Description                           |
-| --------------- | ------------------------------------- |
-| backgroundColor | AppBar background                     |
-| gradient        | gradient will override backgroundColor|
-| height          | AppBar height                         |
-| color           | tab icon/text color                   |
-| activeColor     | tab icon/text color **when selected** |
-| curveSize       | size of the convex shape              |
-| top   | top edge of the convex shape relative to AppBar |
+| Attributes      | Description                                                                          |
+|-----------------|--------------------------------------------------------------------------------------|
+| backgroundColor | AppBar background                                                                    |
+| gradient        | gradient will override backgroundColor                                               |
+| height          | AppBar height                                                                        |
+| color           | tab icon/text color                                                                  |
+| activeColor     | tab icon/text color **when selected**                                                |
+| curveSize       | size of the convex shape                                                             |
+| top             | top edge of the convex shape relative to AppBar                                      |
 | cornerRadius    | draw the background with topLeft and topRight corner; Only work with fixed tab style |
-| style | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ... |
-| chipBuilder | custom badge builder, use **ConvexAppBar.badge** for default badge |
+| style           | style to describe the convex shape: **fixed, fixedCircle, react, reactCircle**, ...  |
+| chipBuilder     | custom badge builder, use **ConvexAppBar.badge** for default badge                   |
 
 ## Badge
 
