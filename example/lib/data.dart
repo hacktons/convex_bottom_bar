@@ -63,10 +63,10 @@ class Data {
   ];
   static const badges = [
     null,
-    Badge('1'),
-    Badge('hot',
+    SampleBadge('1'),
+    SampleBadge('hot',
         badgeColor: Colors.orange, padding: EdgeInsets.only(left: 7, right: 7)),
-    Badge('99+', borderRadius: 2)
+    SampleBadge('99+', borderRadius: 2)
   ];
 
   static const curves = [

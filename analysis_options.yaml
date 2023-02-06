@@ -1,3 +1,9 @@
+
+# Defines a default set of lint rules enforced for
+# projects at Google. For details and rationale,
+# see https://github.com/dart-lang/pedantic#enabled-lints.
+include: package:pedantic/analysis_options.yaml
+
 analyzer:
   language:
     strict-raw-types: true
@@ -15,6 +21,7 @@ analyzer:
 
 linter:
   rules:
+    - public_member_api_docs
     - always_declare_return_types
     - require_trailing_commas
     - always_put_control_body_on_new_line

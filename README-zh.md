@@ -1,10 +1,10 @@
 <p align="center"><img src="https://github.com/hacktons/convex_bottom_bar/raw/master/doc/preview.png" alt="appBar preview"></p>
 <p align="center">
   <a href="https://pub.dev/packages/convex_bottom_bar"><img src="https://img.shields.io/pub/v/convex_bottom_bar.svg" alt="pub.dev"></a>
-  <a href="https://pub.dev/packages/convex_bottom_bar/versions/3.0.0-nullsafety.0"><img src="https://img.shields.io/badge/nullsafety-3.0.0-blue.svg" alt="pub.dev"></a>
   <a href="https://github.com/hacktons/convex_bottom_bar"><img src="https://img.shields.io/badge/platform-flutter-ff69b4.svg" alt="github"></a>
-  <a href="https://coveralls.io/github/hacktons/convex_bottom_bar"><img src="https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg" alt="coverage status"></a>
-  <a href="https://pub.dev/packages/convex_bottom_bar/score"><img src="https://badges.bar/convex_bottom_bar/likes" alt="likes"></a>
+  <a href="https://coveralls.io/github/hacktons/convex_bottom_bar"><img src="https://coveralls.io/repos/github/hacktons/convex_bottom_bar/badge.svg?branch=master" alt="coverage"></a>
+  <a href="https://pub.dev/packages/convex_bottom_bar/score"><img src="https://img.shields.io/pub/likes/convex_bottom_bar.svg" alt="likes"></a>
+  <a href="https://pub.dev/packages/convex_bottom_bar/score"><img src="https://img.shields.io/pub/popularity/convex_bottom_bar.svg" alt="popularity"></a>
   <a href="https://codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/latest_build"><img src="https://api.codemagic.io/apps/5db10f597d3edb001a6ede16/5db10f597d3edb001a6ede15/status_badge.svg" alt="build status"></a>
   <a href="https://github.com/hacktons/convex_bottom_bar/raw/LICENSE"><img src="https://img.shields.io/github/license/hacktons/convex_bottom_bar.svg" alt="license"></a>
 </p>
@@ -25,15 +25,15 @@ ConvexBottomBar是一个底部导航栏组件，用于展现凸起的TAB效果�
 
 以下是一些支持的预定义样式：
 
-|            **fixed**             |            **react**             | **badge chip** |
-| :------------------------------: | :------------------------------: | :------------------------------: |
-|    ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
-|         **fixedCircle**          |         **reactCircle**       | **flip** |
-| ![](doc/appbar-fixed-circle.gif) | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif) |
-|            **textIn**            |          **titled**          | **tab image** |
-| ![](doc/appbar-textIn.gif)   |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
-|            **button**            |          **fixed corner**          |  |
-| ![](doc/appbar-single-button.png)   |    ![](doc/appbar-corner-fixed.png)    |  |
+|             **fixed**             |            **react**             |      **badge chip**       |
+|:---------------------------------:|:--------------------------------:|:-------------------------:|
+|     ![](doc/appbar-fixed.gif)     |    ![](doc/appbar-react.gif)     | ![](doc/appbar-badge.gif) |
+|          **fixedCircle**          |         **reactCircle**          |         **flip**          |
+| ![](doc/appbar-fixed-circle.gif)  | ![](doc/appbar-react-circle.gif) | ![](doc/appbar-flip.gif)  |
+|            **textIn**             |            **titled**            |       **tab image**       |
+|    ![](doc/appbar-textIn.gif)     |    ![](doc/appbar-titled.gif)    | ![](doc/appbar-image.gif) |
+|            **button**             |         **fixed corner**         |                           |
+| ![](doc/appbar-single-button.png) | ![](doc/appbar-corner-fixed.png) |                           |
 
 ## 快速上手
 
@@ -69,10 +69,11 @@ Scaffold(
 由于Flutter迭代非常快。SDK本身有可能出现不兼容的API变更，我们将继续支持flutter稳定版本，非稳定的beta、dev channel
 通过单独版本号进行兼容。
 
-|            **Stable Flutter Version**             |            **Package Version**             | **More** |
-| :------------------------------: | :------------------------------: | :------------------------------: |
-|    >=1.20    |    >=2.4.0      | 从 v1.20开始, Stack组件的API发送不兼容变更 |
-|    <1.20     |    <2.4.0     | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
+| **Stable Flutter Version** | **Package Version** |                  **More**                  |
+|:--------------------------:|:-------------------:|:------------------------------------------:|
+|          >=3.7.0           |       >=3.2.0       | 从v3.7.0版本DefaultTabController的API有变更   |
+|           >=1.20           |       >=2.4.0       | 从 v1.20开始, Stack组件的API发送不兼容变更      |
+|           <1.20            |       <2.4.0        | v1.20稳定版发布后，我们对老版本如v1.17, v1.12 的支持将不再继续更新 |
 
 如果你只需要一个单独的按钮，不妨试试 `ConvexButton`.
 
@@ -133,17 +134,17 @@ AppBar默认使用内置样式，您可能需要为其设置主题。 以下是�
 
 ![](doc/appbar-theming.png)
 
-| Attributes      | Description                           |
-| --------------- | ------------------------------------- |
-| backgroundColor | AppBar 背景                     |
-| gradient        | 渐变属性，可以覆盖backgroundColor|
-| height          | AppBar 高度                         |
-| color           | icon/text 的颜色值                   |
-| activeColor     | icon/text 的**选中态**颜色值 |
-| curveSize       | 凸形大小             |
-| top   | 凸形到AppBar上边缘的距离 |
-| style | 支持的样式: **fixed, fixedCircle, react, reactCircle**, ... |
-| chipBuilder | 角标构造器builder,  **ConvexAppBar.badge**会使用默认样式 |
+| Attributes      | Description                                            |
+|-----------------|--------------------------------------------------------|
+| backgroundColor | AppBar 背景                                             |
+| gradient        | 渐变属性，可以覆盖backgroundColor                         |
+| height          | AppBar 高度                                             |
+| color           | icon/text 的颜色值                                       |
+| activeColor     | icon/text 的**选中态**颜色值                              |
+| curveSize       | 凸形大小                                                 |
+| top             | 凸形到AppBar上边缘的距离                                   |
+| style           | 支持的样式: **fixed, fixedCircle, react, reactCircle**, ... |
+| chipBuilder     | 角标构造器builder,  **ConvexAppBar.badge**会使用默认样式     |
 
 ## 样式重载
 重载Tab内置样式。 该API与`ConvexAppBar.builder`不同，为了满足您可能需要更新选项卡样式而不定义新的选项卡样式。
