@@ -35,6 +35,7 @@ DelegateBuilder supportedStyle(
   required Color activeColor,
   required Color backgroundColor,
   required Curve curve,
+  required BoxShadow circleShadow,
 }) {
   assert(items.isNotEmpty, 'items should not be empty');
   assert(
@@ -76,6 +77,7 @@ DelegateBuilder supportedStyle(
         activeColor: activeColor,
         backgroundColor: backgroundColor,
         curve: curve,
+        circleShadow: circleShadow,
       );
       break;
     case TabStyle.textIn:
@@ -114,6 +116,7 @@ DelegateBuilder supportedStyle(
         activeColor: activeColor,
         backgroundColor: backgroundColor,
         curve: curve,
+        circleShadow: circleShadow,
       );
       break;
   }

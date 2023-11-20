@@ -54,7 +54,7 @@ class HelloConvexAppBar extends StatelessWidget {
         onPressed: () => Navigator.of(context).pushNamed('/bar'),
       )),
       bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
+        style: TabStyle.reactCircle,
         items: [
           TabItem(icon: Icons.list),
           TabItem(icon: Icons.calendar_today),
@@ -62,6 +62,13 @@ class HelloConvexAppBar extends StatelessWidget {
         ],
         initialActiveIndex: 1,
         onTap: (int i) => print('click index=$i'),
+        
+        circleShadow: BoxShadow(
+          color: Colors.orangeAccent,
+          blurRadius: 12,
+          offset: Offset(0, 10),
+          spreadRadius: 0,
+        ),
       ),
     );
   }

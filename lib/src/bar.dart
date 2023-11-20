@@ -209,6 +209,7 @@ class ConvexAppBar extends StatefulWidget {
     TabStyle? style,
     Curve? curve,
     ChipBuilder? chipBuilder,
+    BoxShadow? circleShadow,
   }) : this.builder(
           key: key,
           itemBuilder: supportedStyle(
@@ -218,6 +219,7 @@ class ConvexAppBar extends StatefulWidget {
             activeColor: activeColor ?? Colors.white,
             backgroundColor: backgroundColor ?? Colors.blue,
             curve: curve ?? Curves.easeInOut,
+            circleShadow: circleShadow ?? BoxShadow(),
           ),
           onTap: onTap,
           onTapNotify: onTabNotify,
@@ -369,6 +371,7 @@ class ConvexAppBar extends StatefulWidget {
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int? _currentIndex;
+
   /// get index
   int? get currentIndex => _currentIndex;
   int _warpUnderwayCount = 0;
