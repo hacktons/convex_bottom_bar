@@ -28,27 +28,33 @@ class FixedCircleTabStyle extends InnerBuilder {
   /// Index of the centered convex shape.
   final int convexIndex;
 
+  /// Reduced text size for the tab items.
+  final double textSize;
+
   /// Create style builder
-  FixedCircleTabStyle(
-      {required List<TabItem> items,
-      required Color activeColor,
-      required Color color,
-      required this.backgroundColor,
-      required this.convexIndex})
-      : super(items: items, activeColor: activeColor, color: color);
+  FixedCircleTabStyle({
+    required List<TabItem> items,
+    required Color activeColor,
+    required Color color,
+    required this.backgroundColor,
+    required this.convexIndex,
+    this.textSize = 10.0, // Default reduced text size
+  }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {
     var c = active ? activeColor : color;
     var item = items[index];
     var style = ofStyle(context);
-    var textStyle = style.textStyle(c, item.fontFamily);
+    var textStyle = style.textStyle(c, item.fontFamily).copyWith(
+          fontSize: textSize, // Adjusted text size
+        );
     var margin = style.activeIconMargin;
 
     if (index == convexIndex) {
       final item = items[index];
       return Container(
-        // necessary otherwise the badge will not large enough
+        // Necessary otherwise the badge will not be large enough
         width: style.layoutSize,
         height: style.layoutSize,
         decoration: BoxDecoration(
@@ -67,12 +73,19 @@ class FixedCircleTabStyle extends InnerBuilder {
     var noLabel = style.hideEmptyLabel && hasNoText(item);
     var icon = BlendImageIcon(
       active ? item.activeIcon ?? item.icon : item.icon,
-      color: item.blend ? (c) : null,
+      color: item.blend ? c : null,
       size: style.iconSize,
     );
     var children = noLabel
         ? <Widget>[icon]
-        : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
+        : <Widget>[
+            icon,
+            Text(
+              item.title ?? '',
+              style: textStyle,
+              textAlign: TextAlign.center,
+            ),
+          ];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
