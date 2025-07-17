@@ -147,6 +147,9 @@ class ConvexAppBar extends StatefulWidget {
   /// The curve to use in the forward direction. Only works when tab style is not fixed.
   final Curve curve;
 
+  /// Current selected index
+  final int? curIndex;
+
   /// Construct a new appbar with internal style.
   ///
   /// ```dart
@@ -209,6 +212,7 @@ class ConvexAppBar extends StatefulWidget {
     TabStyle? style,
     Curve? curve,
     ChipBuilder? chipBuilder,
+    int? curIndex,
   }) : this.builder(
           key: key,
           itemBuilder: supportedStyle(
@@ -225,7 +229,7 @@ class ConvexAppBar extends StatefulWidget {
           backgroundColor: backgroundColor,
           shadowColor: shadowColor,
           count: items.length,
-          initialActiveIndex: initialActiveIndex,
+          initialActiveIndex: curIndex ?? initialActiveIndex ?? 0,
           disableDefaultTabController: disableDefaultTabController ?? false,
           gradient: gradient,
           height: height,
@@ -235,6 +239,7 @@ class ConvexAppBar extends StatefulWidget {
           cornerRadius: cornerRadius,
           curve: curve ?? Curves.easeInOut,
           chipBuilder: chipBuilder,
+          curIndex: curIndex,
         );
 
   /// Define a custom tab style by implement a [DelegateBuilder].
@@ -271,6 +276,7 @@ class ConvexAppBar extends StatefulWidget {
     this.cornerRadius,
     this.curve = Curves.easeInOut,
     this.chipBuilder,
+    this.curIndex,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
             'initial index should < $count'),
@@ -369,6 +375,7 @@ class ConvexAppBar extends StatefulWidget {
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int? _currentIndex;
+
   /// get index
   int? get currentIndex => _currentIndex;
   int _warpUnderwayCount = 0;
@@ -525,6 +532,23 @@ class ConvexAppBarState extends State<ConvexAppBar>
         widget.count != oldWidget.count) {
       _updateTabController();
       _resetState();
+    }
+    // Update active index when curIndex changes from parent
+    if (widget.curIndex != null && widget.curIndex != _currentIndex) {
+      final previousIndex = _currentIndex ?? 0;
+      _currentIndex = widget.curIndex!;
+
+      // Animate the convex part to the new position
+      if (!isFixed()) {
+        _updateAnimation(
+          from: previousIndex,
+          to: _currentIndex,
+          duration: Duration(milliseconds: _TRANSITION_DURATION),
+        );
+        _animationController?.forward();
+      }
+
+      setState(() {});
     }
   }
 
