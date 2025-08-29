@@ -75,11 +75,14 @@ class FlipTabStyle extends InnerBuilder {
         curve: curve,
       );
     }
-    return Center(
-      child: BlendImageIcon(
-        item.icon,
-        color: item.blend ? color : null,
-        size: style.iconSize,
+    return Semantics(
+      label: item.title,
+      child: Center(
+        child: BlendImageIcon(
+          item.icon,
+          color: item.blend ? color : null,
+          size: style.iconSize,
+        ),
       ),
     );
   }

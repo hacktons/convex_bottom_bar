@@ -97,6 +97,9 @@ class TitledTabStyle extends InnerBuilder {
         ],
       );
     }
-    return Center(child: Text(item.title ?? '', style: textStyle));
+    return Semantics(
+      label: item.title,
+      child: Center(child: Text(item.title ?? '', style: textStyle)),
+    );
   }
 }

@@ -73,11 +73,14 @@ class FixedCircleTabStyle extends InnerBuilder {
     var children = noLabel
         ? <Widget>[icon]
         : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
-    return Container(
-      padding: EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+    return Semantics(
+      label: item.title,
+      child: Container(
+        padding: EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }

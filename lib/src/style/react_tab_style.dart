@@ -73,12 +73,15 @@ class ReactTabStyle extends InnerBuilder {
       children.add(Text(item.title ?? '',
           style: style.textStyle(color, item.fontFamily)));
     }
-    return Container(
-      padding: const EdgeInsets.only(bottom: 2),
-      child: Column(
-        mainAxisAlignment:
-            noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
-        children: children,
+    return Semantics(
+      label: item.title,
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 2),
+        child: Column(
+          mainAxisAlignment:
+              noLabel ? MainAxisAlignment.center : MainAxisAlignment.end,
+          children: children,
+        ),
       ),
     );
   }
