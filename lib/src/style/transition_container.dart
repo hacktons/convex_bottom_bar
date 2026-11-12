@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'transition_container_builder.dart';
 

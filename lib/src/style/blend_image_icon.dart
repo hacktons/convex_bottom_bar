@@ -14,9 +14,9 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Decorate the provided [Image] or [IconData].
 class BlendImageIcon<T> extends StatelessWidget {
