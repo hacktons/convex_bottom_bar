@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// Tab item used for [ConvexAppBar].
 class TabItem<T> {

@@ -15,7 +15,7 @@
  */
 
 import 'package:convex_bottom_bar/src/painter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Single convex button widget
 class ConvexButton extends StatelessWidget {
